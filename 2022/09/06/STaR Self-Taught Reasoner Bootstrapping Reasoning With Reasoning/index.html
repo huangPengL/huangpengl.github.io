@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022/9 | Hexo</title>
+  <title>blog | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2022/09/index.html">
+  <meta name="description" content="Abstract 思维链的方式确实可以提高解决推理类的问题的性能，但是让模型生成思维链的这个过程却不是那么容易的，难点如下：  思维链本质是基本原理的子集，构建基本原理集需要大量数据集 尽管可以让大规模预训练模型通过few-shot learning的方式来生成思维链，但这样的性能不够好并且要求模型足够大   作者的提出了一个“自学推理”的过程，也就是  输入问题给模型 模型输出推理答案 如果答案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="blog">
+<meta property="og:url" content="http://example.com/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Abstract 思维链的方式确实可以提高解决推理类的问题的性能，但是让模型生成思维链的这个过程却不是那么容易的，难点如下：  思维链本质是基本原理的子集，构建基本原理集需要大量数据集 尽管可以让大规模预训练模型通过few-shot learning的方式来生成思维链，但这样的性能不够好并且要求模型足够大   作者的提出了一个“自学推理”的过程，也就是  输入问题给模型 模型输出推理答案 如果答案">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20220901095600844.png">
+<meta property="article:published_time" content="2022-09-06T08:53:20.000Z">
+<meta property="article:modified_time" content="2022-09-06T08:56:51.386Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Prompt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20220901095600844.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -159,35 +168,113 @@
           </div>
           <div id="js-content" class="content-ll">
             
+<article id="post-STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      blog
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
+
+        
+        <a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
   	<time datetime="2022-09-06T08:53:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">blog</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li><p>思维链的方式确实可以提高解决推理类的问题的性能，但是让模型生成思维链的这个过程却不是那么容易的，难点如下：</p>
+<ul>
+<li>思维链本质是基本原理的子集，构建基本原理集需要大量数据集</li>
+<li>尽管可以让大规模预训练模型通过few-shot learning的方式来生成思维链，但这样的性能不够好并且要求模型足够大</li>
+</ul>
+</li>
+<li><p>作者的提出了一个“自学推理”的过程，也就是</p>
+<ul>
+<li>输入问题给模型</li>
+<li>模型输出推理答案</li>
+<li>如果答案是错误的，那么就给出正确答案的提示，让模型再次尝试生成。</li>
+<li>直到生成的答案是正确的，则让模型对这个（问题，不带提示的答案）进行微调</li>
+</ul>
+</li>
+<li><p>与微调直接预测最终答案的模型相比，STaR的性能在多个数据集上有所提高</p>
+</li>
+</ul>
+<span id="more"></span>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
+<li>思维链工作是有效的，被明确训练为使用“草稿行”进行中间步骤的LLM可以在算术上获得完美的分布内性能，并具有强大的分布外泛化能力。这对于跨不同任务的LLM很有价值。但是两种主要的基本原理生成方法都存在严重缺陷。<ul>
+<li>一种是构建一个微调的基本原理数据集，人工注释员手动或用手工制作的模板自动生成。这种做法明显成本高昂，不可能为所有有趣的问题构建数据集，并且这种做法仅有在已知一般的解决方案时才有效</li>
+<li>另一种是基于prompt的方式（思维链那篇论文）。这已经证明，相对于没有理由的提示（“直接”提示），可以提高数学和符号推理任务的准确性，但它们的性能通常大大低于经过微调以使用更大数据集直接预测答案的模型</li>
+</ul>
+</li>
+</ul>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><h2 id="Rationale-Generation-Bootstrapping"><a href="#Rationale-Generation-Bootstrapping" class="headerlink" title="Rationale Generation Bootstrapping"></a>Rationale Generation Bootstrapping</h2><ul>
+<li>1 原始模型为M，复制一个模型A接收x问题生成基本原理r，然后给出答案y，反复进行下去，直到x问题被接收完。</li>
+<li>2 将这个过程A -&gt;（x, r, y）进行过滤，保留所有正确答案y的过程，称这个数据集为D</li>
+<li>3 在D上微调模型M，然后重新上面两个步骤</li>
+<li>Ps：基本可以看作是，输入x给M然后生成（r, y）</li>
+</ul>
+<h2 id="Rationalization"><a href="#Rationalization" class="headerlink" title="Rationalization"></a>Rationalization</h2><ul>
+<li><p>Ps： 基本可以看作是，输入(x, y) 给M 然后生成（r^hat, y^hat）,其中y 不一定等于 y^hat</p>
+</li>
+<li><p>合理化的好处</p>
+<ul>
+<li>将模型暴露于困难的问题中，否则这些问题不会出现在其微调数据集中。这可以理解为挑战模型对其不成功的问题“跳出框框思考”。</li>
+<li>数据集大小的增加。</li>
+</ul>
+</li>
+<li><p>STaR算法的步骤</p>
+<ul>
+<li><img src="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20220901095600844.png" alt="image-20220901095600844" style="zoom: 80%;"></li>
+<li>通俗解释上面步骤：<ul>
+<li>我先不看答案做题x，一通计算后得到我的答案y^以及过程步骤r^</li>
+<li>然后我看着答案y做题x，一通计算后得到我的答案y^rat以及过程步骤r^rat</li>
+<li>现在，我开始整理正确的应该深入学习的题，并深入再学习一波：<ul>
+<li>不看答案做对的题</li>
+<li>看了答案做对且不看答案做错的题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -207,65 +294,122 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:16:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Chain of Thought Prompting Elicits Reasoning in Large Language Models</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/">Chain of Thought Prompting Elicits Reasoning in Large Language Models</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rationale-Generation-Bootstrapping"><span class="toc-number">3.1.</span> <span class="toc-text">Rationale Generation Bootstrapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rationalization"><span class="toc-number">3.2.</span> <span class="toc-text">Rationalization</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
+
+
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -288,8 +432,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
