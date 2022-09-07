@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>Humor Detection， A Transformer Gets the Last Laugh | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="Abstract之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：  作者提出了一个新的任务：判断一个笑话是否是幽默（强幽默和弱幽默）。 作者从Reddit收集了16000条幽默文本，并根据网页上的点赞数标注文本的幽默程度。 作者基于Transformer的结构，实现了对上述文本幽默等级的预测。  作者证实了模型的性能与人类基准是可比的。 作者还进一步验证了模型在原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Humor Detection， A Transformer Gets the Last Laugh">
+<meta property="og:url" content="http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Abstract之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：  作者提出了一个新的任务：判断一个笑话是否是幽默（强幽默和弱幽默）。 作者从Reddit收集了16000条幽默文本，并根据网页上的点赞数标注文本的幽默程度。 作者基于Transformer的结构，实现了对上述文本幽默等级的预测。  作者证实了模型的性能与人类基准是可比的。 作者还进一步验证了模型在原">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig1.jpg">
+<meta property="og:image" content="http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig2.jpg">
+<meta property="og:image" content="http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig4.jpg">
+<meta property="article:published_time" content="2022-09-07T01:51:41.000Z">
+<meta property="article:modified_time" content="2022-09-07T01:56:39.285Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="Humor">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -160,35 +172,106 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
-  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">Humor Detection， A Transformer Gets the Last Laugh</a>
+    <h1 class="article-title" itemprop="name">
+      Humor Detection， A Transformer Gets the Last Laugh
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
+  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：</p>
+<ol>
+<li>作者提出了一个<strong>新的任务</strong>：判断一个笑话是否是幽默（强幽默和弱幽默）。</li>
+<li>作者从Reddit<strong>收集了16000条幽默文本</strong>，并根据网页上的点赞数标注文本的幽默程度。</li>
+<li>作者<strong>基于Transformer的结构</strong>，实现了对上述文本幽默等级的预测。</li>
+</ol>
+<p>作者证实了模型的性能与人类基准是可比的。</p>
+<p>作者还进一步验证了模型在原先的幽默识别任务上也带来了提升，他使用了已有的短幽默语料和双关语语料。</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>作者列了幽默在<strong>分类</strong>、<strong>生成</strong>和<strong>社交媒体</strong>等方面的工作，可以关注一下。</p>
+<p>然后作者对Reddit一阵猛吹。Reddit论坛笑话多，用户多，其他语言的幽默论坛都没有它这么赞。<strong>Reddit笑话不仅有正文，还抽取出了笑点，每个笑话还有点赞数。</strong></p>
+<p>尽管Reddit上的笑话受众有限，但数量也较充足。作者认为研究Reddit的幽默文本，是研究大量人群对幽默反应的一个有效方法。</p>
+<h1 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h1><p>作者简单描述了相关的幽默工作，基本都看过了。</p>
+<h1 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h1><p>作者使用了三个幽默数据集。</p>
+<h2 id="Reddit"><a href="#Reddit" class="headerlink" title="Reddit"></a>Reddit</h2><p>作者使用Reddit的公共API爬取了最新的幽默文本，每次爬取数据的时候，爬虫也会更新幽默文本的点赞数。数据的爬取工作每小时进行一次，整个工作持续了两个月。观察数据集发现，实际只有15910条数据。</p>
+<p>作者发现大部分笑话的点赞数在0<del>200之间，只有6%的笑话点赞数在200</del>20000之间。作者采用了一个“自然划分”的方法，获得了13884条不是很有趣的笑话和2025条无趣的笑话。但是作者这个“自然划分”的描述也太模糊了吧，难道是我没看懂吗？</p>
+<p>作者构建的数据集包括笑话的<strong>正文</strong>、<strong>笑点</strong>、<strong>点赞数</strong>，例子如下：</p>
+<img src="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig1.jpg" style="zoom:67%;">
+
+<h2 id="Short-Jokes"><a href="#Short-Jokes" class="headerlink" title="Short Jokes"></a><strong>Short Jokes</strong></h2><p>该数据集的231657条正例从Kaggle获取，负例由作者自己爬取新闻标题构建。</p>
+<h2 id="Pun-of-the-Day"><a href="#Pun-of-the-Day" class="headerlink" title="Pun of the Day"></a><strong>Pun of the Day</strong></h2><p>该数据集是作者联系Yang获取的，有16001条双关幽默正例和16002条新闻标题负例。</p>
+<p>作者这里描述错了，正例2423条，负例2403条。</p>
+<h1 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h1><h2 id="Our-Model"><a href="#Our-Model" class="headerlink" title="Our Model"></a>Our Model</h2><p>作者没有Model，作者就是用了BERT。</p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><p>由于构建的Reddit数据集是不平衡的，作者决定进行采样。</p>
+<ul>
+<li>作者先按照3:1的标签比例将数据集划分为训练集和验证集。</li>
+<li>作者对训练集中的少数类别进行上采样，直到类别均衡（各占50%）。</li>
+<li>作者又对验证集做负采样直到类别均衡（各占50%）。</li>
+</ul>
+<p>作者在三个数据集上比较了BERT和之前的一些经典模型（惊了）。</p>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><p>作者分别在三个数据集上进行了实验。</p>
+<h2 id="Reddit-1"><a href="#Reddit-1" class="headerlink" title="Reddit"></a><strong>Reddit</strong></h2><img src="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig2.jpg" alt="image-20220502170919994" style="zoom:67%;">
+
+<ul>
+<li>CNN：结合了High Way的CNN。</li>
+<li>Transformer：就是BERT。</li>
+<li>Human：作者邀请199个人进行了标注，平均每个人标注约30条样本（30条认真的？不是80条吗？）。每条样本由三部分组成：除去笑点的<strong>Body</strong>，笑点<strong>Punchline</strong>，Body+Punchline&#x3D;<strong>Full</strong>。作者先让受试者单独标注Body和Punchline是否好笑，然后再问受试者基于Punchline的Full是否好笑。</li>
+</ul>
+<p>结果没什么好说的，BERT牛逼。作者又探究了Body和Punchline哪个在幽默中更重要，三个实验结果都表明，还是Punchline重要一些。作者解释说这是由于不同笑话Body之间较大的差异造成的，有的Body很长，有的不足一句话。这个解释很牵强。</p>
+<h2 id="Short-Jokes-1"><a href="#Short-Jokes-1" class="headerlink" title="Short Jokes"></a><strong>Short Jokes</strong></h2><p>![img](Humor Detection， A Transformer Gets the Last Laugh\fig3.jpg)</p>
+<p>BERT牛逼就完了。</p>
+<h2 id="Pun-of-the-Day-1"><a href="#Pun-of-the-Day-1" class="headerlink" title="Pun of the Day"></a><strong>Pun of the Day</strong></h2><img src="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/fig4.jpg" alt="image-20220502170939216" style="zoom:67%;">
+
+<p>BERT连战连捷。</p>
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><ol>
+<li>一般人群与Reddit用户的偏好之间存在明显差异（第一个实验）。 作者认为BERT可以学习Reddit用户所认可的特定幽默类型。这表明可以为特定的人群子集学习幽默。</li>
+<li>模型在实验二、三上表现良好，表明模型可以进行很好地迁移。模型得到这么好的结果是在预期之内的，因为如果模型可以预测哪个笑话更有趣的话，用它判断文本是不是笑话也是没有问题的。</li>
+</ol>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>这篇论文还是很水的。想讲个笑话，ICML改变世界，EMNLP改变我的三观。</p>
+<p>总结一下学到的东西吧。作者的立意，有两点还是不错的。</p>
+<p>第一，将笑点和笑话的其他文本区分开，关注笑点在幽默中的作用。</p>
+<p>第二，作者将特定受众与一般人群区分开，得出结论，认为基于Transformer的BERT可以预测文本对于特定受众的幽默程度。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -212,111 +295,122 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:53:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Related-Work"><span class="toc-number">3.</span> <span class="toc-text">Related Work</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Data"><span class="toc-number">4.</span> <span class="toc-text">Data</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reddit"><span class="toc-number">4.1.</span> <span class="toc-text">Reddit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Short-Jokes"><span class="toc-number">4.2.</span> <span class="toc-text">Short Jokes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pun-of-the-Day"><span class="toc-number">4.3.</span> <span class="toc-text">Pun of the Day</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Methods"><span class="toc-number">5.</span> <span class="toc-text">Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Our-Model"><span class="toc-number">5.1.</span> <span class="toc-text">Our Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training"><span class="toc-number">5.2.</span> <span class="toc-text">Training</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">6.</span> <span class="toc-text">Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reddit-1"><span class="toc-number">6.1.</span> <span class="toc-text">Reddit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Short-Jokes-1"><span class="toc-number">6.2.</span> <span class="toc-text">Short Jokes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pun-of-the-Day-1"><span class="toc-number">6.3.</span> <span class="toc-text">Pun of the Day</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Discussion"><span class="toc-number">7.</span> <span class="toc-text">Discussion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">8.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:16:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/">Chain of Thought Prompting Elicits Reasoning in Large Language Models</a>
-    </h1>
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
+
   
 
-    
+  
+
+  
 
 
           </div>
@@ -339,8 +433,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
