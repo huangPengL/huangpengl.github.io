@@ -186,12 +186,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为GPT已经在大量的无标签数据中学习到了语言的特点</li>
-<li>有监督学习可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好</li>
-<li>作者提出一种半监督学习 pattern-exploiting training (PET)<ul>
+<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为预训练GPT的时候已经在大量的无标签数据（<em>45TB</em>的数据岂是我等鼠人能够想象的？？😂）中学习到了语言的特点。</li>
+<li>有监督学习也就是我们常见的fine-tuning学习，可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好。常见的就是微调各种BERT啦，比如我们提出的的SICKNet就是用有监督学习🤞。</li>
+<li>作者提出一种半监督学习，叫做pattern-exploiting training (PET)🤔<ul>
 <li>将 [有标签的输入样本] 转换为一种完形填空（cloze-style）的类型文本帮助语言模型理解任务</li>
-<li>然后让模型对 [无标签的输入样本] 进行标签预测，称为软标签</li>
-<li>让模型对带有 [软标签的输入样本] 进行有监督学习</li>
+<li>然后让PVP模型（后面会介绍这个工具人）对 [无标签的输入样本] 进行标签预测，称为软标签</li>
+<li>让分类模型（真正的天选模型）对带有 [软标签的输入样本] 进行有监督学习</li>
 </ul>
 </li>
 </ul>
