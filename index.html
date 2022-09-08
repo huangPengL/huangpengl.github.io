@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 3
+    			总文章数 4
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,105 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/" class="archive-article-date">
+  	<time datetime="2022-09-08T09:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-08</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为GPT已经在大量的无标签数据中学习到了语言的特点</li>
+<li>有监督学习可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好</li>
+<li>作者提出一种半监督学习 pattern-exploiting training (PET)<ul>
+<li>将 [有标签的输入样本] 转换为一种完形填空（cloze-style）的类型文本帮助语言模型理解任务</li>
+<li>然后让模型对 [无标签的输入样本] 进行标签预测，称为软标签</li>
+<li>让模型对带有 [软标签的输入样本] 进行有监督学习</li>
+</ul>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Few shot Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -593,6 +692,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
             
             <div class="clearfix"></div>
