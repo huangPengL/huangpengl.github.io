@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
+  <meta name="description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，JiuZhang 被设计从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding">
 <meta property="og:url" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/index.html">
 <meta property="og:site_name" content="HPL-blog">
-<meta property="og:description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
+<meta property="og:description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，JiuZhang 被设计从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png">
 <meta property="article:published_time" content="2022-09-12T09:11:14.000Z">
-<meta property="article:modified_time" content="2022-09-12T11:13:37.670Z">
+<meta property="article:modified_time" content="2022-09-12T14:41:11.827Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -199,7 +199,7 @@
       
         <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
 <li>数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此<strong>解决数学问题</strong>需要一定的<strong>数学知识背景和逻辑推理能力</strong>。</li>
-<li>本文提出了<strong>首个面向数学题理解的中文预训练模型 JiuZhang</strong>。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的<strong>课程预训练策略</strong>，逐步让模型完成从<strong>数学符号语义理解，到数学推理逻辑，再到自我检查与纠错</strong>的学习过程。</li>
+<li>本文提出了<strong>首个面向数学题理解的中文预训练模型 JiuZhang</strong>。受人类学习过程的启发，JiuZhang 被设计从基础到高级的<strong>课程预训练策略</strong>，逐步让模型完成从<strong>数学符号语义理解，到数学推理逻辑，再到自我检查与纠错</strong>的学习过程。</li>
 </ul>
 <img src="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png" alt="image-20220912171345027" style="zoom:80%;">
 
@@ -604,18 +604,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
@@ -624,7 +612,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
             
             <div class="clearfix"></div>
