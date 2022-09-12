@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png">
 <meta property="article:published_time" content="2022-09-12T09:11:14.000Z">
-<meta property="article:modified_time" content="2022-09-12T11:01:33.483Z">
+<meta property="article:modified_time" content="2022-09-12T11:04:30.688Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -285,7 +285,7 @@
 <ul>
 <li><p><strong>SSR</strong>:</p>
 <ul>
-<li><p>由G-Decoder来完成，在给定[问题]的前提下打乱[正确答案]句子对的顺序，然后让模型还原[正确答案]句子对的顺序</p>
+<li><p>由G-Decoder来完成，在给定[问题]的前提下打乱[正确答案]句子对的顺序，然后让模型<strong>还原原始内容</strong>（不是顺序）</p>
 </li>
 <li><p>loss定义如下：<br>$$<br>L_{SSR} &#x3D; \sum_{i}-\log p(t_{i}\mid t_{&lt;i},\tilde{d};\theta_{E},\theta_{G})\<br>\tilde{d}表示打乱顺序后的[正确答案];\<br>p(t_{i}\mid t_{&lt;i},\tilde{d})表示模型预测中第i个位置的句子<br>$$</p>
 </li>
@@ -293,11 +293,12 @@
 </li>
 <li><p><strong>SFR</strong>:</p>
 <ul>
-<li><p>由G-Decoder来完成，对于[正确答案]中带有[公式]的部分，我们打乱[公式]的顺序，然后让模型还原</p>
+<li><p>由G-Decoder来完成，对于[正确答案]中带有[公式]的部分，我们打乱[公式]的顺序，然后让模型<strong>还原原始内容</strong>（不是顺序）</p>
 </li>
 <li><p>loss定义如下：<br>$$<br>L_{SFR} &#x3D; \sum_{i}-\log p(t_{i}\mid t_{&lt;i},\tilde{d_{F}};\theta_{E},\theta_{G})\<br>\tilde{d_{F}}表示打乱顺序后的[公式];\<br>p(t_{i}\mid t_{&lt;i},\tilde{d_{F}})表示模型预测中第i个位置的公式<br>$$</p>
 </li>
 </ul>
+<h3 id="Model-objective-loss"><a href="#Model-objective-loss" class="headerlink" title="Model objective loss:"></a>Model objective loss:</h3><p>$$<br>L &#x3D; L_{MLM} + L_{DAE} + L_{SSR} + L_{SFR}<br>$$</p>
 </li>
 </ul>
 <h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1>
@@ -441,7 +442,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E6%96%99%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">预训练语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-Transformer-Encoder-%EF%BC%8810-layer%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">shared Transformer Encoder （10 layer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-x2F-G-Decoder-2-layer"><span class="toc-number">3.2.2.</span> <span class="toc-text">U&#x2F;G Decoder (2 layer)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">训练方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Course"><span class="toc-number">3.3.1.</span> <span class="toc-text">Basic Course</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Course"><span class="toc-number">3.3.2.</span> <span class="toc-text">Advanced Course</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">4.</span> <span class="toc-text">Experiments</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E6%96%99%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">预训练语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-Transformer-Encoder-%EF%BC%8810-layer%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">shared Transformer Encoder （10 layer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-x2F-G-Decoder-2-layer"><span class="toc-number">3.2.2.</span> <span class="toc-text">U&#x2F;G Decoder (2 layer)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">训练方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Course"><span class="toc-number">3.3.1.</span> <span class="toc-text">Basic Course</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Course"><span class="toc-number">3.3.2.</span> <span class="toc-text">Advanced Course</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-objective-loss"><span class="toc-number">3.3.3.</span> <span class="toc-text">Model objective loss:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">4.</span> <span class="toc-text">Experiments</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -599,15 +600,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
