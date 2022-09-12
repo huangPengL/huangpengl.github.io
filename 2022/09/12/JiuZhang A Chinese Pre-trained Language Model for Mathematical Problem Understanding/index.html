@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png">
 <meta property="article:published_time" content="2022-09-12T09:11:14.000Z">
-<meta property="article:modified_time" content="2022-09-12T09:19:27.463Z">
+<meta property="article:modified_time" content="2022-09-12T11:01:33.483Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -242,7 +242,7 @@
 <h3 id="shared-Transformer-Encoder-（10-layer）"><a href="#shared-Transformer-Encoder-（10-layer）" class="headerlink" title="shared Transformer Encoder （10 layer）"></a>shared Transformer Encoder （10 layer）</h3><p>跟普通的标准的Transformer中Encoder一样，有一个enbeddding 和多个Encoder层</p>
 <ul>
 <li><p>Enbedding layer:<br>$$<br>E &#x3D; E_{T} + E_{P}<br>$$</p>
-<p>$$<br>E_{T}∈R^{n×d}, E_{P}∈R^{n×d}, 其中d为嵌入维度<br>$$</p>
+<p>$$<br>E_{T} \in R^{n \times d}, E_{P} \in R^{n×d}, 其中d为嵌入维度<br>$$</p>
 </li>
 <li><p>Encoder layer:  叠加了L个encoder</p>
 </li>
@@ -255,7 +255,52 @@
 <li><p>需要注意的是，此架构设计来源于<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.05729.pdf">CPT</a>。文中描述两个Decoder会增加模型的参数量，同时，S-Enc如果太浅，就无法发挥共享Encoder的优势。因此，这两个Decoder被设计的很浅（称为unbalanced design）。实验发现，这样的深层Encoder，浅层Decoder结构同时保证了下游任务的性能和使用的方便灵活性。</p>
 </li>
 </ul>
-<h2 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h2><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1>
+<h2 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h2><p>跟我们人类学习一样，JiuZhang接收两种类型的学习，分别是基础课程和高级课程：</p>
+<ul>
+<li><strong>基础课程</strong>，目的是学习数学符号和<strong>文本语义关系</strong>的理解。设计了一个position-biased masking 的策略，大概率mask掉解决方案文本中靠近答案的那个token。</li>
+<li><strong>高级课程</strong>，目的是学习<strong>推理能力</strong>和<strong>答案纠错</strong>的能力。</li>
+</ul>
+<h3 id="Basic-Course"><a href="#Basic-Course" class="headerlink" title="Basic Course"></a>Basic Course</h3><p>两个任务，分别是掩蔽语言建模MLM 和 去噪自动编码 DAE</p>
+<ul>
+<li><p><strong>MLM</strong>：</p>
+<ul>
+<li><p>由U-Decoder来完成，token位置越靠后被mask的概率越高。因为作者认为在推导的过程中前面的步骤大多数是铺垫，真正影响结果的是后面的步骤</p>
+</li>
+<li><p>由于是中文语料，所以用全词mask的策略</p>
+</li>
+<li><p>loss定义如下：<br>$$<br>L_{MLM} &#x3D; \sum_{t_{i}\in V_{mask}}-\log p(t_{i}\mid\tilde{x};\theta_{E},\theta_{U})\<br>其中V_{mask}表示被mask的词表空间;\<br>\tilde{x}表示被mask后的句子序列(问题+推理答案);\<br>p(t_{i}\mid\tilde{x})表示模型预测中被mask后的token的概率;\<br>\theta_{X}表示当前loss需要更新模块X的参数<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p><strong>DAE</strong>： </p>
+<ul>
+<li><p>由G-Decoder来完成，预测下一个token</p>
+</li>
+<li><p>loss定义如下：<br>$$<br>L_{DAE} &#x3D; \sum_{i}-\log p(t_{i}\mid t_{&lt;i},\tilde{x};\theta_{E},\theta_{G})\<br>p(t_{i}\mid t_{&lt;i},\tilde{x})表示模型预测中被mask后的token的概率<br>$$</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Advanced-Course"><a href="#Advanced-Course" class="headerlink" title="Advanced Course"></a>Advanced Course</h3><p>两个任务，分别是重排打乱后的句子 Shuffled Sentence Recovering(SSR) 和 重排打乱后的公式 Shuffled Formulas Recovering (SFR)</p>
+<ul>
+<li><p><strong>SSR</strong>:</p>
+<ul>
+<li><p>由G-Decoder来完成，在给定[问题]的前提下打乱[正确答案]句子对的顺序，然后让模型还原[正确答案]句子对的顺序</p>
+</li>
+<li><p>loss定义如下：<br>$$<br>L_{SSR} &#x3D; \sum_{i}-\log p(t_{i}\mid t_{&lt;i},\tilde{d};\theta_{E},\theta_{G})\<br>\tilde{d}表示打乱顺序后的[正确答案];\<br>p(t_{i}\mid t_{&lt;i},\tilde{d})表示模型预测中第i个位置的句子<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p><strong>SFR</strong>:</p>
+<ul>
+<li><p>由G-Decoder来完成，对于[正确答案]中带有[公式]的部分，我们打乱[公式]的顺序，然后让模型还原</p>
+</li>
+<li><p>loss定义如下：<br>$$<br>L_{SFR} &#x3D; \sum_{i}-\log p(t_{i}\mid t_{&lt;i},\tilde{d_{F}};\theta_{E},\theta_{G})\<br>\tilde{d_{F}}表示打乱顺序后的[公式];\<br>p(t_{i}\mid t_{&lt;i},\tilde{d_{F}})表示模型预测中第i个位置的公式<br>$$</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1>
       
 
       
@@ -396,7 +441,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E6%96%99%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">预训练语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-Transformer-Encoder-%EF%BC%8810-layer%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">shared Transformer Encoder （10 layer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-x2F-G-Decoder-2-layer"><span class="toc-number">3.2.2.</span> <span class="toc-text">U&#x2F;G Decoder (2 layer)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">训练方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">4.</span> <span class="toc-text">Experiments</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E6%96%99%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">预训练语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-Transformer-Encoder-%EF%BC%8810-layer%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">shared Transformer Encoder （10 layer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-x2F-G-Decoder-2-layer"><span class="toc-number">3.2.2.</span> <span class="toc-text">U&#x2F;G Decoder (2 layer)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">训练方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Course"><span class="toc-number">3.3.1.</span> <span class="toc-text">Basic Course</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advanced-Course"><span class="toc-number">3.3.2.</span> <span class="toc-text">Advanced Course</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">4.</span> <span class="toc-text">Experiments</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -566,15 +611,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
             
             <div class="clearfix"></div>
