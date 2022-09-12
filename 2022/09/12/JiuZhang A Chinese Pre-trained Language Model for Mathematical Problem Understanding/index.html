@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | HPL-blog</title>
+  <title>JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding">
+<meta property="og:url" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="Abstract 数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此解决数学问题需要一定的数学知识背景和逻辑推理能力。 本文提出了首个面向数学题理解的中文预训练模型 JiuZhang。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的课程预训练策略，逐步让模型完成从数学符号语义理解，到数学推理逻辑，再到自我检查与纠错的学习过程。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png">
+<meta property="article:published_time" content="2022-09-12T09:11:14.000Z">
+<meta property="article:modified_time" content="2022-09-12T09:14:09.886Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="PLM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -160,35 +169,121 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/" class="archive-article-date">
-  	<time datetime="2022-09-12T09:11:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/">JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding</a>
+    <h1 class="article-title" itemprop="name">
+      JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/" class="archive-article-date">
+  	<time datetime="2022-09-12T09:11:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li>数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此<strong>解决数学问题</strong>需要一定的<strong>数学知识背景和逻辑推理能力</strong>。</li>
+<li>本文提出了<strong>首个面向数学题理解的中文预训练模型 JiuZhang</strong>。受人类学习过程的启发，我们为 JiuZhang 设计了从基础到高级的<strong>课程预训练策略</strong>，逐步让模型完成从<strong>数学符号语义理解，到数学推理逻辑，再到自我检查与纠错</strong>的学习过程。</li>
+</ul>
+<img src="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png" alt="image-20220912171345027" style="zoom:80%;">
+
+<span id="more"></span>
+
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
+<li><p>现有的让语言模型适应数学文本主要有两种方法：</p>
+<ul>
+<li>在常规的PLM继续MLM</li>
+<li>重新为PLM设计预训练的任务</li>
+<li>Ps： <ul>
+<li>PLM: Pre-train Language Model 预训练语言模型</li>
+<li>MLM: Masked Language Modeling 掩蔽语言建模，是预训练过程中的其中一个任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>当前的PLM具有以下限制：</p>
+<ul>
+<li>MLM是基于上下文语义进行建模的，而数学问题不仅依赖于上下文语义，很大程度上通过复杂的数学知识和逻辑推理来捕获“数学语义”。因此，这类型的PLM可能会对数学问题产生语言上合理但是数学上不正确的答案（例如： 1 + 1 &#x3D; 3）</li>
+<li>现有的基于数学问题的PLM是在英文语料上训练，可能不太适合解决一些非英语领域</li>
+</ul>
+</li>
+<li><p>为了解决上面的问题，本文提出了一个新的模型叫做 <strong>jiuzhang</strong>，该模型包括一个共享的 Transformer 编码器，一个用于理解任务的解码器（-decoder）和一个用于生成任务的解码器（-decoder）。收集了一个大规模中文语料库喂给jiuzhang吃🤤🤤，约有120w个高中数学问题。该语料库涵盖包括选择题、填空题和解答题等多种问题类型。</p>
+</li>
+<li><p>jiuzhang 是怎么接收预训练的呢，大体来看有两个步骤：</p>
+<ul>
+<li>基础课程，目的是学习数学符号和文本语义关系的理解。设计了一个position-biased masking 的策略，大概率mask掉解决方案文本中靠近答案的那个token。</li>
+<li>高级课程，目的是学习推理能力和答案纠错的能力。<ul>
+<li>推理能力：恢复被打乱的句子和公式</li>
+<li>答案纠错：用两个decoder检测和纠正彼此生成的不正确的解决方案的文本。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><h2 id="预训练语料库"><a href="#预训练语料库" class="headerlink" title="预训练语料库"></a>预训练语料库</h2><p>一个<strong>数学文本</strong>包括 [问题描述] 和 [答案描述]。</p>
+<p>假设定义数学文本为<br>$$<br>q &#x3D; [t_{1}, t_{2}, t_{3}…t_{n}]<br>$$<br>其中t_{i} 可以表示 [普通文本] 或 [数学符号]，当然一个连续的数学公式也可以定义成<br>$$<br>f &#x3D; [t_{1}, t_{2}, t_{3}…t_{l}]<br>$$</p>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p>作者参考了CPT的做法有三个玩意：理解文本的encoder(shared Transformer Encoder)，理解任务的decoder (U&#x2F;G Decoder)，负责生成任务的decoder</p>
+<h3 id="shared-Transformer-Encoder-（10-layer）"><a href="#shared-Transformer-Encoder-（10-layer）" class="headerlink" title="shared Transformer Encoder （10 layer）"></a>shared Transformer Encoder （10 layer）</h3><p>跟普通的标准的Transformer中Encoder一样，有一个enbeddding 和多个Encoder层</p>
+<ul>
+<li><p>Enbedding layer:<br>$$<br>E &#x3D; E_{T} + E_{P}<br>$$</p>
+<p>$$<br>E_{T}∈R^{n×d}, E_{P}∈R^{n×d}, 其中d为嵌入维度<br>$$</p>
+</li>
+<li><p>Encoder layer:  叠加了L个encoder</p>
+</li>
+</ul>
+<h3 id="U-x2F-G-Decoder-2-layer"><a href="#U-x2F-G-Decoder-2-layer" class="headerlink" title="U&#x2F;G Decoder (2 layer)"></a>U&#x2F;G Decoder (2 layer)</h3><ul>
+<li><p><strong>U-Decoder</strong>(Understanding Decoder): 理解用Decoder，双向attention结构，类似于Encoder架构。该模块输入Encoder得到的表示，输出MLM的结果。目的是<strong>增强理解</strong>任务。</p>
+</li>
+<li><p><strong>G-Decoder</strong> (Generation Decoder): 生成用Decoder，正如BART中的Decoder模块，利用encoder-decoder attention与Encoder相连，用于生成。</p>
+</li>
+<li><p>需要注意的是，此架构设计来源于<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.05729.pdf">CPT</a>。文中描述两个Decoder会增加模型的参数量，同时，S-Enc如果太浅，就无法发挥共享Encoder的优势。因此，这两个Decoder被设计的很浅（称为unbalanced design）。实验发现，这样的深层Encoder，浅层Decoder结构同时保证了下游任务的性能和使用的方便灵活性。</p>
+</li>
+</ul>
+<h2 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h2><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -208,210 +303,121 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/" class="archive-article-date">
-  	<time datetime="2022-09-09T03:02:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DeepLearning Research Or Study Guide</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/">DeepLearning Research Or Study Guide</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">guide</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E8%AF%AD%E6%96%99%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">预训练语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-Transformer-Encoder-%EF%BC%8810-layer%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">shared Transformer Encoder （10 layer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-x2F-G-Decoder-2-layer"><span class="toc-number">3.2.2.</span> <span class="toc-text">U&#x2F;G Decoder (2 layer)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">训练方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">4.</span> <span class="toc-text">Experiments</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/" class="archive-article-date">
-  	<time datetime="2022-09-08T09:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference</a>
-    </h1>
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Few shot Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
-  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">Humor Detection， A Transformer Gets the Last Laugh</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Humor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:53:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
+
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -445,8 +451,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
