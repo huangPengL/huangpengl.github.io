@@ -209,48 +209,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="Rationale-Augmented-Ensembles-in-Language-Models"><a href="#Rationale-Augmented-Ensembles-in-Language-Models" class="headerlink" title="Rationale-Augmented Ensembles in Language Models"></a>Rationale-Augmented Ensembles in Language Models</h1><p>探索了rationale对最终结果的<strong>敏感性程度</strong>；旨在降低敏感性改善最终性能为目标提出了rationale-augmented ensembles</p>
-<h2 id="Optimality-of-the-rationales-in-few-shot-learning"><a href="#Optimality-of-the-rationales-in-few-shot-learning" class="headerlink" title="Optimality of the rationales in few-shot learning."></a>Optimality of the rationales in few-shot learning.</h2><p>作者在四个数据集上做了一个实验，给定4个人工标注的带rationale的样本。其中no-rationale表示不适用任何rationale，human-written表示完全使用rationale，sampled-rk表示第k个样本的rationale替换成机器生成的rationale。</p>
-<img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig4.png" alt="image-20220915143244257">
-
-<p>结果表示</p>
-<ul>
-<li>不见得使用了rationale结果就一定会好</li>
-<li>机器生成的rationale结果比人工标注的好（可能是机器世界和人类世界的“认知不一致”导致的）</li>
-</ul>
-<h2 id="Rationale-augmented-ensembles"><a href="#Rationale-augmented-ensembles" class="headerlink" title="Rationale-augmented ensembles"></a>Rationale-augmented ensembles</h2><img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig2.png" alt="image-20220915143244257">
-
-<ul>
-<li>Self-consistency自一致性：</li>
-<li>Prompt-order ensemble样本顺序</li>
-<li>Input-rationale ensemble手工标注+机器生成</li>
-</ul>
-<h1 id="Experiments-Result"><a href="#Experiments-Result" class="headerlink" title="Experiments Result"></a>Experiments Result</h1><ul>
-<li><p>【不用推理的任务强行用推理会怎么样?】：有些无需推理步骤的任务如SST2和QQP，如果使用手工标注的样本则效果不好。如果使用rationale-augmented ensembles方法可以缩小这个差距</p>
-<img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig3.png" alt="image-20220915143244257">
-</li>
-<li><p>【K-shot learning中K的选择】选择K-shot中不同K的效果。虽然增加示例K的数量通常会提高性能，但基本原理增强的集成会有力地提高性能，超过标准和思想链，从而促进K的所有值。</p>
-<img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig5.png" alt="image-20220915143244257">
-</li>
-<li><p>【人工标注还是必要的】：尽管提议的框架减轻了对人工编写的理论的敏感性，但仍需要一些人工编写的种子理论，这仍可能会影响产出理论的生成。</p>
-</li>
-</ul>
-<h1 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h1><ul>
-<li><p>我认为rationale-augmented ensembles 是这样的模式：</p>
-<ul>
-<li>人工标注M个样本，每一个样本包括 (Q, R, A)。然后让一个工具人来生成（Q, R^, A）。</li>
-<li>对于即将给模型学习的K个样本会采用集成的方式根据QN得到结果RN^和AN^<ul>
-<li>第一种集成方式self-consistency：直接按照原定顺序学M个样本的（Q, R, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
-<li>第二种集成方式 Prompt-order ensemble：按照随机的顺序学M个样本的（Q, R, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
-<li>第三种集成方式 Input-rationale ensemble: 用采样的方式学习M个样本的（Q, R, A）或（Q, R^, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>在本文的实验中，有一个有趣的现象：机器生成的rationale在对比实验中比人工标注的好。可能是机器世界和人类世界的“认知不一致”导致的，也就是说在机器世界的空间里机器根据自身学习环境生成了rationale，也许人类不能理解rationale，但是机器的理解成本相对会低。</p>
-</li>
-</ul>
-
+        
       
 
       
@@ -934,6 +893,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">guide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
@@ -947,14 +914,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">guide</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
             
             <div class="clearfix"></div>
