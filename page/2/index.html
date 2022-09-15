@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 6
+    			总文章数 7
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,132 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
+  	<time datetime="2022-09-06T08:53:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li><p>思维链的方式确实可以提高解决推理类的问题的性能，但是让模型生成思维链的这个过程却不是那么容易的，难点如下：</p>
+<ul>
+<li>思维链本质是基本原理的子集，构建基本原理集需要<strong>大量数据集</strong></li>
+<li>尽管可以让大规模预训练模型通过few-shot learning的方式来生成思维链，但这样的<strong>性能不够好</strong>并且要求<strong>模型足够大</strong></li>
+</ul>
+</li>
+<li><p>作者的提出了一个<strong>“自学推理”</strong>的过程，也就是</p>
+<ul>
+<li>输入问题给模型</li>
+<li>模型输出推理和答案</li>
+<li>如果答案是错误的，那么就给出正确答案的提示，让模型再次尝试生成。</li>
+<li>直到生成的答案是正确的，则让模型对这个（问题，不带提示的答案）进行微调</li>
+</ul>
+</li>
+<li><p>与微调直接预测最终答案的模型相比，STaR的性能在多个数据集上有所提高</p>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-Chain of Thought Prompting Elicits Reasoning in Large Language Models" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -427,6 +553,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -435,11 +569,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color5">NLP1</a>
               </li>
             
             <div class="clearfix"></div>
