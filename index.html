@@ -233,6 +233,21 @@
 <li><p>【人工标注还是必要的】：尽管提议的框架减轻了对人工编写的理论的敏感性，但仍需要一些人工编写的种子理论，这仍可能会影响产出理论的生成。</p>
 </li>
 </ul>
+<h1 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h1><ul>
+<li><p>我认为rationale-augmented ensembles 是这样的模式：</p>
+<ul>
+<li>人工标注M个样本，每一个样本包括 (Q, R, A)。然后让一个工具人来生成（Q, R^, A）。</li>
+<li>对于即将给模型学习的K个样本会采用集成的方式根据QN得到结果RN^和AN^<ul>
+<li>第一种集成方式self-consistency：直接按照原定顺序学M个样本的（Q, R, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
+<li>第二种集成方式 Prompt-order ensemble：按照随机的顺序学M个样本的（Q, R, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
+<li>第三种集成方式 Input-rationale ensemble: 用采样的方式学习M个样本的（Q, R, A）或（Q, R^, A），然后给定新问题QN，生成若干个结果（RN, AN），用投票采样的方式采样答案（RN^, AN^）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在本文的实验中，有一个有趣的现象：机器生成的rationale在对比实验中比人工标注的好。可能是机器世界和人类世界的“认知不一致”导致的，也就是说在机器世界的空间里机器根据自身学习环境生成了rationale，也许人类不能理解rationale，但是机器的理解成本相对会低。</p>
+</li>
+</ul>
 
       
 
@@ -917,6 +932,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
@@ -934,10 +953,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
             
             <div class="clearfix"></div>
