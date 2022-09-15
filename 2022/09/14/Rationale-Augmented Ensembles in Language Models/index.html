@@ -8,16 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Rationale-Augmented Ensembles in Language Models | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示">
+  <meta name="description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   原理增强集成框架的优势：  比先前工作提出的few-shot&#x2F;zero-shot效果好 弥补了人类标注rationale">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rationale-Augmented Ensembles in Language Models">
 <meta property="og:url" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/index.html">
 <meta property="og:site_name" content="HPL-blog">
-<meta property="og:description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示">
+<meta property="og:description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   原理增强集成框架的优势：  比先前工作提出的few-shot&#x2F;zero-shot效果好 弥补了人类标注rationale">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig1.png">
+<meta property="og:image" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20220915160749885.png">
 <meta property="article:published_time" content="2022-09-14T07:55:03.000Z">
-<meta property="article:modified_time" content="2022-09-15T06:36:36.775Z">
+<meta property="article:modified_time" content="2022-09-15T08:11:05.206Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -207,11 +208,42 @@
 <li>手工标注+机器生成</li>
 </ul>
 </li>
+<li><p>原理增强集成框架的<strong>优势</strong>：</p>
+<ul>
+<li>比先前工作提出的few-shot&#x2F;zero-shot效果好</li>
+<li>弥补了人类标注rationale导致下游任务表现不好的缺点</li>
+<li>适用于NLP其他领域，即使这些领域<strong>不需要推理过程</strong></li>
+</ul>
+</li>
 <li><p>作者尝试解释这两个问题：</p>
 <ul>
 <li>为什么rationale ( 我认为rationale与chain of thought同义，可以表示[原理]或[思维链]的意思)在少样本学习中有效？</li>
 <li>如何在NLP任务中使用可靠的rationale</li>
 </ul>
+</li>
+</ul>
+<h1 id="Rationale-Augmented-Ensembles-in-Language-Models"><a href="#Rationale-Augmented-Ensembles-in-Language-Models" class="headerlink" title="Rationale-Augmented Ensembles in Language Models"></a>Rationale-Augmented Ensembles in Language Models</h1><p>探索了rationale对最终结果的<strong>敏感性程度</strong>；旨在降低敏感性改善最终性能为目标提出了rationale-augmented ensembles</p>
+<h2 id="Optimality-of-the-rationales-in-few-shot-learning"><a href="#Optimality-of-the-rationales-in-few-shot-learning" class="headerlink" title="Optimality of the rationales in few-shot learning."></a>Optimality of the rationales in few-shot learning.</h2><p>作者在四个数据集上做了一个实验，给定4个人工标注的带rationale的样本。其中no-rationale表示不适用任何rationale，human-written表示完全使用rationale，sampled-rk表示第k个样本的rationale替换成机器生成的rationale。</p>
+<p>![image-20220915150849058](Rationale-Augmented Ensembles in Language Models\fig4.png)</p>
+<p>结果表示</p>
+<ul>
+<li>不见得使用了rationale结果就一定会好</li>
+<li>机器生成的rationale结果比人工标注的好（可能是机器世界和人类世界的“认知不一致”导致的）</li>
+</ul>
+<h2 id="Rationale-augmented-ensembles"><a href="#Rationale-augmented-ensembles" class="headerlink" title="Rationale-augmented ensembles"></a>Rationale-augmented ensembles</h2><p>![image-20220915160159264](Rationale-Augmented Ensembles in Language Models\fig2.png)</p>
+<ul>
+<li>Self-consistency自一致性：</li>
+<li>Prompt-order ensemble样本顺序</li>
+<li>Input-rationale ensemble手工标注+机器生成</li>
+</ul>
+<h1 id="Experiments-Result"><a href="#Experiments-Result" class="headerlink" title="Experiments Result"></a>Experiments Result</h1><ul>
+<li><p>【不用推理的任务强行用推理会怎么样?】：有些无需推理步骤的任务如SST2和QQP，如果使用手工标注的样本则效果不好。如果使用rationale-augmented ensembles方法可以缩小这个差距</p>
+<p>![image-20220915160539056](Rationale-Augmented Ensembles in Language Models\fig3.png)</p>
+</li>
+<li><p>【K-shot learning中K的选择】选择K-shot中不同K的效果。虽然增加示例K的数量通常会提高性能，但基本原理增强的集成会有力地提高性能，超过标准和思想链，从而促进K的所有值。</p>
+<p><img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20220915160749885.png" alt="image-20220915160749885"></p>
+</li>
+<li><p>【人工标注还是必要的】：尽管提议的框架减轻了对人工编写的理论的敏感性，但仍需要一些人工编写的种子理论，这仍可能会影响产出理论的生成。</p>
 </li>
 </ul>
 
@@ -355,7 +387,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rationale-Augmented-Ensembles-in-Language-Models"><span class="toc-number">2.</span> <span class="toc-text">Rationale-Augmented Ensembles in Language Models</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimality-of-the-rationales-in-few-shot-learning"><span class="toc-number">2.1.</span> <span class="toc-text">Optimality of the rationales in few-shot learning.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rationale-augmented-ensembles"><span class="toc-number">2.2.</span> <span class="toc-text">Rationale-augmented ensembles</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments-Result"><span class="toc-number">3.</span> <span class="toc-text">Experiments Result</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -564,10 +596,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -577,6 +605,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
             
             <div class="clearfix"></div>
