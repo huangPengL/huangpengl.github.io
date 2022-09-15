@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Rationale-Augmented Ensembles in Language Models | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个集成生成rationale的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示[原理]或[思维链]的意思)在少样本学习中有效？ 如何在">
+  <meta name="description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rationale-Augmented Ensembles in Language Models">
 <meta property="og:url" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/index.html">
 <meta property="og:site_name" content="HPL-blog">
-<meta property="og:description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个集成生成rationale的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示[原理]或[思维链]的意思)在少样本学习中有效？ 如何在">
+<meta property="og:description" content="Abstract &amp; Introduction 作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法    自一致性 样本顺序 手工标注+机器生成   作者尝试解释这两个问题：  为什么rationale ( 我认为rationale与chain of thought同义，可以表示">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig1.png">
 <meta property="article:published_time" content="2022-09-14T07:55:03.000Z">
-<meta property="article:modified_time" content="2022-09-15T06:33:07.914Z">
+<meta property="article:modified_time" content="2022-09-15T06:36:36.775Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="Prompt">
-<meta property="article:tag" content="NLP1">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig1.png">
   
@@ -198,7 +198,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
-<li><p>作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个<strong>集成生成rationale</strong>的方法</p>
+<li><p>作者认为，人工标注 rationale成本高昂且模型性能不稳定，提出了一个**原理增强集成（rationale-augmented ensembles)**的方法</p>
 <img src="/2022/09/14/Rationale-Augmented%20Ensembles%20in%20Language%20Models/fig1.png" alt="image-20220915143244257">
 
 <ul>
@@ -252,11 +252,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">NLP1</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
         		</li>
       		
 		</ul>
@@ -556,18 +556,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
@@ -576,11 +564,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">NLP1</a>
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
             
             <div class="clearfix"></div>
