@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 7
+    			总文章数 8
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,200 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-基于多粒度语义交互理解网络的幽默等级识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">基于多粒度语义交互理解网络的幽默等级识别</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2022-09-16T06:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ul>
+<li><p>将幽默等级识别视为自然语言推理任务</p>
+</li>
+<li><p>将幽默文本划分为“铺垫”和“笑点”两个部分,分别对其语义和 语义关系进行建模,提出了一种多粒度语义交互理解网络,从<strong>单词</strong>和<strong>子句</strong>两个粒度捕获幽默文本中语义的关联和 交互。</p>
+</li>
+<li><p>在 Reddit公开幽默数据集上进行了实验,相比之前最优结果,模型在语料上的<strong>准确率提升了1.3%</strong></p>
+</li>
+</ul>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><ul>
+<li><p>幽默理论</p>
+<ul>
+<li>乖讹论。认为幽默是人类对<strong>不协调事 物的感知</strong>,当事物的发展违背人们的常识和期望时, 幽默就产生了</li>
+<li>脚本语义理论 (ScriptSemanticTheoryofHumor,SSTH)。该理 论认为<strong>语义对立</strong>是幽默产生的重要原因。</li>
+<li>基于以上幽默 理 论,Paulos 等[7]将 幽 默 分 为 “铺 垫”和 “笑 点”,认为两部分之间存在<strong>对立统一</strong>的关系。</li>
+</ul>
+</li>
+<li><p>幽默识别</p>
+<ul>
+<li>机器学习方法<ul>
+<li>Yang等[10]从不一致性、歧义性、语音特性和人 机交互特性四个方面提取幽默的语义特征，采用了随机森林方法识别幽默</li>
+<li>Barbieri等[11]根据幽默 问题的语音和歧义性特点,构造了多种幽默特征。</li>
+<li>Zhang等[3]基于幽默的语言学理论,构建50多种幽 默特征并将它们划分为五个类别。</li>
+<li>Liu等[12]提取了 对话中的<strong>情感特征及情感关联特征</strong>识别对话中的幽 默。</li>
+</ul>
+</li>
+<li>深度学习方法<ul>
+<li>杨勇等[14]从<strong>音、形、义三个维度对幽默特征 进行建模</strong>,采用层次注意力机制对幽默进行识别。</li>
+<li>Bertero等[15-16]由《生活大爆炸》中的文本和语音内 容构建幽默数据集,采用长短时记忆网络和卷积神 经网络自动<strong>抽取文本语义特征</strong>,从而预测对话中的 幽默。</li>
+<li>Baziotis等[17]利用<strong>注意力机制</strong>,更好地关注 到句子中的特定单词,从而提高了幽默识别的性能。</li>
+<li>除了英文,研究者采用深度学习方 法对西班牙文[19]和俄文[4]语料进行了幽默识别。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>幽默等级识别（幽默等级识别使计算机能够理解哪些语义和语 义关系使句子更加有趣。）</p>
+<ul>
+<li>Westbury等[20]对单词的幽默程度建模并<strong>对4997个单词的幽默程度进行了 评分</strong>。</li>
+<li>Hossain等[6]通过**重新编辑新闻标题使其变 得更加幽默,**并对编辑前后文本语义的幽默程度进 行了分析。</li>
+<li>Cattle等[21]将文本划分为“铺垫”和“笑 点”两个部分,并指出<strong>二者的语义相关性</strong>对文本的幽 默等级具有显著影响。</li>
+</ul>
+</li>
+</ul>
+<h1 id="作者提出的幽默等级识别方法"><a href="#作者提出的幽默等级识别方法" class="headerlink" title="作者提出的幽默等级识别方法"></a>作者提出的幽默等级识别方法</h1><p>基于多粒度语义交互理解网络的幽默等级识别 方法主要包括两个层次：</p>
+<ul>
+<li><p>语义的嵌入式表示层（中间）</p>
+<ul>
+<li>目前还没有由幽默 语料训练得到的词嵌入表示,而大规模的词嵌入表 示,如 GloVe [24]、BERT [25]等,一般是利用通用语料 或者新闻语料训练得到的。直接采用<strong>单一的词嵌入 表示往往使得幽默等级识别的性能欠佳</strong>。</li>
+<li>“铺 垫”和“笑点”在幽默等级识别中<strong>发挥着不同的作用</strong>, 将二者统一建模,不利于文本的幽默等级识别。</li>
+<li>因此，<strong>分别</strong>对“铺垫”和“笑点”进行建模，采用多个领域词嵌入（glove和Word2Vce）表示进行<strong>融合</strong>，并采用 Bi-LSTM 提取两个部分的<strong>高维语义特征</strong>。</li>
+</ul>
+</li>
+<li><p>交互语义特征提取层（左边 和 右边）</p>
+<p>Engelthaler等[28]指 出不同单词在句子中表现出不同的幽默程度。单词 的语义信息与语句的幽默等级具有一定的相关性。因此，作者考虑对<strong>局部和全局语义做交互</strong></p>
+<ul>
+<li><p>局部语义交互理解模块</p>
+<ul>
+<li><p>Yang等[10]研究发现,在幽默文本中,不同词语 的重要程度不同,当<strong>删除幽默文本中的某些词语后, 文本的幽默程度下降</strong>,甚至完全消失。所以，作者认为探究局部的语义是有意义的</p>
+</li>
+<li><p>attention（语义交互） +  BiLSTM + pooling生成4个向量，然后concat起来作为v</p>
+</li>
+<li><img src="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/fig1.png" alt="image-20220506230453266" style="zoom: 80%;"></li>
+</ul>
+</li>
+<li><p>全局语义交互理解模块</p>
+<ul>
+<li>Ma 等[29]研究表明,对于文本中的不同语义单 元,其单词的含义会受到其他语义单元的影响。“铺 垫”和“笑点”作为幽默文本的两个子句级语义单元, <strong>二者互相作用,对幽默等级识别产生重要影响</strong>。</li>
+<li>pooling得到分别得到两个表示句子的向量，然后进行attention交互，最后拼接成u向量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/fig2.png" alt="image-20220506230453266" style="zoom: 67%;">
+
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<li>Reddit数据集</li>
+</ul>
+<img src="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/fig3.png" alt="image-20220511113037989" style="zoom:67%;">
+
+<ul>
+<li>评价指标:为了便于和基线方法进行比较,本 文采用了被广泛接受并应用于文本分类任务中的精 确率(Acc)、准 确 率 (P)、查 全 率 (R)和 F1Score (F1)作为评价指标。</li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><img src="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/fig4.png" alt="image-20220511113153450" style="zoom:67%;">
+
+<p>作者提出的MSIN模型在三个指标上表现非常棒</p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><img src="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/fig5.png" alt="image-20220511113349933" style="zoom:67%;">
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-Rationale-Augmented Ensembles in Language Models" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -633,126 +827,6 @@
     </section>
   
   
-    <article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">Humor Detection， A Transformer Gets the Last Laugh</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
-  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：</p>
-<ol>
-<li>作者提出了一个<strong>新的任务</strong>：判断一个笑话是否是幽默（强幽默和弱幽默）。</li>
-<li>作者从Reddit<strong>收集了16000条幽默文本</strong>，并根据网页上的点赞数标注文本的幽默程度。</li>
-<li>作者<strong>基于Transformer的结构</strong>，实现了对上述文本幽默等级的预测。</li>
-</ol>
-<p>作者证实了模型的性能与人类基准是可比的。</p>
-<p>作者还进一步验证了模型在原先的幽默识别任务上也带来了提升，他使用了已有的短幽默语料和双关语语料。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Humor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -897,14 +971,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
@@ -913,7 +979,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
               </li>
             
             <div class="clearfix"></div>
