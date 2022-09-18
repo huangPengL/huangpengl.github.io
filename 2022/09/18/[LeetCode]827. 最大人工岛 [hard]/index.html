@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>HPL-blog</title>
+  <title>LeetCode-827.最大人工岛-hard | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+  <meta name="description" content="似乎😮写下这篇文章的当天似乎是个愉快的周日，舍友们似乎早早就起来了，我似乎少见地没有被键盘声喊醒，感冒发烧似乎也随着美妙周日的来到悄悄离开，这周似乎做了但又没做很多事。当然，似乎最兴奋的是这周二得到论文被accpet的消息且正好赶上评奖学金。 昨晚，师弟进行学习汇报讲到leetcode，舍友 [甜心] 也打了一场双周赛（赛后讨论了一波，可惜…甜心的代码少些了一行没过掉第三题）。转念一想 嘿，似乎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-827.最大人工岛-hard">
+<meta property="og:url" content="http://example.com/2022/09/18/[LeetCode]827.%20%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B%20[hard]/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="似乎😮写下这篇文章的当天似乎是个愉快的周日，舍友们似乎早早就起来了，我似乎少见地没有被键盘声喊醒，感冒发烧似乎也随着美妙周日的来到悄悄离开，这周似乎做了但又没做很多事。当然，似乎最兴奋的是这周二得到论文被accpet的消息且正好赶上评奖学金。 昨晚，师弟进行学习汇报讲到leetcode，舍友 [甜心] 也打了一场双周赛（赛后讨论了一波，可惜…甜心的代码少些了一行没过掉第三题）。转念一想 嘿，似乎">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-18T03:17:54.000Z">
+<meta property="article:modified_time" content="2022-09-18T04:06:28.288Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="leetcode, 并查集, 题解, 似乎">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
@@ -160,399 +165,122 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-DeepLearning Research Or Study Guide" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+<article id="post-[LeetCode]827. 最大人工岛 [hard]" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/">DeepLearning Research Or Study Guide</a>
+    <h1 class="article-title" itemprop="name">
+      LeetCode-827.最大人工岛-hard
     </h1>
   
 
         
-        <a href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/" class="archive-article-date">
-  	<time datetime="2022-09-09T03:02:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-09</time>
+        <a href="/2022/09/18/%5BLeetCode%5D827.%20%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B%20%5Bhard%5D/" class="archive-article-date">
+  	<time datetime="2022-09-18T03:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-18</time>
 </a>
         
 
     <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
     
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p> 🎈🎈🎈本文总结了个人摸爬滚打学习deeplearning的tips，适用于入门的小朋友（我TM也才入门…）。由于写的时候没睡醒，所以可能也许会有错的地方🤦‍♀️ </p>
-        
-      
+        <h1 id="似乎😮"><a href="#似乎😮" class="headerlink" title="似乎😮"></a>似乎😮</h1><p>写下这篇文章的当天似乎是个愉快的周日，舍友们似乎早早就起来了，我似乎少见地没有被键盘声喊醒，感冒发烧似乎也随着美妙周日的来到悄悄离开，这周似乎做了但又没做很多事。当然，似乎最兴奋的是这周二得到论文被accpet的消息且正好赶上评奖学金。</p>
+<p>昨晚，师弟进行学习汇报讲到leetcode，舍友 [甜心] 也打了一场<a target="_blank" rel="noopener" href="https://leetcode.cn/circle/discuss/aylrop/">双周赛</a>（赛后讨论了一波，可惜…甜心的代码少些了一行没过掉第三题）。转念一想 嘿，似乎感觉好久没刷题了？不如就以每日一题为小甜点，开启这美妙(shit)的周日。</p>
+<p>打开chrome 浏览器，输入leetcode.cn，回车！ 找到每日一题..卧槽？hard 题？再见……</p>
+<span id="more"></span>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">guide</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
+<p>害，还是看一下题目吧。什么？岛屿面积？似乎跟2021&#x2F;11&#x2F;18刷的<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-area-of-island/">695. 岛屿的最大面积</a>很像啊，是不是用dfs\bfs\并查集？噢！貌似增加了一个新的条件，可以将非岛屿变成岛屿是吧，所以只用把变成岛屿后导致的一系列连锁反应考虑清楚就好了。得，思路清楚了，不如用最酷炫的并查集秀一波（其实是并查集好写…DFS要想好烦，BFS肯定又长又臭）</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/making-a-large-island">题目</a></h1><p>给你一个大小为 n x n 二进制矩阵 grid 。<strong>最多</strong> 只能将一格 0 变成 1 。</p>
+<p>返回执行此操作后，grid 中最大的岛屿面积是多少？</p>
+<p><strong>岛屿</strong> 由一组上、下、左、右四个方向相连的 1 形成。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: grid = [[1, 0], [0, 1]]</span><br><span class="line">输出: 3</span><br><span class="line">解释: 将一格0变成1，最终连通两个小岛得到面积为 3 的岛屿。</span><br></pre></td></tr></table></figure>
 
 
 
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: grid = [[1, 1], [1, 0]]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 将一格0变成1，岛屿的面积扩大为 4。</span><br></pre></td></tr></table></figure>
 
 
 
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/" class="archive-article-date">
-  	<time datetime="2022-09-08T09:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-08</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为预训练GPT的时候已经在大量的无标签数据（<em>45TB</em>的数据岂是我等鼠人能够想象的？？😂）中学习到了语言的特点。</li>
-<li>有监督学习也就是我们常见的fine-tuning学习，可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好。常见的就是微调各种BERT啦，比如我们提出的的SICKNet就是用有监督学习🤞。</li>
-<li>作者提出一种半监督学习，叫做pattern-exploiting training (<strong>PET</strong>)🤔<ul>
-<li>目的是将手中<strong>少量 [有标签的输入样本]</strong> 转换为一种完形填空（cloze-style）的类型文本帮助语言模型理解任务</li>
-<li>然后让PVP模型（后面会介绍这个工具人）对<strong>大量 [无标签的输入样本]</strong> 进行标签预测，称为<strong>软标签</strong></li>
-<li>让分类模型（真正的天选模型）对带有 [软标签的输入样本] 进行<strong>有监督学习</strong>训练</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Few shot Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: grid = [[1, 1], [1, 1]]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 没有0可以让我们变成1，面积依然为 4。</span><br></pre></td></tr></table></figure>
 
 
 
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">Humor Detection， A Transformer Gets the Last Laugh</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
-  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：</p>
-<ol>
-<li>作者提出了一个<strong>新的任务</strong>：判断一个笑话是否是幽默（强幽默和弱幽默）。</li>
-<li>作者从Reddit<strong>收集了16000条幽默文本</strong>，并根据网页上的点赞数标注文本的幽默程度。</li>
-<li>作者<strong>基于Transformer的结构</strong>，实现了对上述文本幽默等级的预测。</li>
-</ol>
-<p>作者证实了模型的性能与人类基准是可比的。</p>
-<p>作者还进一步验证了模型在原先的幽默识别任务上也带来了提升，他使用了已有的短幽默语料和双关语语料。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Humor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">STaR Self-Taught Reasoner Bootstrapping Reasoning With Reasoning</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:53:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li><p>思维链的方式确实可以提高解决推理类的问题的性能，但是让模型生成思维链的这个过程却不是那么容易的，难点如下：</p>
+<p><strong>提示：</strong></p>
 <ul>
-<li>思维链本质是基本原理的子集，构建基本原理集需要<strong>大量数据集</strong></li>
-<li>尽管可以让大规模预训练模型通过few-shot learning的方式来生成思维链，但这样的<strong>性能不够好</strong>并且要求<strong>模型足够大</strong></li>
+<li><p><code>n == grid.length</code></p>
+</li>
+<li><p><code>n == grid[i].length</code></p>
+</li>
+<li><p><code>1 &lt;= n &lt;= 500</code></p>
+</li>
+<li><p><code>grid[i][j]</code> 为 <code>0</code> 或 <code>1</code></p>
+</li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><ul>
+<li>先使用并查集（并查集不会？<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93647900/">点我</a>）构建出整个岛屿布局（相邻的1组成的块称之为一个岛屿），在着过程中计算出每个岛屿的面积</li>
+<li>再找到 0 的点，尝试合并其上下左右岛屿块，并计算面积。<ul>
+<li>注意，上下左右本身有可能就是连接在一起的，所以，注意去重。</li>
 </ul>
 </li>
-<li><p>作者的提出了一个<strong>“自学推理”</strong>的过程，也就是</p>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[][] directions = <span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">largestIsland</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 构建岛屿布局（并查集）</span></span><br><span class="line">        <span class="type">UnionFind</span> <span class="variable">unionFind</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UnionFind</span>(n * n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="comment">// 若当前位置是小岛屿，那尝试跟[右] 和 [下]的元素合并成更大的岛屿</span></span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(j+<span class="number">1</span> &lt; n &amp;&amp; grid[i][j+<span class="number">1</span>] == <span class="number">1</span>)&#123;</span><br><span class="line">                        unionFind.union(i*n+j, i*n+j+<span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span> &lt; n &amp;&amp; grid[i+<span class="number">1</span>][j] == <span class="number">1</span>)&#123;</span><br><span class="line">                        unionFind.union(i*n+j, (i+<span class="number">1</span>)*n+j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Magic! 若当前位置非岛屿，则变成岛屿并跟四周尝试合并成更大的岛屿（这里不是要真合并）</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">curSum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">                    Set&lt;Integer&gt; mergedIsland = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span>[] direction: directions)&#123;</span><br><span class="line">                        <span class="type">int</span> <span class="variable">ni</span> <span class="operator">=</span> i + direction[<span class="number">0</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">nj</span> <span class="operator">=</span> j + direction[<span class="number">1</span>];</span><br><span class="line">                        <span class="type">int</span> <span class="variable">curLoc</span> <span class="operator">=</span> ni*n + nj;</span><br><span class="line">						</span><br><span class="line">                        <span class="comment">// 查看四周位置是否合理、是否是岛屿、是否已经计算过合并面积了</span></span><br><span class="line">                        <span class="keyword">if</span>(ni&gt;=<span class="number">0</span> &amp;&amp; ni&lt;n &amp;&amp; nj&gt;=<span class="number">0</span> &amp;&amp; nj&lt;n &amp;&amp; grid[ni][nj] == <span class="number">1</span> </span><br><span class="line">                          &amp;&amp; !mergedIsland.contains(unionFind.find(curLoc)))&#123;</span><br><span class="line">                            curSum += unionFind.getSize(curLoc);</span><br><span class="line">                            mergedIsland.add(unionFind.find(curLoc));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    ans = Math.max(ans, curSum);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 若ans为-1则表示没有为0的元素，那么答案为矩阵的面积n*n</span></span><br><span class="line">        <span class="keyword">return</span> ans == -<span class="number">1</span> ? n * n : ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 并查集模板 */</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">UnionFind</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span>[] parents;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span>[] size;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造函数初始化</span></span><br><span class="line">        UnionFind(<span class="type">int</span> n)&#123;</span><br><span class="line">            parents = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">            size = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">                parents[i] = i;</span><br><span class="line">                size[i] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 路径压缩寻找当前元素所在集合的根节点</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(a != parents[a])&#123;</span><br><span class="line">                parents[a] = find(parents[a]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> parents[a];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 合并两个集合</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">roota</span> <span class="operator">=</span> find(a);</span><br><span class="line">            <span class="type">int</span> <span class="variable">rootb</span> <span class="operator">=</span> find(b);</span><br><span class="line">            <span class="keyword">if</span>(roota != rootb)&#123;</span><br><span class="line">                parents[roota] = rootb;</span><br><span class="line">                size[rootb] += size[roota];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取当前元素所在集合的数量</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSize</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> size[find(a)];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="并查集相关题目"><a href="#并查集相关题目" class="headerlink" title="并查集相关题目"></a>并查集相关题目</h1><ul>
+<li><p>Leetcode</p>
 <ul>
-<li>输入问题给模型</li>
-<li>模型输出推理和答案</li>
-<li>如果答案是错误的，那么就给出正确答案的提示，让模型再次尝试生成。</li>
-<li>直到生成的答案是正确的，则让模型对这个（问题，不带提示的答案）进行微调</li>
+<li>765.情侣牵手-hard</li>
+<li>200.岛屿数量-medium</li>
+<li>778.水位上升的泳池中游泳-hard</li>
+<li>839.相似字符串组-hard</li>
 </ul>
 </li>
-<li><p>与微调直接预测最终答案的模型相比，STaR的性能在多个数据集上有所提高</p>
+<li><p>Acwing</p>
+<ul>
+<li>图中的环</li>
+<li>修改数组</li>
+</ul>
 </li>
 </ul>
-        
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -563,15 +291,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">leetcode, 并查集, 题解, 似乎</a>
         		</li>
       		
 		</ul>
@@ -580,16 +300,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/06/STaR%20Self-Taught%20Reasoner%20Bootstrapping%20Reasoning%20With%20Reasoning/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/09/18/[LeetCode]827.%20%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B%20[hard]/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Utilizing BERT for Aspect-Based Sentiment Analysis via Constructing Auxiliary Sentence</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -604,10 +383,56 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%BC%E4%B9%8E%F0%9F%98%AE"><span class="toc-number">1.</span> <span class="toc-text">似乎😮</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">并查集相关题目</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
+
+  
+
+
+
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
 
 
 
@@ -633,132 +458,6 @@
 </script>
     </section>
   
-  
-    <article id="post-Chain of Thought Prompting Elicits Reasoning in Large Language Models" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/">Chain of Thought Prompting Elicits Reasoning in Large Language Models</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/" class="archive-article-date">
-  	<time datetime="2022-09-06T08:16:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li><p>探索了如何生成一系列思维链——一系列中间推理步骤——显著提高大型语言模型执行复杂推理的能力。the simple method called chain of thought prompting,</p>
-</li>
-<li><p>在三个大型语言模型上的实验表明，思维链提示提高了一系列<strong>算术、常识和符号推理任务</strong>的性能</p>
-</li>
-<li><p>在数学单词问题的GSM8K基准测试达到SOTA，<strong>超过基于微调的GPT3</strong></p>
-</li>
-<li><p>论文图显示了“思维链推理”的过程，我感觉其实就是采用记录<strong>中间变量</strong>的形式来完成推理</p>
-<img src="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/fig1.jpg" alt="image-20220910162811959" style="zoom:67%;"></li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/06/Chain%20of%20Thought%20Prompting%20Elicits%20Reasoning%20in%20Large%20Language%20Models/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -788,8 +487,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
