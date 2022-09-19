@@ -16,8 +16,10 @@
 <meta property="og:description" content="Abstract &amp; Introduction What ABSA?  传统的情感分析任务假设是整个文本是具有整体极性，也就是一个句子就表示一种情感倾向。但实际工作中，用户的评论可能包含不同的方面，例如：“这本书是精装版，但价格有点高。” 书的“外观”的极性为正，“价格”的极性为负。因此诞生了一个新的任务,基于方面的情绪分析（ABSA）。ABSA任务的操作步骤是 (1)确定表达情感的每个目">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/fig1.png">
+<meta property="og:image" content="http://example.com/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/fig2.png">
+<meta property="og:image" content="http://example.com/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/fig3.png">
 <meta property="article:published_time" content="2022-09-16T09:47:44.000Z">
-<meta property="article:modified_time" content="2022-09-18T04:08:57.064Z">
+<meta property="article:modified_time" content="2022-09-19T02:49:00.444Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -234,7 +236,53 @@
 <p>Given a set of pre-identified aspect categories (e.g., <strong>{food, price}</strong>), determine the polarity (<em>positive</em>, <em>negative</em>, <em>neutral</em> or <em>conflict</em>) of each aspect category.</p>
 <p>For example:</p>
 <p>“The restaurant was too expensive” → <strong>{price: negative}</strong><br>“The restaurant was expensive, but the menu was great” → <strong>{price: negative, food: positive}</strong></p>
-<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1>
+<h2 id="构造辅助句子"><a href="#构造辅助句子" class="headerlink" title="构造辅助句子"></a>构造辅助句子</h2><ul>
+<li><strong>QA-M (三分类):</strong><ul>
+<li>对每个属性生成一个句子，预测情感极向 positive、negative或none</li>
+<li>pair (LOCATION1, safety), the sentence we generate is “what do you think of the safety of location - 1 ?”</li>
+</ul>
+</li>
+<li><strong>NLI-M (三分类):</strong><ul>
+<li>对每个属性生成一个句子，预测情感极向 positive、negative或none</li>
+<li>pair (LOCATION1, safety), the sentence we generate is “location - 1 - safety”.</li>
+</ul>
+</li>
+<li><strong>QA-B (二分类):</strong><ul>
+<li>对每个属性生成三个情感极向的句子，预测yes 或 no</li>
+<li>pair (LOCATION1, safety)<ul>
+<li>the polarity of the aspect safety of location - 1 is positive</li>
+<li>the polarity of the aspect safety of location - 1 is negative</li>
+<li>the polarity of the aspect safety of location - 1 is none</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>NLI-B (二分类):</strong><ul>
+<li>对每个属性生成三个情感极向的句子，预测yes 或 no</li>
+<li>pair (LOCATION1, safety)<ul>
+<li>location - 1 - safety- positive</li>
+<li>location - 1 - safety- negative</li>
+<li>location - 1 - safety- none</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="微调BERT实现"><a href="#微调BERT实现" class="headerlink" title="微调BERT实现"></a>微调BERT实现</h2><p>用BERT中最后一层隐藏层的第一个token（以 [CLS]作为输入的token）作为输出，接入一个(n*k)的全连接层做k分类预测</p>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><h3 id="SentiHood"><a href="#SentiHood" class="headerlink" title="SentiHood"></a>SentiHood</h3><p><a target="_blank" rel="noopener" href="https://github.com/uclmr/jack/tree/master/data/sentihood">https://github.com/uclmr/jack/tree/master/data/sentihood</a></p>
+<h3 id="SemEval-2014-Task-4-subtask3-amp-4"><a href="#SemEval-2014-Task-4-subtask3-amp-4" class="headerlink" title="SemEval-2014-Task 4 - subtask3 &amp; 4"></a>SemEval-2014-Task 4 - subtask3 &amp; 4</h3><p> <a target="_blank" rel="noopener" href="http://alt.qcri.org/semeval2014/task4/">http://alt.qcri.org/semeval2014/task4/</a></p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><img src="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/fig2.png">
+
+<img src="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/fig3.png">
+
+
+
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><p>为什么作者提出的BERT-pair在这两个任务上表现的好呢？</p>
+<ul>
+<li>将目标和方面信息转化为辅助句子其实是拓展了数据集</li>
+<li>由于BERT预训练时的特性，它适合做句子对分类的任务，然而作者提出的这种信息转化实际上提高了BERT的理解能力</li>
+</ul>
+
       
 
       
@@ -388,7 +436,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Methodology"><span class="toc-number">2.</span> <span class="toc-text">Methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">任务描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TABSA"><span class="toc-number">2.1.1.</span> <span class="toc-text">TABSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABSA"><span class="toc-number">2.1.2.</span> <span class="toc-text">ABSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#semeval2014-task4-subtask3"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">semeval2014\task4\subtask3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#semeval2014-task4-subtask4"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">semeval2014\task4\subtask4</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">3.</span> <span class="toc-text">Experiments</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Discussion"><span class="toc-number">4.</span> <span class="toc-text">Discussion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">5.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Methodology"><span class="toc-number">2.</span> <span class="toc-text">Methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">任务描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TABSA"><span class="toc-number">2.1.1.</span> <span class="toc-text">TABSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABSA"><span class="toc-number">2.1.2.</span> <span class="toc-text">ABSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#semeval2014-task4-subtask3"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">semeval2014\task4\subtask3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#semeval2014-task4-subtask4"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">semeval2014\task4\subtask4</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E8%BE%85%E5%8A%A9%E5%8F%A5%E5%AD%90"><span class="toc-number">2.2.</span> <span class="toc-text">构造辅助句子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83BERT%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.</span> <span class="toc-text">微调BERT实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">3.</span> <span class="toc-text">Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">3.1.</span> <span class="toc-text">数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SentiHood"><span class="toc-number">3.1.1.</span> <span class="toc-text">SentiHood</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SemEval-2014-Task-4-subtask3-amp-4"><span class="toc-number">3.1.2.</span> <span class="toc-text">SemEval-2014-Task 4 - subtask3 &amp; 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-number">3.2.</span> <span class="toc-text">结果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Discussion"><span class="toc-number">4.</span> <span class="toc-text">Discussion</span></a></li></ol>
                     </div>
                 </span>
             </div>
