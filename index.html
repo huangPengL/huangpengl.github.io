@@ -188,7 +188,7 @@
         <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
 <li><p>ABSA是一个细粒度的情感分析任务，要求我们检测句子在某一方面是否有情感极性，以及对应的极性。</p>
 </li>
-<li><p>作者表示可以将方面分成两类： </p>
+<li><p>作者表示可以将[方面]分成两类： </p>
 <ul>
 <li>explicit aspect-term：很明显出现在句子中（占比较少，处理起来简单）</li>
 <li>implicit aspect-category:  通过一些指示词隐式表示（占比很多，处理起来困难）</li>
@@ -204,7 +204,7 @@
 </li>
 <li><p>作者提出了一种统一的框架来处理方面分类和方面情感分析子任务，叫做BERT-based Auxiliary Sentence Construct-ing (BERT-ASC)</p>
 <ul>
-<li><p>使用L-LDA将每一个[方面]跟[种子]集合相联系</p>
+<li><p>使用L-LDA为每一个[方面]提取一组[种子]集合</p>
 <ul>
 <li>Aspect: food — Seed:{meal, bread, rice}</li>
 <li>如何做呢？由于BERT模型的预训练会使得相似的词在向量空间中的距离尽可能小。所以可以根据方面词在向量空间某个范围的词向量作为种子集合</li>
@@ -954,15 +954,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
