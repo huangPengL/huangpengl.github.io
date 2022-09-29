@@ -17,8 +17,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig1.png">
 <meta property="og:image" content="http://example.com/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig2.png">
+<meta property="og:image" content="http://example.com/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig3.png">
+<meta property="og:image" content="http://example.com/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig4.png">
 <meta property="article:published_time" content="2022-09-20T01:42:28.000Z">
-<meta property="article:modified_time" content="2022-09-24T09:09:49.128Z">
+<meta property="article:modified_time" content="2022-09-29T06:56:49.908Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -237,7 +239,23 @@
 <h2 id="Aspect-Seed-Extraction"><a href="#Aspect-Seed-Extraction" class="headerlink" title="Aspect Seed Extraction"></a>Aspect Seed Extraction</h2><p>使用L-LDA来为每一个方面抽取一组 “方面种子”，详见下图</p>
 <img src="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig2.png">
 
-<h2 id="Auxiliary-Sentence-Construction"><a href="#Auxiliary-Sentence-Construction" class="headerlink" title="Auxiliary-Sentence Construction"></a>Auxiliary-Sentence Construction</h2><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1>
+<h2 id="Auxiliary-Sentence-Construction"><a href="#Auxiliary-Sentence-Construction" class="headerlink" title="Auxiliary-Sentence Construction"></a>Auxiliary-Sentence Construction</h2><ul>
+<li><p>Semantic candidates(语义候选词，方面的映射)</p>
+<ul>
+<li>由于BERT在预训练的后语义相似的词在语义空间内的特征向量是相近的，因此考虑将 原文中的每一个单词和”种子词”进行相似度计算，若超过某个阈值（如0.8）则加入“语义候选词集合”。</li>
+<li>如果上述操作完成后“语义候选词集合”的大小为0，则用方面本身来当作“语义候选词”</li>
+</ul>
+</li>
+<li><p>Syntactic information(语法信息，方面的观点词)</p>
+<ul>
+<li>利用句法信息（依赖关系树）来提取“语义候选词”的“意见词” 。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><img src="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig3.png">
+
+<img src="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig4.png">
+
       
 
       
@@ -382,7 +400,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-proposed-solution"><span class="toc-number">2.</span> <span class="toc-text">The proposed solution</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-Description"><span class="toc-number">2.1.</span> <span class="toc-text">Task Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aspect-Seed-Extraction"><span class="toc-number">2.2.</span> <span class="toc-text">Aspect Seed Extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Auxiliary-Sentence-Construction"><span class="toc-number">2.3.</span> <span class="toc-text">Auxiliary-Sentence Construction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">3.</span> <span class="toc-text">Experiments</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Discussion"><span class="toc-number">4.</span> <span class="toc-text">Discussion</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-proposed-solution"><span class="toc-number">2.</span> <span class="toc-text">The proposed solution</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-Description"><span class="toc-number">2.1.</span> <span class="toc-text">Task Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aspect-Seed-Extraction"><span class="toc-number">2.2.</span> <span class="toc-text">Aspect Seed Extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Auxiliary-Sentence-Construction"><span class="toc-number">2.3.</span> <span class="toc-text">Auxiliary-Sentence Construction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiments"><span class="toc-number">3.</span> <span class="toc-text">Experiments</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -587,15 +605,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">guide</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
