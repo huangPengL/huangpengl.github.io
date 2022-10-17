@@ -6,14 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 随笔 | HPL-blog</title>
+  <title>Understanding Pre-trained BERT for Aspect-based Sentiment Analysis | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/tags/%E9%9A%8F%E7%AC%94/index.html">
+  <meta name="description" content="Abstract &amp; Introduction 这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的self-attention和隐藏表示层是否学习到了情感观点。 结果发现似乎BERT学到语义方面比较多，而不是情感极向。 作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Understanding Pre-trained BERT for Aspect-based Sentiment Analysis">
+<meta property="og:url" content="http://example.com/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="Abstract &amp; Introduction 这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的self-attention和隐藏表示层是否学习到了情感观点。 结果发现似乎BERT学到语义方面比较多，而不是情感极向。 作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-06T14:54:13.000Z">
+<meta property="article:modified_time" content="2022-10-06T15:40:31.551Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="ABSA">
+<meta property="article:tag" content="可解释性">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
@@ -160,131 +169,279 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Understanding Pre-trained BERT for Aspect-based Sentiment Analysis" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/03/%5BLeetCode%5D2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20%5Bhard%5D/" class="archive-article-date">
-  	<time datetime="2022-10-03T03:44:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-03</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/03/%5BLeetCode%5D2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20%5Bhard%5D/">My fucked up emotion &amp; LeetCode-2426.满足不等式的数对数目-hard</a>
+    <h1 class="article-title" itemprop="name">
+      Understanding Pre-trained BERT for Aspect-based Sentiment Analysis
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" class="archive-article-date">
+  	<time datetime="2022-10-06T14:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-06</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li>这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的<strong>self-attention</strong>和<strong>隐藏表示层</strong>是否学习到了情感观点。</li>
+<li>结果发现似乎BERT学到语义方面比较多，而不是情感极向。</li>
+<li>作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。</li>
+</ul>
+<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ul>
+<li><p>微调数据集（20GB）</p>
+<ul>
+<li>亚马逊评论</li>
+<li>[Yelp评论数据集](<a target="_blank" rel="noopener" href="https://www.yelp.com/dataset/">https://www.yelp.com/dataset/</a><br>challenge)</li>
+</ul>
+</li>
+<li><p>评估数据集（每个领域sample 150条）</p>
+<ul>
+<li>2014年SemEval任务4（Laptop and Restaurant）</li>
+<li>2016年SemEval任务5（Laptop and Restaurant）</li>
+</ul>
+</li>
+</ul>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><h1 id="Summary-and-Open-Problem"><a href="#Summary-and-Open-Problem" class="headerlink" title="Summary and Open Problem"></a>Summary and Open Problem</h1>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">树状数组</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">躺平</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">可解释性</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/18/%5BLeetCode%5D827.%20%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B%20%5Bhard%5D/" class="archive-article-date">
-  	<time datetime="2022-09-18T03:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-18</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/03/%5BLeetCode%5D2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20%5Bhard%5D/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">My fucked up emotion &amp; LeetCode-2426.满足不等式的数对数目-hard</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/18/%5BLeetCode%5D827.%20%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B%20%5Bhard%5D/">LeetCode-827.最大人工岛-hard</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">似乎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datasets"><span class="toc-number">2.</span> <span class="toc-text">Datasets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Analysis"><span class="toc-number">3.</span> <span class="toc-text">Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary-and-Open-Problem"><span class="toc-number">4.</span> <span class="toc-text">Summary and Open Problem</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
+        
+    </div>
+</aside>
 
 
+
+  
+
+
+
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
           </div>
         </div>
       </div>
@@ -315,9 +472,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

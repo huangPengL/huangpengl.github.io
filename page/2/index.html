@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 12
+    			总文章数 14
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,260 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Utilizing BERT for Aspect-Based Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/">👻已复现👻Utilizing BERT for Aspect-Based Sentiment Analysis via Constructing Auxiliary Sentence</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/" class="archive-article-date">
+  	<time datetime="2022-09-16T09:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li><p>What ABSA?</p>
+<ul>
+<li>传统的情感分析任务假设是整个文本是具有整体极性，也就是一个句子就表示一种情感倾向。但实际工作中，用户的评论可能包含不同的方面，例如：“这本书是精装版，但价格有点高。” 书的“外观”的极性为正，“价格”的极性为负。因此诞生了一个新的任务,基于方面的情绪分析（ABSA）。ABSA任务的操作步骤是 (1)确定表达情感的每个目标; (2)确定每个目标的情感极性。</li>
+</ul>
+</li>
+<li><p>本文贡献？</p>
+<ul>
+<li>基于ABSA任务<strong>转换成句子对任务</strong><ul>
+<li>例如其中一种转换方式：<ul>
+<li>原句：“LOCATION1 is central London so extremely expensive”</li>
+<li>可能的一个辅助句：“what do you think of the price of LOCATION1”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>微调BERT模型，提升在SentiHood 和 SemEval2014 Task 4 数据集上的效果。</li>
+</ul>
+</li>
+</ul>
+<p>作者已开源：<a target="_blank" rel="noopener" href="https://github.com/HSLCY/ABSA-BERT-pair">点我🤐</a></p>
+<p>本人复现了部分实验：<a target="_blank" rel="noopener" href="https://github.com/huangPengL/Experiments-on-papers-I-have-reproduced">点我🤐</a></p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">复现</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
+  
+    <article id="post-基于多粒度语义交互理解网络的幽默等级识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">基于多粒度语义交互理解网络的幽默等级识别</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2022-09-16T06:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ul>
+<li><p>将幽默等级识别视为自然语言推理任务</p>
+</li>
+<li><p>将幽默文本划分为“铺垫”和“笑点”两个部分,分别对其语义和 语义关系进行建模,提出了一种多粒度语义交互理解网络,从<strong>单词</strong>和<strong>子句</strong>两个粒度捕获幽默文本中语义的关联和 交互。</p>
+</li>
+<li><p>在 Reddit公开幽默数据集上进行了实验,相比之前最优结果,模型在语料上的<strong>准确率提升了1.3%</strong></p>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-Rationale-Augmented Ensembles in Language Models" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -511,248 +765,6 @@
     </section>
   
   
-    <article id="post-Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/" class="archive-article-date">
-  	<time datetime="2022-09-08T09:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-08</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为预训练GPT的时候已经在大量的无标签数据（<em>45TB</em>的数据岂是我等鼠人能够想象的？？😂）中学习到了语言的特点。</li>
-<li>有监督学习也就是我们常见的fine-tuning学习，可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好。常见的就是微调各种BERT啦，比如我们提出的的SICKNet就是用有监督学习🤞。</li>
-<li>作者提出一种半监督学习，叫做pattern-exploiting training (<strong>PET</strong>)🤔<ul>
-<li>目的是将手中<strong>少量 [有标签的输入样本]</strong> 转换为一种完形填空（cloze-style）的类型文本帮助语言模型理解任务</li>
-<li>然后让PVP模型（后面会介绍这个工具人）对<strong>大量 [无标签的输入样本]</strong> 进行标签预测，称为<strong>软标签</strong></li>
-<li>让分类模型（真正的天选模型）对带有 [软标签的输入样本] 进行<strong>有监督学习</strong>训练</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Few shot Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">Humor Detection， A Transformer Gets the Last Laugh</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/" class="archive-article-date">
-  	<time datetime="2022-09-07T01:51:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>之前大部分工作都是对幽默的识别，即判断文本是否幽默。在该文中，作者做出了三点贡献：</p>
-<ol>
-<li>作者提出了一个<strong>新的任务</strong>：判断一个笑话是否是幽默（强幽默和弱幽默）。</li>
-<li>作者从Reddit<strong>收集了16000条幽默文本</strong>，并根据网页上的点赞数标注文本的幽默程度。</li>
-<li>作者<strong>基于Transformer的结构</strong>，实现了对上述文本幽默等级的预测。</li>
-</ol>
-<p>作者证实了模型的性能与人类基准是可比的。</p>
-<p>作者还进一步验证了模型在原先的幽默识别任务上也带来了提升，他使用了已有的短幽默语料和双关语语料。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Humor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/07/Humor%20Detection%EF%BC%8C%20A%20Transformer%20Gets%20the%20Last%20Laugh/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
@@ -889,19 +901,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -913,11 +913,31 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">

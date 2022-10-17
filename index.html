@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 12
+    			总文章数 14
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,364 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/">President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines</a>
+    </h1>
+  
+
+        
+        <a href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/" class="archive-article-date">
+  	<time datetime="2022-10-14T08:50:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-14</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li><p>作者收集发布并分析了一个<strong>新的幽默数据集</strong>——Humicroedit</p>
+<ul>
+<li>样本结构：（常规英文标题， 替换编辑词， 幽默分数）</li>
+<li>5名评委给15095条编辑过的标题打分，分数范围是0~3</li>
+</ul>
+</li>
+<li><p>作者表示这种简单的单词替换使得标题变幽默的应用，是<strong>分析幽默产生原因</strong>很好的过程，在这过程中也能得到经典幽默理论的支撑</p>
+</li>
+<li><p>最后作者还开发了一个基线分类器来预测编辑后的标题是否有趣。</p>
+</li>
+<li><p><strong>计算幽默难</strong>，尽管自动幽默识别（automatic humor recognition）上有进展，但计算化幽默生成（computerized humor generation）的进展微小。这是由于幽默涉及到世界级的深度知识、常识和从多层级上感知实体和对象之间关系的能力。（这TM换做是人类也无法游刃有余感受和表达幽默😄）</p>
+</li>
+<li><p>两部<strong>构建Humicroedit</strong>。首先，我们从发布在Reddit（Reddit.com）上的新闻媒体收集原始新闻标题。然后，我们让来自亚马逊Mechanical  Turk（mturk.com）的专家注释员（i）通过对这些标题进行小编辑来生成幽默，并（ii）判断这些编辑中的幽默。</p>
+</li>
+</ul>
+<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig1.png">
+
+<ul>
+<li>这个<strong>Humicroedit数据集能干什么呢？</strong><ul>
+<li>了解幽默产生的原因</li>
+<li>做幽默识别</li>
+<li>对多组编辑后的标题做幽默排序</li>
+<li>做幽默生成</li>
+<li>幽默推荐</li>
+</ul>
+</li>
+</ul>
+<h1 id="The-Humor-Dataset"><a href="#The-Humor-Dataset" class="headerlink" title="The Humor Dataset"></a>The Humor Dataset</h1><h2 id="Task-Description"><a href="#Task-Description" class="headerlink" title="Task Description"></a>Task Description</h2><ul>
+<li><p>目标是研究对标题进行简短编辑是如何产生幽默的。新闻标题很适合幽默，因为它们只用几个词就能传达丰富的信息。</p>
+</li>
+<li><p><strong>编辑</strong>是指插入一个单字<strong>名词或动词</strong>来替换现有实体或单字名词和动词。</p>
+</li>
+<li><p>why only noun&#x2F;verb? </p>
+<ul>
+<li>例如，在替换形容词和副词时，我们的编辑大多使用反义词或最高级。另一方面，转换名词和动词可以在实体和动作之间引入各种新颖的联系。</li>
+</ul>
+</li>
+<li><p>how do it?</p>
+<ul>
+<li>先做命名实体识别(NER, name entity recognition)和词性标记（POS），然后只将那些众所周知的实体&#x2F;动词标注起来作为候选可替换单词。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Collecting-Headlines"><a href="#Collecting-Headlines" class="headerlink" title="Collecting Headlines"></a>Collecting Headlines</h2><ul>
+<li>【来源】新闻标题收集来自于Reddit的&#x2F;worldnews 和 &#x2F;politics板块。进行长度限制（单词数4~20），重复删除等预处理最终得到287,067条数据。</li>
+</ul>
+<h2 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h2><ul>
+<li><p>【标注人员】标注工作来自于amazon的众包网站Mechanical Turk。作者保证了标注者都居住在美国、经常参与众包且口碑不错、对幽默有感觉等特点。</p>
+</li>
+<li><p>【合理化评判幽默的规则】无视问题、实体和信息的立场；代表广大观众进行幽默判断；若编辑后是幽默的或者相对编辑前是幽默的则可以判定为幽默。</p>
+</li>
+<li><p>【评判幽默资格设置】</p>
+<ul>
+<li>[设置考卷]：作者内部团队设置了20个编辑后的标题，并内部进行打分（0~3分），并将平均分数为1.0的归类为有趣。</li>
+<li>[筛选考生]：找到了150个合格的评判幽默的人，这些人对幽默的归类分类正确个数为17个以上，并且平均而言，他们的评判分数在答案的范围内（-0.6 ~ +0.6）</li>
+</ul>
+</li>
+<li><p>【编辑幽默资格设置】</p>
+<ul>
+<li>[设置考卷]：6个任务每个任务有10条标题，只需要完成其中一个任务。要求如下：不能亵渎、俚语、厕所幽默、粗鲁的性暗示或非正式语言(将多个单词压缩为一个单词)。</li>
+<li>[筛选考生]：有7个评委对他们的编辑标题进行幽默打分，筛选出100名合格的编辑人员，他们的平均趣味程度都在0.8以上</li>
+</ul>
+<p>Ps：讲个笑话，作者在论文里埋的彩蛋笑话比他的数据集中笑话水平高🤣</p>
+<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig2.png"></li>
+</ul>
+<h1 id="Humor-Analysis"><a href="#Humor-Analysis" class="headerlink" title="Humor Analysis"></a>Humor Analysis</h1><p>作者在这一节中分析了哪些类型的微编辑在我们的数据集中有效地创建幽默，并在幽默理论的背景下讨论了发现。</p>
+<h2 id="humor-generation-strategies-幽默生成策略"><a href="#humor-generation-strategies-幽默生成策略" class="headerlink" title="humor generation strategies(幽默生成策略)"></a>humor generation strategies(幽默生成策略)</h2><p>作者通过手动检查，深入了解我们的编辑使用的<strong>幽默生成策略</strong></p>
+<ul>
+<li>使用一个与相邻单词形成有意义的n-gram的单词。如：ID 6: <del>Wall</del> <u>sesame</u> street.</li>
+<li>语义距离和发音相似替换。如：<del>ties</del> <u>pies</u></li>
+<li>在标题中使用与某个实体有密切联系的单词。如：特朗普和头发；奥巴马和耳朵。 </li>
+<li>制造讽刺</li>
+<li>贬低标题中的实体或名词。如：Obama’s <del>years</del> <u>ears</u></li>
+<li>紧张情绪抑制，让严肃的标题变得愚蠢</li>
+<li>插入产生不一致性的单词</li>
+<li>铺垫和笑点：让标题朝着预期的结尾发展，然后朝着结尾改变单词，以产生连贯但令人惊讶的结尾</li>
+</ul>
+<h2 id="Clusters-of-Replacement-Words-词簇分析"><a href="#Clusters-of-Replacement-Words-词簇分析" class="headerlink" title="Clusters of Replacement Words(词簇分析)"></a>Clusters of Replacement Words(词簇分析)</h2><p>作者对所有替换词进行Glove和k近邻分析(k &#x3D; 20)，得到20组词簇。作者拿其他工作的词簇跟自己的<strong>词簇进行一致性分析</strong>，发现一致性很高哇。也许这些词簇中的词是引发大众幽默的关键点</p>
+<p>![image-20221015180539083](B:!My-Java-Project\hexo-blog\source_posts\President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines\fig3.png)</p>
+<h2 id="Support-for-Theories-of-Humor-幽默理论得到数据集的支持"><a href="#Support-for-Theories-of-Humor-幽默理论得到数据集的支持" class="headerlink" title="Support for Theories of Humor(幽默理论得到数据集的支持)"></a>Support for Theories of Humor(幽默理论得到数据集的支持)</h2><ul>
+<li><p>笑话的<strong>长度</strong></p>
+<ul>
+<li><p>一句新闻标题笑话中的单词数太短不行，太长也不行</p>
+<ul>
+<li>太短可能没有足够的上下文来编辑信息</li>
+<li>太长可能过于复杂导致不好笑</li>
+</ul>
+</li>
+<li><p>可供编辑的笑话单词数太少不行，太多也不行</p>
+<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig4.png"></li>
+</ul>
+</li>
+<li><p>更高的<strong>不一致性</strong>可以导致更有质量的笑话</p>
+</li>
+<li><p><strong>笑点通常在笑话的末尾处</strong>，即在有足够多铺垫后出现</p>
+<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig5.png">
+</li>
+<li><p>笑话经常表达我们对他人的<strong>优越感</strong>。Mihalcea和Pulman（2007）在分析幽默文本时发现，这会导致在<strong>笑话中频繁使用负面情绪</strong>。作者在替换词簇的实验中中发现了类似的支持，其中标记为侮辱、人类缺陷和腐败的簇都由倾向于诋毁他人的词组成，约占编辑插入的替换词的12%。</p>
+</li>
+</ul>
+<h1 id="Humorous-Headline-Detection"><a href="#Humorous-Headline-Detection" class="headerlink" title="Humorous Headline Detection"></a>Humorous Headline Detection</h1><p>作者用浅层机器学习方法和LSTM跑了几组基线。值得关注的两个方面是</p>
+<ul>
+<li><p>当选取的数据幽默等级相差较大时，区分幽默和非幽默是相对容易的（如下图，其中X是取幽默等级量表（分数为：0~3）的前&#x2F;后X%作为非幽默&#x2F;幽默的分割点）</p>
+<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig6.png">
+
+
+</li>
+<li><p>此外，替换过程涉及实体的时候，模型的表现往往不佳。</p>
+<ul>
+<li>也许是因为理解实体需要更多的世界性知识</li>
+<li>也许是因为GloVe向量训练数据是来源于2014年前，而作者的数据集数据来自2017-2018年间。</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">humor dataset</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
+  
+    <article id="post-Understanding Pre-trained BERT for Aspect-based Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">Understanding Pre-trained BERT for Aspect-based Sentiment Analysis</a>
+    </h1>
+  
+
+        
+        <a href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" class="archive-article-date">
+  	<time datetime="2022-10-06T14:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-06</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li>这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的<strong>self-attention</strong>和<strong>隐藏表示层</strong>是否学习到了情感观点。</li>
+<li>结果发现似乎BERT学到语义方面比较多，而不是情感极向。</li>
+<li>作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。</li>
+</ul>
+<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ul>
+<li><p>微调数据集（20GB）</p>
+<ul>
+<li>亚马逊评论</li>
+<li>[Yelp评论数据集](<a target="_blank" rel="noopener" href="https://www.yelp.com/dataset/">https://www.yelp.com/dataset/</a><br>challenge)</li>
+</ul>
+</li>
+<li><p>评估数据集（每个领域sample 150条）</p>
+<ul>
+<li>2014年SemEval任务4（Laptop and Restaurant）</li>
+<li>2016年SemEval任务5（Laptop and Restaurant）</li>
+</ul>
+</li>
+</ul>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><h1 id="Summary-and-Open-Problem"><a href="#Summary-and-Open-Problem" class="headerlink" title="Summary and Open Problem"></a>Summary and Open Problem</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">可解释性</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-[LeetCode]2426. 满足不等式的数对数目 [hard]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -545,260 +903,6 @@
     </section>
   
   
-    <article id="post-Utilizing BERT for Aspect-Based Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/">👻已复现👻Utilizing BERT for Aspect-Based Sentiment Analysis via Constructing Auxiliary Sentence</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/" class="archive-article-date">
-  	<time datetime="2022-09-16T09:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
-<li><p>What ABSA?</p>
-<ul>
-<li>传统的情感分析任务假设是整个文本是具有整体极性，也就是一个句子就表示一种情感倾向。但实际工作中，用户的评论可能包含不同的方面，例如：“这本书是精装版，但价格有点高。” 书的“外观”的极性为正，“价格”的极性为负。因此诞生了一个新的任务,基于方面的情绪分析（ABSA）。ABSA任务的操作步骤是 (1)确定表达情感的每个目标; (2)确定每个目标的情感极性。</li>
-</ul>
-</li>
-<li><p>本文贡献？</p>
-<ul>
-<li>基于ABSA任务<strong>转换成句子对任务</strong><ul>
-<li>例如其中一种转换方式：<ul>
-<li>原句：“LOCATION1 is central London so extremely expensive”</li>
-<li>可能的一个辅助句：“what do you think of the price of LOCATION1”</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>微调BERT模型，提升在SentiHood 和 SemEval2014 Task 4 数据集上的效果。</li>
-</ul>
-</li>
-</ul>
-<p>作者已开源：<a target="_blank" rel="noopener" href="https://github.com/HSLCY/ABSA-BERT-pair">点我🤐</a></p>
-<p>本人复现了部分实验：<a target="_blank" rel="noopener" href="https://github.com/huangPengL/Experiments-on-papers-I-have-reproduced">点我🤐</a></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-基于多粒度语义交互理解网络的幽默等级识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">基于多粒度语义交互理解网络的幽默等级识别</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2022-09-16T06:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ul>
-<li><p>将幽默等级识别视为自然语言推理任务</p>
-</li>
-<li><p>将幽默文本划分为“铺垫”和“笑点”两个部分,分别对其语义和 语义关系进行建模,提出了一种多粒度语义交互理解网络,从<strong>单词</strong>和<strong>子句</strong>两个粒度捕获幽默文本中语义的关联和 交互。</p>
-</li>
-<li><p>在 Reddit公开幽默数据集上进行了实验,相比之前最优结果,模型在语料上的<strong>准确率提升了1.3%</strong></p>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -935,19 +1039,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -959,11 +1051,31 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
