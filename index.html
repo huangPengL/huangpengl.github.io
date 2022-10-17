@@ -213,94 +213,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="The-Humor-Dataset"><a href="#The-Humor-Dataset" class="headerlink" title="The Humor Dataset"></a>The Humor Dataset</h1><h2 id="Task-Description"><a href="#Task-Description" class="headerlink" title="Task Description"></a>Task Description</h2><ul>
-<li><p>目标是研究对标题进行简短编辑是如何产生幽默的。新闻标题很适合幽默，因为它们只用几个词就能传达丰富的信息。</p>
-</li>
-<li><p><strong>编辑</strong>是指插入一个单字<strong>名词或动词</strong>来替换现有实体或单字名词和动词。</p>
-</li>
-<li><p>why only noun&#x2F;verb? </p>
-<ul>
-<li>例如，在替换形容词和副词时，我们的编辑大多使用反义词或最高级。另一方面，转换名词和动词可以在实体和动作之间引入各种新颖的联系。</li>
-</ul>
-</li>
-<li><p>how do it?</p>
-<ul>
-<li>先做命名实体识别(NER, name entity recognition)和词性标记（POS），然后只将那些众所周知的实体&#x2F;动词标注起来作为候选可替换单词。</li>
-</ul>
-</li>
-</ul>
-<h2 id="Collecting-Headlines"><a href="#Collecting-Headlines" class="headerlink" title="Collecting Headlines"></a>Collecting Headlines</h2><ul>
-<li>【来源】新闻标题收集来自于Reddit的&#x2F;worldnews 和 &#x2F;politics板块。进行长度限制（单词数4~20），重复删除等预处理最终得到287,067条数据。</li>
-</ul>
-<h2 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h2><ul>
-<li><p>【标注人员】标注工作来自于amazon的众包网站Mechanical Turk。作者保证了标注者都居住在美国、经常参与众包且口碑不错、对幽默有感觉等特点。</p>
-</li>
-<li><p>【合理化评判幽默的规则】无视问题、实体和信息的立场；代表广大观众进行幽默判断；若编辑后是幽默的或者相对编辑前是幽默的则可以判定为幽默。</p>
-</li>
-<li><p>【评判幽默资格设置】</p>
-<ul>
-<li>[设置考卷]：作者内部团队设置了20个编辑后的标题，并内部进行打分（0~3分），并将平均分数为1.0的归类为有趣。</li>
-<li>[筛选考生]：找到了150个合格的评判幽默的人，这些人对幽默的归类分类正确个数为17个以上，并且平均而言，他们的评判分数在答案的范围内（-0.6 ~ +0.6）</li>
-</ul>
-</li>
-<li><p>【编辑幽默资格设置】</p>
-<ul>
-<li>[设置考卷]：6个任务每个任务有10条标题，只需要完成其中一个任务。要求如下：不能亵渎、俚语、厕所幽默、粗鲁的性暗示或非正式语言(将多个单词压缩为一个单词)。</li>
-<li>[筛选考生]：有7个评委对他们的编辑标题进行幽默打分，筛选出100名合格的编辑人员，他们的平均趣味程度都在0.8以上</li>
-</ul>
-<p>Ps：讲个笑话，作者在论文里埋的彩蛋笑话比他的数据集中笑话水平高🤣</p>
-<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig2.png"></li>
-</ul>
-<h1 id="Humor-Analysis"><a href="#Humor-Analysis" class="headerlink" title="Humor Analysis"></a>Humor Analysis</h1><p>作者在这一节中分析了哪些类型的微编辑在我们的数据集中有效地创建幽默，并在幽默理论的背景下讨论了发现。</p>
-<h2 id="humor-generation-strategies-幽默生成策略"><a href="#humor-generation-strategies-幽默生成策略" class="headerlink" title="humor generation strategies(幽默生成策略)"></a>humor generation strategies(幽默生成策略)</h2><p>作者通过手动检查，深入了解我们的编辑使用的<strong>幽默生成策略</strong></p>
-<ul>
-<li>使用一个与相邻单词形成有意义的n-gram的单词。如：ID 6: <del>Wall</del> <u>sesame</u> street.</li>
-<li>语义距离和发音相似替换。如：<del>ties</del> <u>pies</u></li>
-<li>在标题中使用与某个实体有密切联系的单词。如：特朗普和头发；奥巴马和耳朵。 </li>
-<li>制造讽刺</li>
-<li>贬低标题中的实体或名词。如：Obama’s <del>years</del> <u>ears</u></li>
-<li>紧张情绪抑制，让严肃的标题变得愚蠢</li>
-<li>插入产生不一致性的单词</li>
-<li>铺垫和笑点：让标题朝着预期的结尾发展，然后朝着结尾改变单词，以产生连贯但令人惊讶的结尾</li>
-</ul>
-<h2 id="Clusters-of-Replacement-Words-词簇分析"><a href="#Clusters-of-Replacement-Words-词簇分析" class="headerlink" title="Clusters of Replacement Words(词簇分析)"></a>Clusters of Replacement Words(词簇分析)</h2><p>作者对所有替换词进行Glove和k近邻分析(k &#x3D; 20)，得到20组词簇。作者拿其他工作的词簇跟自己的<strong>词簇进行一致性分析</strong>，发现一致性很高哇。也许这些词簇中的词是引发大众幽默的关键点</p>
-<p>![image-20221015180539083](B:!My-Java-Project\hexo-blog\source_posts\President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines\fig3.png)</p>
-<h2 id="Support-for-Theories-of-Humor-幽默理论得到数据集的支持"><a href="#Support-for-Theories-of-Humor-幽默理论得到数据集的支持" class="headerlink" title="Support for Theories of Humor(幽默理论得到数据集的支持)"></a>Support for Theories of Humor(幽默理论得到数据集的支持)</h2><ul>
-<li><p>笑话的<strong>长度</strong></p>
-<ul>
-<li><p>一句新闻标题笑话中的单词数太短不行，太长也不行</p>
-<ul>
-<li>太短可能没有足够的上下文来编辑信息</li>
-<li>太长可能过于复杂导致不好笑</li>
-</ul>
-</li>
-<li><p>可供编辑的笑话单词数太少不行，太多也不行</p>
-<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig4.png"></li>
-</ul>
-</li>
-<li><p>更高的<strong>不一致性</strong>可以导致更有质量的笑话</p>
-</li>
-<li><p><strong>笑点通常在笑话的末尾处</strong>，即在有足够多铺垫后出现</p>
-<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig5.png">
-</li>
-<li><p>笑话经常表达我们对他人的<strong>优越感</strong>。Mihalcea和Pulman（2007）在分析幽默文本时发现，这会导致在<strong>笑话中频繁使用负面情绪</strong>。作者在替换词簇的实验中中发现了类似的支持，其中标记为侮辱、人类缺陷和腐败的簇都由倾向于诋毁他人的词组成，约占编辑插入的替换词的12%。</p>
-</li>
-</ul>
-<h1 id="Humorous-Headline-Detection"><a href="#Humorous-Headline-Detection" class="headerlink" title="Humorous Headline Detection"></a>Humorous Headline Detection</h1><p>作者用浅层机器学习方法和LSTM跑了几组基线。值得关注的两个方面是</p>
-<ul>
-<li><p>当选取的数据幽默等级相差较大时，区分幽默和非幽默是相对容易的（如下图，其中X是取幽默等级量表（分数为：0~3）的前&#x2F;后X%作为非幽默&#x2F;幽默的分割点）</p>
-<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig6.png">
-
-
-</li>
-<li><p>此外，替换过程涉及实体的时候，模型的表现往往不佳。</p>
-<ul>
-<li>也许是因为理解实体需要更多的世界性知识</li>
-<li>也许是因为GloVe向量训练数据是来源于2014年前，而作者的数据集数据来自2017-2018年间。</li>
-</ul>
-</li>
-</ul>
-
+        
       
 
       
@@ -1039,7 +952,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1051,19 +968,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
