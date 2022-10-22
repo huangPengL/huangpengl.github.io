@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Duluth at SemEval-2020 Task 7, Using Surprise as a Key to Unlock Humorous Headlines | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Abstract &amp; Introduction 作者根据不一致理论，认为“惊喜”是产生幽默的关键因素。 作者用了对比的方法(contrastive framework)，然后系统比较了三种广泛使用的模型。 CBOW BERT RoBERTa    Method &amp; Experiments 不协调理论是幽默的主导理论，它指出“是对不协调事物的感知违反了我们的心理模式和期望”（Morr">
+  <meta name="description" content="Abstract &amp; Introduction 作者根据不一致理论，认为“惊喜”是产生幽默的关键因素。 作者用了对比的方法(contrastive framework)，然后系统比较了三种广泛使用的模型。 CBOW BERT RoBERTa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Duluth at SemEval-2020 Task 7, Using Surprise as a Key to Unlock Humorous Headlines">
 <meta property="og:url" content="http://example.com/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/index.html">
 <meta property="og:site_name" content="HPL-blog">
-<meta property="og:description" content="Abstract &amp; Introduction 作者根据不一致理论，认为“惊喜”是产生幽默的关键因素。 作者用了对比的方法(contrastive framework)，然后系统比较了三种广泛使用的模型。 CBOW BERT RoBERTa    Method &amp; Experiments 不协调理论是幽默的主导理论，它指出“是对不协调事物的感知违反了我们的心理模式和期望”（Morr">
+<meta property="og:description" content="Abstract &amp; Introduction 作者根据不一致理论，认为“惊喜”是产生幽默的关键因素。 作者用了对比的方法(contrastive framework)，然后系统比较了三种广泛使用的模型。 CBOW BERT RoBERTa">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/fig1.png">
 <meta property="og:image" content="http://example.com/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/fig2.png">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/fig5.png">
 <meta property="og:image" content="http://example.com/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/fig6.png">
 <meta property="article:published_time" content="2022-10-18T09:13:16.000Z">
-<meta property="article:modified_time" content="2022-10-18T11:04:33.960Z">
+<meta property="article:modified_time" content="2022-10-22T07:29:46.478Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -76,7 +76,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 15
+    			总文章数 16
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -212,6 +212,8 @@
 </ul>
 </li>
 </ul>
+<span id="more"></span>
+
 <h1 id="Method-amp-Experiments"><a href="#Method-amp-Experiments" class="headerlink" title="Method &amp; Experiments"></a>Method &amp; Experiments</h1><ul>
 <li><p>不协调理论是幽默的主导理论，它指出“是对不协调事物的感知违反了我们的心理模式和期望”（Morreal，2016）。因此，作者假设，如果<strong>编辑词</strong>与<strong>上下文词</strong>或<strong>原始词</strong>在语义上相距遥远，那么编辑标题就很有趣。</p>
 <ul>
@@ -255,6 +257,9 @@
 </ul>
 </li>
 <li><p>Emperiments</p>
+<ul>
+<li>Ps: Task2忽略了标签为0的预测</li>
+</ul>
 <img src="/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/fig6.png"></li>
 </ul>
 
@@ -372,6 +377,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/10/19/When%20to%20Laugh%20and%20How%20Hard.%20A%20Multimodal%20Approach%20to%20Detecting%20Humor%20and%20its%20Intensity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          When to Laugh and How Hard? A Multimodal Approach to Detecting Humor and its Intensity
+        
+      </div>
+    </a>
   
   
     <a href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/" id="article-nav-older" class="article-nav-link-wrap">
@@ -648,6 +662,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">multimodal</a>
               </li>
              
               <li class="article-tag-list-item">
