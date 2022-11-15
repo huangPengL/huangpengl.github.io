@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: multimodal | HPL-blog</title>
+  <title>Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection-ACL2022 | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/tags/multimodal/index.html">
+  <meta name="description" content="Abstract 大型预训练语言模型（PLM）变得越来越普遍，识别文本中的各种类型的偏差已成为焦点。  先前的研究表明现有基准数据集存在重大的可靠性问题。然而，注释可靠的数据集需要准确理解刻板印象如何在文本中体现的细微差别。  [结构刻板印象]：这篇文章的作者注释了一个针对“刻板印象检测（Stereotype Detection）”的重点评估集，通过解构文本中刻板印象表现的各种方式来解决这些缺陷。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection-ACL2022">
+<meta property="og:url" content="http://example.com/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="Abstract 大型预训练语言模型（PLM）变得越来越普遍，识别文本中的各种类型的偏差已成为焦点。  先前的研究表明现有基准数据集存在重大的可靠性问题。然而，注释可靠的数据集需要准确理解刻板印象如何在文本中体现的细微差别。  [结构刻板印象]：这篇文章的作者注释了一个针对“刻板印象检测（Stereotype Detection）”的重点评估集，通过解构文本中刻板印象表现的各种方式来解决这些缺陷。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/fig2.png">
+<meta property="og:image" content="http://example.com/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/fig1.png">
+<meta property="article:published_time" content="2022-11-05T12:25:44.000Z">
+<meta property="article:modified_time" content="2022-11-05T13:44:36.179Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="attack detection">
+<meta property="article:tag" content="multi-task learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/fig2.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -61,7 +72,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 16
+    			总文章数 17
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,35 +171,125 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/19/When%20to%20Laugh%20and%20How%20Hard.%20A%20Multimodal%20Approach%20to%20Detecting%20Humor%20and%20its%20Intensity/" class="archive-article-date">
-  	<time datetime="2022-10-19T11:33:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/19/When%20to%20Laugh%20and%20How%20Hard.%20A%20Multimodal%20Approach%20to%20Detecting%20Humor%20and%20its%20Intensity/">When to Laugh and How Hard? A Multimodal Approach to Detecting Humor and its Intensity</a>
+    <h1 class="article-title" itemprop="name">
+      Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection-ACL2022
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/" class="archive-article-date">
+  	<time datetime="2022-11-05T12:25:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-05</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li><p>大型预训练语言模型（PLM）变得越来越普遍，<strong>识别文本中的各种类型的偏差已成为焦点</strong>。</p>
+</li>
+<li><p>先前的研究表明现有基准数据集存在重大的可靠性问题。然而，注释可靠的数据集需要<strong>准确理解刻板印象</strong>如何在文本中体现的<strong>细微差别</strong>。</p>
+</li>
+<li><p>[结构刻板印象]：这篇文章的作者注释了一个针对“刻板印象检测（Stereotype Detection）”的重点评估集，通过<strong>解构文本中刻板印象表现的各种方式</strong>来解决这些缺陷。</p>
+</li>
+<li><p>[多任务学习提高性能]：此外，作者提出了一个多任务模型，该模型利用<strong>大量数据丰富的邻近任务</strong>，如仇恨言论检测、攻击性语言检测、厌女检测等，以提高“刻板印象检测”的经验性能。</p>
+</li>
+<li><p>[强化学习选可靠的数据]：然后，作者提出了一个强化学习代理，它通过学习从相邻任务中识别对目标任务最有帮助的训练示例来<strong>指导多任务学习模型</strong>。</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
+<li><p>【why solve this problem？】：近年来大型预训练语言模型（PLM）变得越来越普遍。训练PLM的无标签数据来自于网上，如：维基百科、社交论坛、小说……这些无标签数据有些是带有偏见的（仇恨、种族歧视、性别歧视、刻板印象等），学习有偏见的数据也许会带来有偏见的输出，随之传播下去。</p>
+</li>
+<li><p>【how to solve?】: </p>
+<ul>
+<li>识别和消除已经学习好的PLM的偏见</li>
+<li>对PLM的输出的偏见信息进行识别和管理</li>
+</ul>
+</li>
+<li><p>【刻板印象类型family &amp; 刻板印象的分类】：</p>
+<ul>
+<li><p>仇恨言论、厌女症、刻板印象、虐待、威胁、侮辱等</p>
+</li>
+<li><p>对于刻板印象来说也有些分类：</p>
+<ul>
+<li><p>带有攻击性或不带</p>
+<img src="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/fig2.png">
+</li>
+<li><p>带有积极情绪或消极</p>
+<img src="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/fig1.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>【卖点1】：</p>
+<ul>
+<li>已经有工作证明了流行的两个刻板印象识别数据集具有以下几个问题：存在无害的刻板印象样本、反刻板印象样本、非自然的文字等缺点。</li>
+<li>这些数据集还缺乏对文本中刻板印象表现的细微差别的充分覆盖</li>
+<li>这使得它们不太适合训练有效的鉴别分类器。因此，作者致力于<strong>创建细粒度的评估数据集</strong></li>
+</ul>
+</li>
+<li><p>【卖点2】：</p>
+<ul>
+<li>尽管刻板印象在许多方面不同于其他类型的攻击性语言，但它们也在很大程度上重叠。</li>
+<li>作者为这些所有相邻任务提出了一个<strong>多任务学习</strong>框架。</li>
+</ul>
+</li>
+<li><p>【卖点3】：</p>
+<ul>
+<li>由于任务之间的重叠只是部分的，因此我们提出了一种<strong>强化学习</strong>代理，它通过从相邻任务数据集中选择有助于改进目标任务的有意义的数据示例来学习指导多任务学习模型</li>
+</ul>
+</li>
+<li><p>【卖点4】：</p>
+<ul>
+<li>最后，作者通过一系列<strong>消融研究</strong>更仔细地观察强化学习代理的学习过程。</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -202,31 +303,186 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">attack detection</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multimodal</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">multi-task learning</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/11/15/This%20joke%20is%20%5BMASK%5D%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          This joke is [MASK] Recognizing Humor and Offense with Prompting
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Duluth at SemEval-2020 Task 7, Using Surprise as a Key to Unlock Humorous Headlines</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
 
 
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
           </div>
         </div>
       </div>
@@ -257,9 +513,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -364,11 +620,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -380,7 +632,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -396,7 +656,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+                <a href="javascript:void(0)" class="js-tag color2">attack detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">multi-task learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -405,10 +669,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">multimodal</a>
               </li>
              
               <li class="article-tag-list-item">
