@@ -21,9 +21,9 @@
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig4.png">
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig5.png">
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig7.png">
-<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/hexo-blog/source_posts/第一次NLP竞赛记录/fig8.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig8.png">
 <meta property="article:published_time" content="2022-11-23T02:01:21.000Z">
-<meta property="article:modified_time" content="2022-11-29T11:54:19.795Z">
+<meta property="article:modified_time" content="2022-11-29T12:16:47.889Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="随笔">
@@ -249,7 +249,14 @@
 </ul>
 </li>
 </ul>
-<h1 id="我尝试的技术"><a href="#我尝试的技术" class="headerlink" title="我尝试的技术"></a>我尝试的技术</h1><h2 id="🎈社交媒体数据清理"><a href="#🎈社交媒体数据清理" class="headerlink" title="🎈社交媒体数据清理"></a>🎈社交媒体数据清理</h2><ul>
+<h1 id="我尝试的技术"><a href="#我尝试的技术" class="headerlink" title="我尝试的技术"></a>我尝试的技术</h1><h2 id="🎈情感prompt"><a href="#🎈情感prompt" class="headerlink" title="🎈情感prompt"></a>🎈情感prompt</h2><ul>
+<li>带有性别歧视的样本情感极向一般偏负<ul>
+<li>性别歧视 -&gt; negative</li>
+<li>非性别歧视 -&gt; 用已在情感分类任务中fine-tune的PLM预测情感极向</li>
+</ul>
+</li>
+</ul>
+<h2 id="🎈社交媒体数据清理"><a href="#🎈社交媒体数据清理" class="headerlink" title="🎈社交媒体数据清理"></a>🎈社交媒体数据清理</h2><ul>
 <li>Emoji替换成自然语言。如：😀 -&gt; smile</li>
 <li>√ 去除Emoji</li>
 <li>√ 去除特定的标点符号</li>
@@ -270,8 +277,7 @@
 <img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig7.png">
 </li>
 <li><p>focal loss</p>
-<p><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/hexo-blog\source_posts\第一次NLP竞赛记录\fig8.png" alt="image-20221129193942873"></p>
-</li>
+<img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig8.png"></li>
 </ul>
 </li>
 <li><p>实现代码</p>
@@ -597,7 +603,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">我尝试的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.2.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGSM"><span class="toc-number">2.3.</span> <span class="toc-text">🎈对抗训练FGSM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.4.</span> <span class="toc-text">超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.5.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.6.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.7.</span> <span class="toc-text">数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">我尝试的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%83%85%E6%84%9Fprompt"><span class="toc-number">2.1.</span> <span class="toc-text">🎈情感prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.3.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGSM"><span class="toc-number">2.4.</span> <span class="toc-text">🎈对抗训练FGSM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.5.</span> <span class="toc-text">超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.6.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.7.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.8.</span> <span class="toc-text">数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -830,11 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -847,10 +853,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -871,6 +873,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">复现</a>
               </li>
              
               <li class="article-tag-list-item">
