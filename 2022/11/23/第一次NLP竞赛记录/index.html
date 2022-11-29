@@ -6,24 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>My fucked up emotion &amp; LeetCode-2426.满足不等式的数对数目-hard | HPL-blog</title>
+  <title>第一次竞赛记录 | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="无感少年🧚‍♂️如果要用两个字来描述我整个9月份的状态，那么我用屁股想也能毫不费力蹦出两个字“躺平”。若是换个精确的词，也许“无感”是最合适标签化我最近一段时间行为状态的词…唔，也许时间线能拉的更长。 大概总结这月干了啥**”无感的正事”**吧：(1) 随意性阅读论文。这段时间似乎没带任何功利的想法阅读论文，涉及论文领域的广度也蛮宽泛，譬如ABSA、prompt learning、few sho">
+  <meta name="description" content="背景竞赛主题SemEval 2023 - Task 10 - Explainable Detection of Online Sexism (EDOS)         数据集 有标签数据  标签分布    标签模式       无标签数据      小分析 有标签数据足以用来做微调  与有标签数据同属于一个社区的无标签的数据需要利用起来  受语言模型处理领域内的性能限制，我们可以充分领域内的数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My fucked up emotion &amp; LeetCode-2426.满足不等式的数对数目-hard">
-<meta property="og:url" content="http://example.com/2022/10/03/[LeetCode]2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20[hard]/index.html">
+<meta property="og:title" content="第一次竞赛记录">
+<meta property="og:url" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="HPL-blog">
-<meta property="og:description" content="无感少年🧚‍♂️如果要用两个字来描述我整个9月份的状态，那么我用屁股想也能毫不费力蹦出两个字“躺平”。若是换个精确的词，也许“无感”是最合适标签化我最近一段时间行为状态的词…唔，也许时间线能拉的更长。 大概总结这月干了啥**”无感的正事”**吧：(1) 随意性阅读论文。这段时间似乎没带任何功利的想法阅读论文，涉及论文领域的广度也蛮宽泛，譬如ABSA、prompt learning、few sho">
+<meta property="og:description" content="背景竞赛主题SemEval 2023 - Task 10 - Explainable Detection of Online Sexism (EDOS)         数据集 有标签数据  标签分布    标签模式       无标签数据      小分析 有标签数据足以用来做微调  与有标签数据同属于一个社区的无标签的数据需要利用起来  受语言模型处理领域内的性能限制，我们可以充分领域内的数据">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-10-03T03:44:54.000Z">
-<meta property="article:modified_time" content="2022-10-05T12:52:52.430Z">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig1.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig2.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig3.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig4.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig5.png">
+<meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig6.png">
+<meta property="article:published_time" content="2022-11-23T02:01:21.000Z">
+<meta property="article:modified_time" content="2022-11-29T07:32:51.556Z">
 <meta property="article:author" content="huangpenglong">
-<meta property="article:tag" content="leetcode">
-<meta property="article:tag" content="树状数组">
-<meta property="article:tag" content="题解">
-<meta property="article:tag" content="躺平">
+<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="随笔">
+<meta property="article:tag" content="竞赛">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig1.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -169,20 +174,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-[LeetCode]2426. 满足不等式的数对数目 [hard]" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-第一次NLP竞赛记录" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      My fucked up emotion &amp; LeetCode-2426.满足不等式的数对数目-hard
+      第一次竞赛记录
     </h1>
   
 
         
-        <a href="/2022/10/03/%5BLeetCode%5D2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20%5Bhard%5D/" class="archive-article-date">
-  	<time datetime="2022-10-03T03:44:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-03</time>
+        <a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2022-11-23T02:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
 </a>
         
 
@@ -197,70 +202,223 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="无感少年🧚‍♂️"><a href="#无感少年🧚‍♂️" class="headerlink" title="无感少年🧚‍♂️"></a>无感少年🧚‍♂️</h1><p>如果要用两个字来描述我整个9月份的状态，那么我用屁股想也能毫不费力蹦出两个字“躺平”。若是换个精确的词，也许“无感”是最合适标签化我最近一段时间行为状态的词…唔，也许时间线能拉的更长。</p>
-<p>大概总结这月干了啥**”无感的正事”**吧：(1) 随意性阅读论文。这段时间似乎没带任何功利的想法阅读论文，涉及论文领域的广度也蛮宽泛，譬如ABSA、prompt learning、few shot learning、humor detection、chain of thought。这样做给我带来的反馈几乎为0，也没有得到任何灵感一闪的idea，但似乎我对这种低效并无任何不适的感觉😅…… (2) 准备汇报。一是学校大研讨会主讲，二是参与国际会议演讲。以我对自己性格的了解，一旦得知我需要上台作presentation的时候一定会强行push自己（提前把PPT做出来，反复打磨十几二十遍，设置好展示过程中每一处的转折和强调）。好嘛…到现在我还没把PPT搞好，反倒是强行pull自己躺了大半个月😅……</p>
-<p>今年，<strong>无感顽强活跃于我生活的处处细节</strong>：自驾游无感，美食无感，拿offer无感，paper被accept无感，奖学金无感，打比赛AK无感，跟喜欢的人打交道无感，篮球炸场无感，爱无感……</p>
-<p>有天我甚至在想，当对所有事物无感时我还是人吗？ 但谁又能说明白无感是否为人的一种特有情感呢？我应该抑制无感野蛮生长吗？</p>
-<p>也许，往后我需要一段时间自我认知和剖析才能给出答案。</p>
-<span id="more"></span>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="竞赛主题"><a href="#竞赛主题" class="headerlink" title="竞赛主题"></a>竞赛主题</h2><p><strong><a target="_blank" rel="noopener" href="https://codalab.lisn.upsaclay.fr/competitions/7124#learn_the_details">SemEval 2023 - Task 10 - Explainable Detection of Online Sexism (EDOS)</a></strong></p>
+<img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig1.png">
 
-<hr>
-<p>如果问我这世界上最优美的数据结构是什么，<strong>树状数组</strong>永远不会缺席（英文：BIT, <strong>binary indexed trees</strong>）。</p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-pairs-satisfying-inequality/">题目</a></h1><p>给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，两个数组的大小都为 n ，同时给你一个整数 diff，统计满足以下条件的<strong>数对</strong> (i, j)：</p>
+
+
+
+
+
+
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<li><p>有标签数据</p>
 <ul>
-<li><p>0 &lt;&#x3D; i &lt; j &lt;&#x3D; n - 1 且</p>
+<li>标签分布<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig2.png" alt="image-20221123100717895" style="zoom:67%;"></li>
+</ul>
 </li>
-<li><p>nums1[i] - nums1[j] &lt;&#x3D; nums2[i] - nums2[j] + diff.</p>
+<li>标签模式<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig3.png" alt="image-20221123100825597" style="zoom:80%;"></li>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig4.png" alt="image-20221123100835504" style="zoom: 80%;"></li>
+</ul>
 </li>
 </ul>
-<p>请你返回满足条件的 <strong>数对数目</strong> 。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：nums1 = [3,2,5], nums2 = [2,2,1], diff = 1</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">总共有 3 个满足条件的数对：</span><br><span class="line">1. i = 0, j = 1：3 - 2 &lt;= 2 - 2 + 1 。因为 i &lt; j 且 1 &lt;= 1 ，这个数对满足条件。</span><br><span class="line">2. i = 0, j = 2：3 - 5 &lt;= 2 - 1 + 1 。因为 i &lt; j 且 -2 &lt;= 2 ，这个数对满足条件。</span><br><span class="line">3. i = 1, j = 2：2 - 5 &lt;= 2 - 1 + 1 。因为 i &lt; j 且 -3 &lt;= 2 ，这个数对满足条件。</span><br><span class="line">所以，我们返回 3 。</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：nums1 = [3,-1], nums2 = [-2,2], diff = -1</span><br><span class="line">输出：0</span><br><span class="line">解释：</span><br><span class="line">没有满足条件的任何数对，所以我们返回 0 。</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>提示：</strong></p>
+</li>
+<li><p>无标签数据</p>
 <ul>
-<li><p><code>n == nums1.length == nums2.length</code></p>
-</li>
-<li><p><code>2 &lt;= n &lt;= 10^5</code></p>
-</li>
-<li><p><code>-10^4 &lt;= nums1[i], nums2[i] &lt;= 10^4</code></p>
-</li>
-<li><p><code>-10^4 &lt;= diff &lt;= 10^4</code></p>
-</li>
-</ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>【问题转化🎈🎈】</p>
-<pre><code>        - 令a[i] = nums1[i]-nums2[i]
-        - 问题转化成求在数组a范围内满足以下条件的数对(i， j)，满足 a[i] &lt;= a[j] + diff 且 i &lt; j
-</code></pre>
-<p>【问题求解——暴力🙅‍♀️】</p>
-<pre><code>        - 在原数组a中从前往后求解小于等于a[i]+diff的元素个数
-        - 从前往后遍历数组a需要O(n)， 求解答案也需要遍历a数组， 总时间复杂度O(n^2)。由于数据范围上限为10^5，因此会超时
-</code></pre>
-<p><strong>【问题求解——树状数组🙋‍♀️】</strong></p>
-<pre><code>        - query: 在树状数组tr中求解小于等于a[i]+diff的元素个数
-        - add: 将当前a[i]插入树状数组中，值为1表示累计a[i]出现1次
-        - 从前往后遍历数组a需要O(n)， 而query和add需要O(logn)， 总时间复杂度为O(n*logn)
-</code></pre>
-<p>树状数组不会？<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93795692">点我🤗</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">offset</span> <span class="operator">=</span> <span class="number">3</span>*<span class="number">10000</span>;    <span class="comment">// 由于num1[i] - num2[i] + diff 最小可以达到3*10000,所以需要偏移才能使得下标大于0</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> offset*<span class="number">2</span>+<span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 树状数组模板 */</span></span><br><span class="line">    <span class="type">int</span>[] tr = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lowbit</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x &amp; (-x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> val)</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(x &lt; n)&#123;</span><br><span class="line">            tr[x] += val;</span><br><span class="line">            x += lowbit(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">query</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            res += tr[x];</span><br><span class="line">            x -= lowbit(x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 树状数组模板 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">numberOfPairs</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span> diff)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums1.length;</span><br><span class="line">        <span class="type">long</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            ans += query(nums1[i] - nums2[i] + offet + diff);</span><br><span class="line">            add(nums1[i] - nums2[i] + offet, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="树状数组相关题目"><a href="#树状数组相关题目" class="headerlink" title="树状数组相关题目"></a>树状数组相关题目</h1><ul>
-<li>Leetcode<ul>
-<li>303 区域和检索 - 数组不可变</li>
-<li>307 区域和检索 - 数组可修改</li>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig5.png" alt="image-20221123101136708" style="zoom:80%;"></li>
 </ul>
 </li>
 </ul>
+<h2 id="小分析"><a href="#小分析" class="headerlink" title="小分析"></a>小分析</h2><ul>
+<li><p>有标签数据足以用来做<strong>微调</strong></p>
+</li>
+<li><p>与有标签数据同属于一个社区的无标签的数据需要利用起来</p>
+<ul>
+<li>受语言模型处理领域内的性能限制，我们可以充分领域内的数据<strong>继续预训练</strong>语言模型</li>
+<li>参考<a target="_blank" rel="noopener" href="https://kexue.fm/archives/7764">PET论文</a>，我们可以通过大型语言模型给无标签打上<strong>软标签</strong></li>
+</ul>
+</li>
+<li><p>由于该任务类别不均衡，正负例比例为1：3</p>
+<ul>
+<li>loss优化：<a target="_blank" rel="noopener" href="https://blog.csdn.net/code_plus/article/details/115763323">平衡交叉熵</a>、focal loss（见下一章的第二小节代码）</li>
+<li>采样优化：分层采样</li>
+<li>样本均衡：数据增强</li>
+</ul>
+</li>
+</ul>
+<h1 id="我尝试的技术"><a href="#我尝试的技术" class="headerlink" title="我尝试的技术"></a>我尝试的技术</h1><h2 id="🎈社交媒体数据清理"><a href="#🎈社交媒体数据清理" class="headerlink" title="🎈社交媒体数据清理"></a>🎈社交媒体数据清理</h2><ul>
+<li>Emoji替换成自然语言。如：😀 -&gt; smile</li>
+<li>√ 去除Emoji</li>
+<li>√ 去除特定的标点符号</li>
+<li>√ 去除url</li>
+<li>√ 去除html</li>
+<li>全转化成小写</li>
+<li>√ 缩写词展开。如：AKA -&gt; “Also Known As”</li>
+</ul>
+<h2 id="🎈Focal-Loss-function"><a href="#🎈Focal-Loss-function" class="headerlink" title="🎈Focal Loss function"></a><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Lin_Focal_Loss_for_ICCV_2017_paper.pdf">🎈Focal Loss function</a></h2><p>focal loss 主要关注难分类的样本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FocalLoss</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Multi-class Focal loss implementation.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        gamma (float): The larger the gamma, the smaller</span></span><br><span class="line"><span class="string">            the loss weight of easier samples.</span></span><br><span class="line"><span class="string">        weight (float): A manual rescaling weight given to each</span></span><br><span class="line"><span class="string">            class.</span></span><br><span class="line"><span class="string">        ignore_index (int): Specifies a target value that is ignored</span></span><br><span class="line"><span class="string">            and does not contribute to the input gradient.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, gamma=<span class="number">2</span>, weight=<span class="literal">None</span>, ignore_index=-<span class="number">100</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.gamma = gamma</span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.ignore_index = ignore_index</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span>, target</span>):</span><br><span class="line">        logit = F.log_softmax(<span class="built_in">input</span>, dim=<span class="number">1</span>)</span><br><span class="line">        pt = torch.exp(logit)</span><br><span class="line">        logit = (<span class="number">1</span> - pt)**self.gamma * logit</span><br><span class="line">        loss = F.nll_loss(</span><br><span class="line">            logit, target, self.weight, ignore_index=self.ignore_index)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="🎈对抗训练"><a href="#🎈对抗训练" class="headerlink" title="🎈对抗训练"></a>🎈对抗训练</h2><h2 id="超参数搜索"><a href="#超参数搜索" class="headerlink" title="超参数搜索"></a>超参数搜索</h2><ul>
+<li><p>搜索方法</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/ccymforhpl/hyperparameter-search-for-semeval2023-task/edit">自定义搜索方法</a></li>
+<li>使用huggingface 的<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main/en/hpo_train#hyperparameter-search-backend">hyperparameter_search</a>方法 （无法在每一次搜索后找到最佳模型）<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig6.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>一些固定超参数</p>
+<ul>
+<li>seed: 固定42不搜索</li>
+<li>lr_scheduler_type: 固定为liner</li>
+<li>warmup_ratio: 固定为0.1</li>
+</ul>
+</li>
+<li><p>搜索结果</p>
+<ul>
+<li>balanced focal loss</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 9e-6</td>
+<td align="center">[4, 5, 6, 7] 7</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>balanced crossentropy</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[4, 5, 6, 7] 4</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>自己写的focal loss</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5]  9e-6</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="🎈领域内MLM"><a href="#🎈领域内MLM" class="headerlink" title="🎈领域内MLM"></a>🎈领域内MLM</h2><ul>
+<li><p>数据集</p>
+<ul>
+<li>gab: 100w条</li>
+<li>reddit: 100w条</li>
+</ul>
+</li>
+<li><p>训练情况</p>
+</li>
+</ul>
+<h2 id="🎈k折分层交叉验证-amp-集成"><a href="#🎈k折分层交叉验证-amp-集成" class="headerlink" title="🎈k折分层交叉验证 &amp; 集成"></a>🎈k折分层交叉验证 &amp; 集成</h2><h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><h1 id="竞赛验证阶段"><a href="#竞赛验证阶段" class="headerlink" title="竞赛验证阶段"></a>竞赛验证阶段</h1><h1 id="竞赛测试阶段"><a href="#竞赛测试阶段" class="headerlink" title="竞赛测试阶段"></a>竞赛测试阶段</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
       
 
       
@@ -294,23 +452,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">树状数组</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">躺平</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">竞赛</a>
         		</li>
       		
 		</ul>
@@ -366,7 +516,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/10/03/[LeetCode]2426.%20%E6%BB%A1%E8%B6%B3%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E6%95%B0%E7%9B%AE%20[hard]/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -380,18 +530,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Understanding Pre-trained BERT for Aspect-based Sentiment Analysis
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">BERT-ASC Auxiliary-Sentence Construction for Implicit Aspect Learning in Sentiment Analysis</div>
+    <a href="/2022/11/15/This%20joke%20is%20%5BMASK%5D%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">This joke is [MASK] Recognizing Humor and Offense with Prompting</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -418,7 +559,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A0%E6%84%9F%E5%B0%91%E5%B9%B4%F0%9F%A7%9A%E2%80%8D%E2%99%82%EF%B8%8F"><span class="toc-number">1.</span> <span class="toc-text">无感少年🧚‍♂️</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">树状数组相关题目</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">我尝试的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.2.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83"><span class="toc-number">2.3.</span> <span class="toc-text">🎈对抗训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.4.</span> <span class="toc-text">超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.5.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.6.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.7.</span> <span class="toc-text">数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>

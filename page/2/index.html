@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 17
+    			总文章数 18
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,141 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Understanding Pre-trained BERT for Aspect-based Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">Understanding Pre-trained BERT for Aspect-based Sentiment Analysis</a>
+    </h1>
+  
+
+        
+        <a href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" class="archive-article-date">
+  	<time datetime="2022-10-06T14:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-06</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li>这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的<strong>self-attention</strong>和<strong>隐藏表示层</strong>是否学习到了情感观点。</li>
+<li>结果发现似乎BERT学到语义方面比较多，而不是情感极向。</li>
+<li>作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。</li>
+</ul>
+<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ul>
+<li><p>微调数据集（20GB）</p>
+<ul>
+<li>亚马逊评论</li>
+<li>[Yelp评论数据集](<a target="_blank" rel="noopener" href="https://www.yelp.com/dataset/">https://www.yelp.com/dataset/</a><br>challenge)</li>
+</ul>
+</li>
+<li><p>评估数据集（每个领域sample 150条）</p>
+<ul>
+<li>2014年SemEval任务4（Laptop and Restaurant）</li>
+<li>2016年SemEval任务5（Laptop and Restaurant）</li>
+</ul>
+</li>
+</ul>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><h1 id="Summary-and-Open-Problem"><a href="#Summary-and-Open-Problem" class="headerlink" title="Summary and Open Problem"></a>Summary and Open Problem</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">可解释性</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-[LeetCode]2426. 满足不等式的数对数目 [hard]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -683,122 +818,6 @@
     </section>
   
   
-    <article id="post-基于多粒度语义交互理解网络的幽默等级识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">基于多粒度语义交互理解网络的幽默等级识别</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2022-09-16T06:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ul>
-<li><p>将幽默等级识别视为自然语言推理任务</p>
-</li>
-<li><p>将幽默文本划分为“铺垫”和“笑点”两个部分,分别对其语义和 语义关系进行建模,提出了一种多粒度语义交互理解网络,从<strong>单词</strong>和<strong>子句</strong>两个粒度捕获幽默文本中语义的关联和 交互。</p>
-</li>
-<li><p>在 Reddit公开幽默数据集上进行了实验,相比之前最优结果,模型在语料上的<strong>准确率提升了1.3%</strong></p>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/16/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%B2%92%E5%BA%A6%E8%AF%AD%E4%B9%89%E4%BA%A4%E4%BA%92%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B9%BD%E9%BB%98%E7%AD%89%E7%BA%A7%E8%AF%86%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
@@ -935,15 +954,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -967,11 +986,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1020,6 +1039,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">似乎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">竞赛</a>
               </li>
             
             <div class="clearfix"></div>

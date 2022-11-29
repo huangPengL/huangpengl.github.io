@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 17
+    			总文章数 18
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,330 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-第一次NLP竞赛记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/">第一次竞赛记录</a>
+    </h1>
+  
+
+        
+        <a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2022-11-23T02:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="竞赛主题"><a href="#竞赛主题" class="headerlink" title="竞赛主题"></a>竞赛主题</h2><p><strong><a target="_blank" rel="noopener" href="https://codalab.lisn.upsaclay.fr/competitions/7124#learn_the_details">SemEval 2023 - Task 10 - Explainable Detection of Online Sexism (EDOS)</a></strong></p>
+<img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig1.png">
+
+
+
+
+
+
+
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<li><p>有标签数据</p>
+<ul>
+<li>标签分布<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig2.png" alt="image-20221123100717895" style="zoom:67%;"></li>
+</ul>
+</li>
+<li>标签模式<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig3.png" alt="image-20221123100825597" style="zoom:80%;"></li>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig4.png" alt="image-20221123100835504" style="zoom: 80%;"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>无标签数据</p>
+<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig5.png" alt="image-20221123101136708" style="zoom:80%;"></li>
+</ul>
+</li>
+</ul>
+<h2 id="小分析"><a href="#小分析" class="headerlink" title="小分析"></a>小分析</h2><ul>
+<li><p>有标签数据足以用来做<strong>微调</strong></p>
+</li>
+<li><p>与有标签数据同属于一个社区的无标签的数据需要利用起来</p>
+<ul>
+<li>受语言模型处理领域内的性能限制，我们可以充分领域内的数据<strong>继续预训练</strong>语言模型</li>
+<li>参考<a target="_blank" rel="noopener" href="https://kexue.fm/archives/7764">PET论文</a>，我们可以通过大型语言模型给无标签打上<strong>软标签</strong></li>
+</ul>
+</li>
+<li><p>由于该任务类别不均衡，正负例比例为1：3</p>
+<ul>
+<li>loss优化：<a target="_blank" rel="noopener" href="https://blog.csdn.net/code_plus/article/details/115763323">平衡交叉熵</a>、focal loss（见下一章的第二小节代码）</li>
+<li>采样优化：分层采样</li>
+<li>样本均衡：数据增强</li>
+</ul>
+</li>
+</ul>
+<h1 id="我尝试的技术"><a href="#我尝试的技术" class="headerlink" title="我尝试的技术"></a>我尝试的技术</h1><h2 id="🎈社交媒体数据清理"><a href="#🎈社交媒体数据清理" class="headerlink" title="🎈社交媒体数据清理"></a>🎈社交媒体数据清理</h2><ul>
+<li>Emoji替换成自然语言。如：😀 -&gt; smile</li>
+<li>√ 去除Emoji</li>
+<li>√ 去除特定的标点符号</li>
+<li>√ 去除url</li>
+<li>√ 去除html</li>
+<li>全转化成小写</li>
+<li>√ 缩写词展开。如：AKA -&gt; “Also Known As”</li>
+</ul>
+<h2 id="🎈Focal-Loss-function"><a href="#🎈Focal-Loss-function" class="headerlink" title="🎈Focal Loss function"></a><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Lin_Focal_Loss_for_ICCV_2017_paper.pdf">🎈Focal Loss function</a></h2><p>focal loss 主要关注难分类的样本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FocalLoss</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Multi-class Focal loss implementation.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        gamma (float): The larger the gamma, the smaller</span></span><br><span class="line"><span class="string">            the loss weight of easier samples.</span></span><br><span class="line"><span class="string">        weight (float): A manual rescaling weight given to each</span></span><br><span class="line"><span class="string">            class.</span></span><br><span class="line"><span class="string">        ignore_index (int): Specifies a target value that is ignored</span></span><br><span class="line"><span class="string">            and does not contribute to the input gradient.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, gamma=<span class="number">2</span>, weight=<span class="literal">None</span>, ignore_index=-<span class="number">100</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.gamma = gamma</span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.ignore_index = ignore_index</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span>, target</span>):</span><br><span class="line">        logit = F.log_softmax(<span class="built_in">input</span>, dim=<span class="number">1</span>)</span><br><span class="line">        pt = torch.exp(logit)</span><br><span class="line">        logit = (<span class="number">1</span> - pt)**self.gamma * logit</span><br><span class="line">        loss = F.nll_loss(</span><br><span class="line">            logit, target, self.weight, ignore_index=self.ignore_index)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="🎈对抗训练"><a href="#🎈对抗训练" class="headerlink" title="🎈对抗训练"></a>🎈对抗训练</h2><h2 id="超参数搜索"><a href="#超参数搜索" class="headerlink" title="超参数搜索"></a>超参数搜索</h2><ul>
+<li><p>搜索方法</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/ccymforhpl/hyperparameter-search-for-semeval2023-task/edit">自定义搜索方法</a></li>
+<li>使用huggingface 的<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main/en/hpo_train#hyperparameter-search-backend">hyperparameter_search</a>方法 （无法在每一次搜索后找到最佳模型）<ul>
+<li><img src="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig6.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>一些固定超参数</p>
+<ul>
+<li>seed: 固定42不搜索</li>
+<li>lr_scheduler_type: 固定为liner</li>
+<li>warmup_ratio: 固定为0.1</li>
+</ul>
+</li>
+<li><p>搜索结果</p>
+<ul>
+<li>balanced focal loss</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 9e-6</td>
+<td align="center">[4, 5, 6, 7] 7</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>balanced crossentropy</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[4, 5, 6, 7] 4</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>自己写的focal loss</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">lr</th>
+<th align="center">epochs</th>
+<th align="center">batch_size</th>
+<th align="center">macro f1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">roberta-base</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">[9e-6, 1e-5, 2e-5, 3e-5]  9e-6</td>
+<td align="center">[6]</td>
+<td align="center">[16]</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="🎈领域内MLM"><a href="#🎈领域内MLM" class="headerlink" title="🎈领域内MLM"></a>🎈领域内MLM</h2><ul>
+<li><p>数据集</p>
+<ul>
+<li>gab: 100w条</li>
+<li>reddit: 100w条</li>
+</ul>
+</li>
+<li><p>训练情况</p>
+</li>
+</ul>
+<h2 id="🎈k折分层交叉验证-amp-集成"><a href="#🎈k折分层交叉验证-amp-集成" class="headerlink" title="🎈k折分层交叉验证 &amp; 集成"></a>🎈k折分层交叉验证 &amp; 集成</h2><h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><h1 id="竞赛验证阶段"><a href="#竞赛验证阶段" class="headerlink" title="竞赛验证阶段"></a>竞赛验证阶段</h1><h1 id="竞赛测试阶段"><a href="#竞赛测试阶段" class="headerlink" title="竞赛测试阶段"></a>竞赛测试阶段</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">竞赛</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-This joke is [MASK] Recognizing Humor and Offense with Prompting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -670,141 +994,6 @@
     </section>
   
   
-    <article id="post-Understanding Pre-trained BERT for Aspect-based Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">Understanding Pre-trained BERT for Aspect-based Sentiment Analysis</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/" class="archive-article-date">
-  	<time datetime="2022-10-06T14:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-06</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
-<li>这篇文章主要分析了BERT在「评论数据集」上fine-tuning后，在「ABSA数据集」上测试，看看BERT的<strong>self-attention</strong>和<strong>隐藏表示层</strong>是否学习到了情感观点。</li>
-<li>结果发现似乎BERT学到语义方面比较多，而不是情感极向。</li>
-<li>作者表示，他感兴趣的是像MLM这种self-supervised任务能够多大程度上覆盖ABSA中的特定任务。</li>
-</ul>
-<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ul>
-<li><p>微调数据集（20GB）</p>
-<ul>
-<li>亚马逊评论</li>
-<li>[Yelp评论数据集](<a target="_blank" rel="noopener" href="https://www.yelp.com/dataset/">https://www.yelp.com/dataset/</a><br>challenge)</li>
-</ul>
-</li>
-<li><p>评估数据集（每个领域sample 150条）</p>
-<ul>
-<li>2014年SemEval任务4（Laptop and Restaurant）</li>
-<li>2016年SemEval任务5（Laptop and Restaurant）</li>
-</ul>
-</li>
-</ul>
-<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><h1 id="Summary-and-Open-Problem"><a href="#Summary-and-Open-Problem" class="headerlink" title="Summary and Open Problem"></a>Summary and Open Problem</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">可解释性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/06/Understanding%20Pre-trained%20BERT%20for%20Aspect-based%20Sentiment%20Analysis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -941,15 +1130,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -973,11 +1162,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1026,6 +1215,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">似乎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">竞赛</a>
               </li>
             
             <div class="clearfix"></div>

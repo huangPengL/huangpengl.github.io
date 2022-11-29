@@ -15,14 +15,20 @@
 <meta property="og:site_name" content="HPL-blog">
 <meta property="og:description" content="Abstract &amp; Introduction卖点 作者研究了一种新的NLP迁移学习范式——提示学习，对幽默识别的有效性。 低资源时，promp learning的性能 比fine-tuning 出色 大量资源时，两者旗鼓相当   作者通过影响函数（Influence function， IF）来分析幽默和冒犯之间的关系 模型可以通过冒犯来判断是否幽默 在幽默中检测冒犯可以利用IF来辅助">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117095048531.png">
+<meta property="og:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117115944724.png">
+<meta property="og:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117120431207.png">
+<meta property="og:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117121248267.png">
+<meta property="og:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117144926243.png">
 <meta property="article:published_time" content="2022-11-15T14:20:09.000Z">
-<meta property="article:modified_time" content="2022-11-15T14:50:01.886Z">
+<meta property="article:modified_time" content="2022-11-17T14:45:29.480Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="Prompt">
 <meta property="article:tag" content="humor detection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users/24303/AppData/Roaming/Typora/typora-user-images/image-20221117095048531.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -69,7 +75,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 17
+    			总文章数 18
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -216,9 +222,50 @@
 
 
 
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><ul>
+<li><p>fine-tuning： BERT</p>
+</li>
+<li><p>prompting：</p>
+<ul>
+<li><img src="/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20221117095048531.png" alt="image-20221117095048531"></li>
+</ul>
+</li>
+<li><p>Influence Functions（IF）</p>
+<ul>
+<li>作者利用IF来计算每一个训练样本的影响分数。影响分数越高说明这个训练样本对于测试结果影响较大。</li>
+<li><img src="/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20221117115944724.png" alt="image-20221117115944724"></li>
+</ul>
+</li>
+</ul>
+<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ul>
+<li><p>human-annotated HaHackathon Dataset (HHD) of SemEval 2021 Task 7</p>
+<ul>
+<li>一个二元幽默标签和1到5的冒犯分数</li>
+</ul>
+</li>
+<li><p>HHD包含涵盖八个类别的幽默文本，包括性别歧视、身体、起源等。在这项工作中，作者只构建性别歧视方面的数据，称为Gender Humor Dataset（GHD）</p>
+<ul>
+<li>作者做了平衡类别：性别歧视和非性别歧视的样本中幽默和非幽默的类别是均衡的</li>
+<li>数据集划分：使用80%的示例进行培训，20%的示例进行测试。</li>
+<li>样本的冒犯分数分布：<ul>
+<li><img src="/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20221117120431207.png" alt="image-20221117120431207"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><h2 id="Comparing-Finetuning-and-Prompting-Humor-Recognition-Methods"><a href="#Comparing-Finetuning-and-Prompting-Humor-Recognition-Methods" class="headerlink" title="Comparing Finetuning and Prompting Humor Recognition Methods"></a>Comparing Finetuning and Prompting Humor Recognition Methods</h2><p><img src="/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20221117121248267.png" alt="image-20221117121248267"></p>
+<ul>
+<li>few-shot data experiments 表示 prompting 方式的性能优于fine-tuning</li>
+<li>full data experiments 展示了二者性能差不多</li>
+</ul>
+<h2 id="Offensive-Influential-Examples"><a href="#Offensive-Influential-Examples" class="headerlink" title="Offensive Influential Examples"></a>Offensive Influential Examples</h2><p>作者在本节中，调查影响函数（IF）是否可以用于识别具有性别歧视攻击性的训练示例。作者计算每个训练示例的影响分数，然后检查最有影响的示例，以查看是否存在强烈的攻击性内容。</p>
+<p><img src="/2022/11/15/This%20joke%20is%20[MASK]%20Recognizing%20Humor%20and%20Offense%20with%20Prompting/Users\24303\AppData\Roaming\Typora\typora-user-images\image-20221117144926243.png" alt="image-20221117144926243"></p>
+<ul>
+<li>Full Data 的第一行数据表示，当使用fine-tune的方式训练模型后，我们将影响分数最高的10条样本筛选出来，发现属于幽默类别样本的平均冒犯程度为1.39，而属于非幽默类别样本的平均冒犯程度为0.45，然而数据集中所有样本的平均冒犯程度为0.65。这说明<strong>幽默类别样本中冒犯程度比非幽默样本程度高（冒犯确实是引发幽默的一种因素）</strong>。</li>
+<li>128-Shot 的前三行数据表示，当使用fine-tune的方式进行少样本学习后，这些8-32个有影响力的样本无法证明出冒犯和幽默的关系不太明显。然而，当使用prompt的方式进行少样本学习，强影响样本却能体现出冒犯和幽默之间的联系是密切的这个结论。尤其是我们结合上一小节中比较prompting和fine-tuning之间性能的那张图可以加强另一个结论：<strong>在少样本场景中使用prompt方法优于fine-tuning。</strong></li>
+</ul>
 
-
-<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1>
       
 
       
@@ -334,6 +381,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          第一次竞赛记录
+        
+      </div>
+    </a>
+  
   
     <a href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection-ACL2022</div>
@@ -363,7 +419,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%96%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">卖点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BB%A3%E4%B8%80%E4%BA%9B%E8%83%8C%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">交代一些背景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">2.</span> <span class="toc-text">Method</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datasets"><span class="toc-number">3.</span> <span class="toc-text">Datasets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiment"><span class="toc-number">4.</span> <span class="toc-text">Experiment</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract-amp-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Abstract &amp; Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%96%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">卖点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BB%A3%E4%B8%80%E4%BA%9B%E8%83%8C%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">交代一些背景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">2.</span> <span class="toc-text">Method</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datasets"><span class="toc-number">3.</span> <span class="toc-text">Datasets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiment"><span class="toc-number">4.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparing-Finetuning-and-Prompting-Humor-Recognition-Methods"><span class="toc-number">4.1.</span> <span class="toc-text">Comparing Finetuning and Prompting Humor Recognition Methods</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Offensive-Influential-Examples"><span class="toc-number">4.2.</span> <span class="toc-text">Offensive Influential Examples</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -560,15 +616,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,11 +648,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
+                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,6 +701,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">似乎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">竞赛</a>
               </li>
             
             <div class="clearfix"></div>
