@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 18
+    			总文章数 20
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,233 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-DeepLearning Research Or Study Guide" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/">DeepLearning Research Or Study Guide</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/" class="archive-article-date">
+  	<time datetime="2022-09-09T03:02:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-09</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 🎈🎈🎈本文总结了个人摸爬滚打学习deeplearning的tips，适用于入门的小朋友（我TM也才入门…）。由于写的时候没睡醒，所以可能也许会有错的地方🤦‍♀️ </p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">guide</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/09/DeepLearning%20Research%20Or%20Study%20Guide/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
+  
+    <article id="post-Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/" class="archive-article-date">
+  	<time datetime="2022-09-08T09:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-08</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li>无监督学习典范 GPT可以通过zero&#x2F;few-shot learning解决大部分问题，因为预训练GPT的时候已经在大量的无标签数据（<em>45TB</em>的数据岂是我等鼠人能够想象的？？😂）中学习到了语言的特点。</li>
+<li>有监督学习也就是我们常见的fine-tuning学习，可以通过大量有标签的数据中学习，并解决大部分问题且比GPT表现的好。常见的就是微调各种BERT啦，比如我们提出的的SICKNet就是用有监督学习🤞。</li>
+<li>作者提出一种半监督学习，叫做pattern-exploiting training (<strong>PET</strong>)🤔<ul>
+<li>目的是将手中<strong>少量 [有标签的输入样本]</strong> 转换为一种完形填空（cloze-style）的类型文本帮助语言模型理解任务</li>
+<li>然后让PVP模型（后面会介绍这个工具人）对<strong>大量 [无标签的输入样本]</strong> 进行标签预测，称为<strong>软标签</strong></li>
+<li>让分类模型（真正的天选模型）对带有 [软标签的输入样本] 进行<strong>有监督学习</strong>训练</li>
+</ul>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Few shot Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/08/Exploiting%20Cloze%20Questions%20for%20Few%20Shot%20Text%20Classification%20and%20Natural%20Language%20Inference/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-Humor Detection， A Transformer Gets the Last Laugh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -669,11 +896,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">guide</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,7 +908,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+                <a href="javascript:void(0)" class="js-tag color1">guide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,7 +928,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">humor dection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tricks</a>
               </li>
              
               <li class="article-tag-list-item">

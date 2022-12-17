@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 竞赛 | HPL-blog</title>
+  <title>Multidimensional Latent Semantic Networks for Text Humor Recognition | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/tags/%E7%AB%9E%E8%B5%9B/index.html">
+  <meta name="description" content="Abstract 该模型通过捕捉笑话的不一致性（inconsistency,）、语音特征（phonetic features）和歧义（ambiguity）作为语义特征（semantic features） 该模型在三个公开可用的wisebrack数据集上进行了实验，效果优于SOTA模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multidimensional Latent Semantic Networks for Text Humor Recognition">
+<meta property="og:url" content="http://example.com/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="Abstract 该模型通过捕捉笑话的不一致性（inconsistency,）、语音特征（phonetic features）和歧义（ambiguity）作为语义特征（semantic features） 该模型在三个公开可用的wisebrack数据集上进行了实验，效果优于SOTA模型">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/fig1.png">
+<meta property="article:published_time" content="2022-12-09T11:07:12.000Z">
+<meta property="article:modified_time" content="2022-12-11T13:16:33.886Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="humor dection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/fig1.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -160,69 +169,289 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Multidimensional Latent Semantic Networks for Text Humor Recognition" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2022-11-23T02:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/">第一次竞赛记录</a>
+    <h1 class="article-title" itemprop="name">
+      Multidimensional Latent Semantic Networks for Text Humor Recognition
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/" class="archive-article-date">
+  	<time datetime="2022-12-09T11:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-09</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li>该模型通过捕捉笑话的<strong>不一致性</strong>（inconsistency,）、<strong>语音特征</strong>（phonetic features）和<strong>歧义</strong>（ambiguity）作为语义特征（semantic features）</li>
+<li>该模型在三个公开可用的wisebrack数据集上进行了实验，效果优于SOTA模型</li>
+</ul>
+<img src="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/fig1.png">
+
+<span id="more"></span>
+
+
+
+
+
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
+<li>[研究方向、目的]：幽默是人类生活和交流中的一种重要调味剂， 而文本是传达幽默的重要媒介。在实际应用中，如果计算机能够识别幽默表达，那么作者的真实意图就可以被更准确地理解，从而使人机交互更有趣、更具吸引力。</li>
+<li>[卖点铺垫]：因此，在本文中，幽默识别任务侧重于短笑话，通常通过<strong>双关语</strong>、<strong>押韵</strong>和<strong>语义不一致</strong>来产生幽默。</li>
+<li>[卖点]：<ul>
+<li>为了捕捉幽默的不一致性、模糊特征和语音特征，作者设计了一个模型。用RoBERTa + CNN来抽取<strong>幽默的片段嵌入</strong>（句嵌入）；用Glove + CNN + Transformer Encoder来抽取语义<strong>不一致性特征</strong>；通过CMU的语音词典 + CNN来抽取<strong>语音特征</strong>；通过WordNet + BiLSTM + attention来抽取<strong>歧义特征</strong></li>
+</ul>
+</li>
+</ul>
+<h1 id="Analysis-of-Humor-Features"><a href="#Analysis-of-Humor-Features" class="headerlink" title="Analysis of Humor Features"></a>Analysis of Humor Features</h1><ul>
+<li><p>Inconsistent Feature</p>
+</li>
+<li><p>Fuzzy Feature</p>
+<ul>
+<li>幽默的<a target="_blank" rel="noopener" href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/precis-of-relevance-communication-and-cognition/9C3800F339E00DBC49B96DD0165A1124">关联理论</a>（relevance theory）主要从自然语言中的一种常见现象，即歧义来探索和分析幽默。</li>
+<li>产生歧义的主要原因是，一些单词具有表面看起来显而易见的意义，但是由于上下文的限制，这些单词产生了更加隐晦的含义。例如：“Did you hear about the guy whose whole left side was cut off? He’s all right now”. 在这句话种right除了表示“右边”这个显而易见的意思以外，跟all搭配还能表示“恢复”的意思。</li>
+<li>通常引入WordNet，并比较其中包含的含义的最远路径和最近路径，从而实现歧义特征的发现。（???不太懂啊这里😅）</li>
+</ul>
+</li>
+<li><p>Phonetic Feature</p>
+<ul>
+<li>其他<a target="_blank" rel="noopener" href="https://www.degruyter.com/document/doi/10.1515/humr.1991.4.3-4.293/html">幽默理论</a>也表明，语音特性在产生幽默中也很重要。语音特性使文本原本就不幽默或有趣。笑话通常依赖于大声朗读，通过首韵、最高级、押韵等产生喜剧效果。类似的方法经常出现在报纸标题、赞美诗和顺口溜中。</li>
+<li>卡耐基梅隆大学发音词典（CMU发音词典）可用于实现发音类别的幽默识别。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Experiment-and-Result-Analysis"><a href="#Experiment-and-Result-Analysis" class="headerlink" title="Experiment and Result Analysis"></a>Experiment and Result Analysis</h1><h1 id="Conclusions-and-Future-Work"><a href="#Conclusions-and-Future-Work" class="headerlink" title="Conclusions and Future Work"></a>Conclusions and Future Work</h1>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">竞赛</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">humor dection</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          R-Drop Regularized Dropout for Neural Networks
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一次竞赛记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Analysis-of-Humor-Features"><span class="toc-number">3.</span> <span class="toc-text">Analysis of Humor Features</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiment-and-Result-Analysis"><span class="toc-number">4.</span> <span class="toc-text">Experiment and Result Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusions-and-Future-Work"><span class="toc-number">5.</span> <span class="toc-text">Conclusions and Future Work</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
 
 
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
           </div>
         </div>
       </div>
@@ -253,9 +482,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

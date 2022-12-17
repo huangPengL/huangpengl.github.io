@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 18
+    			总文章数 20
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,247 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-R-Drop Regularized Dropout for Neural Networks" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/">R-Drop Regularized Dropout for Neural Networks</a>
+    </h1>
+  
+
+        
+        <a href="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/" class="archive-article-date">
+  	<time datetime="2022-12-12T09:39:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-12</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SimCSE"><a href="#SimCSE" class="headerlink" title="SimCSE"></a>SimCSE</h1><p>训练深度神经网络的时候，总是会遇到两大缺点：（1）容易过拟合（2）费时。在2012年，Hinton在其论文《Improving neural networks by preventing co-adaptation of feature detectors》中提出Dropout，使得神经网络种的某一层以p的概率失活。这一方法可以比较有效的缓解过拟合的发生，在一定程度上达到正则化的效果。</p>
+<img src="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig1.png">
+
+
+
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08821">SimCSE</a>是NLP的一种对比学习方案，<strong>对比学习的标准流程</strong>是：同一个样本通过不同的<strong>数据扩增</strong>手段得到的结果视为正样本对，而batch内的所有其他样本视为负样本，然后就是通过loss来缩小正样本的距离、拉大负样本的距离了。</p>
+<p>所以难度主要集中在数据扩增手段上。对于NLP来说，我们很难人工构建保证语义不变的数据扩增，所以SimCSE干脆不人工进行数据扩增，而是通过“Dropout两次”的方式来得到同一个输入的不同特征向量，并将它们视为正样本对。（人工数据扩充主要有回译、同义替换等，可以视作为离散性DA。而通过Dropout的方式构建数据扩充得到不同的特征向量可视作连续性DA）</p>
+<p>奇怪的是，这个简单的“Dropout两次”构造正样本，看上去是一种“无可奈何”的妥协选择，但消融实验却发现它几乎优于所有其他数据扩增方法，令人惊讶之余又让人感叹“大道至简”。</p>
+<p><img src="https://kexue.fm/usr/uploads/2021/07/3490631495.png" alt="img"></p>
+<p>在实现上，SimCSE也相当简单，所谓“Dropout两次”，只需要将样本重复地输入到模型，然后计算相应的loss就行了，如上图所示。由于Dropout本身的随机性，每个样本的Dropout模式都是不一样的，所以只要单纯地重复样本，就可以实现“Dropout两次”的效果。</p>
+<h1 id="R-Drop"><a href="#R-Drop" class="headerlink" title="R-Drop"></a>R-Drop</h1><p>从结果上来看，SimCSE就是希望Dropout对模型结果不会有太大影响，也就是模型输出对Dropout是鲁棒的。所以很明显，“Dropout两次”这种思想是可以推广到一般任务的，这就是R-Drop（Regularized Dropout）。</p>
+<p><img src="https://kexue.fm/usr/uploads/2021/07/2898424596.png" alt="img"></p>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>字符定义：KL表示KL散度；NLL表示负对数似然（negative log-likehood）<br>$$<br>以分类问题为例，训练数据为 x_{i},y_{i}。模型为P_{Θ}(y|x),每个样本的loss一般是交叉熵。<br>$$</p>
+<p>$$<br>在Dropout两次的情况下，其实我们可以认为样本已经通过了两个略有不同的模型,loss定义如下<br>$$</p>
+<p>$$<br>L^i_{NLL} &#x3D; -logP^w_{1}(y_{i}|x_{i}) - logP^w_{2}(y_{i}|x_{i})<br>$$</p>
+<p>$$<br>另一部分则是两个模型之间的对称KL散度，它希望不同Dropout的模型输出尽可能一致：<br>$$</p>
+<p>$$<br>L^i_{KL} &#x3D; 1&#x2F;2*(D_{KL}(P^w_{1}(y_{i}|x_{i})||P^w_{2}(y_{i}|x_{i})) + D_{KL}(P^w_{2}(y_{i}|x_{i})||P^w_{1}(y_{i}|x_{i})))<br>$$</p>
+<p>$$<br>最终loss就是两个loss的加权和：<br>$$</p>
+<p>$$<br>L^i &#x3D; L^i_{NLL} + αL^i_{KL},其中α是超参数，范围最好调整在[1, 10]<br>$$</p>
+<p>也就是说，它在常规交叉熵的基础上，加了一项强化模型鲁棒性正则项。</p>
+<h2 id="解释性"><a href="#解释性" class="headerlink" title="解释性"></a>解释性</h2><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h2 id="论文报告"><a href="#论文报告" class="headerlink" title="论文报告"></a>论文报告</h2><h2 id="本人实验"><a href="#本人实验" class="headerlink" title="本人实验"></a>本人实验</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tricks</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
+  
+    <article id="post-Multidimensional Latent Semantic Networks for Text Humor Recognition" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/">Multidimensional Latent Semantic Networks for Text Humor Recognition</a>
+    </h1>
+  
+
+        
+        <a href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/" class="archive-article-date">
+  	<time datetime="2022-12-09T11:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-09</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
+<li>该模型通过捕捉笑话的<strong>不一致性</strong>（inconsistency,）、<strong>语音特征</strong>（phonetic features）和<strong>歧义</strong>（ambiguity）作为语义特征（semantic features）</li>
+<li>该模型在三个公开可用的wisebrack数据集上进行了实验，效果优于SOTA模型</li>
+</ul>
+<img src="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/fig1.png">
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">humor dection</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-第一次NLP竞赛记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -332,11 +573,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
         		</li>
       		
 		</ul>
@@ -471,263 +712,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-Duluth at SemEval-2020 Task 7, Using Surprise as a Key to Unlock Humorous Headlines" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/">Duluth at SemEval-2020 Task 7, Using Surprise as a Key to Unlock Humorous Headlines</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/" class="archive-article-date">
-  	<time datetime="2022-10-18T09:13:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-18</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
-<li>作者根据不一致理论，认为“惊喜”是产生幽默的关键因素。</li>
-<li>作者用了对比的方法(contrastive framework)，然后系统比较了三种广泛使用的模型。<ul>
-<li>CBOW</li>
-<li>BERT</li>
-<li>RoBERTa</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">humor regression</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/18/Duluth%20at%20SemEval-2020%20Task%207,%20Using%20Surprise%20as%20a%20Key%20to%20Unlock%20Humorous%20Headlines/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
-    <article id="post-President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/">President Vows to Cut (Taxes) Hair Dataset and Analysis of Creative Text Editing for Humorous Headlines</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/" class="archive-article-date">
-  	<time datetime="2022-10-14T08:50:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-14</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
-<li><p>作者收集发布并分析了一个<strong>新的幽默数据集</strong>——Humicroedit</p>
-<ul>
-<li>样本结构：（常规英文标题， 替换编辑词， 幽默分数）</li>
-<li>5名评委给15095条编辑过的标题打分，分数范围是0~3</li>
-</ul>
-</li>
-<li><p>作者表示这种简单的单词替换使得标题变幽默的应用，是<strong>分析幽默产生原因</strong>很好的过程，在这过程中也能得到经典幽默理论的支撑</p>
-</li>
-<li><p>最后作者还开发了一个基线分类器来预测编辑后的标题是否有趣。</p>
-</li>
-<li><p><strong>计算幽默难</strong>，尽管自动幽默识别（automatic humor recognition）上有进展，但计算化幽默生成（computerized humor generation）的进展微小。这是由于幽默涉及到世界级的深度知识、常识和从多层级上感知实体和对象之间关系的能力。（这TM换做是人类也无法游刃有余感受和表达幽默😄）</p>
-</li>
-<li><p>两部<strong>构建Humicroedit</strong>。首先，我们从发布在Reddit（Reddit.com）上的新闻媒体收集原始新闻标题。然后，我们让来自亚马逊Mechanical  Turk（mturk.com）的专家注释员（i）通过对这些标题进行小编辑来生成幽默，并（ii）判断这些编辑中的幽默。</p>
-</li>
-</ul>
-<img src="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/fig1.png">
-
-<ul>
-<li>这个<strong>Humicroedit数据集能干什么呢？</strong><ul>
-<li>了解幽默产生的原因</li>
-<li>做幽默识别</li>
-<li>对多组编辑后的标题做幽默排序</li>
-<li>做幽默生成</li>
-<li>幽默推荐</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">humor dataset</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/14/President%20Vows%20to%20Cut%20(Taxes)%20Hair%20Dataset%20and%20Analysis%20of%20Creative%20Text%20Editing%20for%20Humorous%20Headlines/">展开全文 >></a>
         </p>
       
 
@@ -924,11 +908,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">guide</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -940,7 +920,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+                <a href="javascript:void(0)" class="js-tag color1">guide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -956,7 +940,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">humor dection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">humor dataset</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tricks</a>
               </li>
              
               <li class="article-tag-list-item">

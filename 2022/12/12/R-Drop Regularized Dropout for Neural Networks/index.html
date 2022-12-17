@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 竞赛 | HPL-blog</title>
+  <title>R-Drop Regularized Dropout for Neural Networks | HPL-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HPL-blog">
-<meta property="og:url" content="http://example.com/tags/%E7%AB%9E%E8%B5%9B/index.html">
+  <meta name="description" content="SimCSE训练深度神经网络的时候，总是会遇到两大缺点：（1）容易过拟合（2）费时。在2012年，Hinton在其论文《Improving neural networks by preventing co-adaptation of feature detectors》中提出Dropout，使得神经网络种的某一层以p的概率失活。这一方法可以比较有效的缓解过拟合的发生，在一定程度上达到正则化的效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R-Drop Regularized Dropout for Neural Networks">
+<meta property="og:url" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/index.html">
 <meta property="og:site_name" content="HPL-blog">
+<meta property="og:description" content="SimCSE训练深度神经网络的时候，总是会遇到两大缺点：（1）容易过拟合（2）费时。在2012年，Hinton在其论文《Improving neural networks by preventing co-adaptation of feature detectors》中提出Dropout，使得神经网络种的某一层以p的概率失活。这一方法可以比较有效的缓解过拟合的发生，在一定程度上达到正则化的效果。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig1.png">
+<meta property="og:image" content="https://kexue.fm/usr/uploads/2021/07/3490631495.png">
+<meta property="og:image" content="https://kexue.fm/usr/uploads/2021/07/2898424596.png">
+<meta property="article:published_time" content="2022-12-12T09:39:29.000Z">
+<meta property="article:modified_time" content="2022-12-13T12:05:01.110Z">
 <meta property="article:author" content="huangpenglong">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="tricks">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig1.png">
   
     <link rel="alternative" href="/atom.xml" title="HPL-blog" type="application/atom+xml">
   
@@ -160,69 +171,263 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-R-Drop Regularized Dropout for Neural Networks" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2022-11-23T02:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/">第一次竞赛记录</a>
+    <h1 class="article-title" itemprop="name">
+      R-Drop Regularized Dropout for Neural Networks
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/" class="archive-article-date">
+  	<time datetime="2022-12-12T09:39:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-12</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+        <span class="archive-article-date">
+            阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SimCSE"><a href="#SimCSE" class="headerlink" title="SimCSE"></a>SimCSE</h1><p>训练深度神经网络的时候，总是会遇到两大缺点：（1）容易过拟合（2）费时。在2012年，Hinton在其论文《Improving neural networks by preventing co-adaptation of feature detectors》中提出Dropout，使得神经网络种的某一层以p的概率失活。这一方法可以比较有效的缓解过拟合的发生，在一定程度上达到正则化的效果。</p>
+<img src="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig1.png">
+
+
+
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08821">SimCSE</a>是NLP的一种对比学习方案，<strong>对比学习的标准流程</strong>是：同一个样本通过不同的<strong>数据扩增</strong>手段得到的结果视为正样本对，而batch内的所有其他样本视为负样本，然后就是通过loss来缩小正样本的距离、拉大负样本的距离了。</p>
+<p>所以难度主要集中在数据扩增手段上。对于NLP来说，我们很难人工构建保证语义不变的数据扩增，所以SimCSE干脆不人工进行数据扩增，而是通过“Dropout两次”的方式来得到同一个输入的不同特征向量，并将它们视为正样本对。（人工数据扩充主要有回译、同义替换等，可以视作为离散性DA。而通过Dropout的方式构建数据扩充得到不同的特征向量可视作连续性DA）</p>
+<p>奇怪的是，这个简单的“Dropout两次”构造正样本，看上去是一种“无可奈何”的妥协选择，但消融实验却发现它几乎优于所有其他数据扩增方法，令人惊讶之余又让人感叹“大道至简”。</p>
+<p><img src="https://kexue.fm/usr/uploads/2021/07/3490631495.png" alt="img"></p>
+<p>在实现上，SimCSE也相当简单，所谓“Dropout两次”，只需要将样本重复地输入到模型，然后计算相应的loss就行了，如上图所示。由于Dropout本身的随机性，每个样本的Dropout模式都是不一样的，所以只要单纯地重复样本，就可以实现“Dropout两次”的效果。</p>
+<h1 id="R-Drop"><a href="#R-Drop" class="headerlink" title="R-Drop"></a>R-Drop</h1><p>从结果上来看，SimCSE就是希望Dropout对模型结果不会有太大影响，也就是模型输出对Dropout是鲁棒的。所以很明显，“Dropout两次”这种思想是可以推广到一般任务的，这就是R-Drop（Regularized Dropout）。</p>
+<p><img src="https://kexue.fm/usr/uploads/2021/07/2898424596.png" alt="img"></p>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>字符定义：KL表示KL散度；NLL表示负对数似然（negative log-likehood）<br>$$<br>以分类问题为例，训练数据为 x_{i},y_{i}。模型为P_{Θ}(y|x),每个样本的loss一般是交叉熵。<br>$$</p>
+<p>$$<br>在Dropout两次的情况下，其实我们可以认为样本已经通过了两个略有不同的模型,loss定义如下<br>$$</p>
+<p>$$<br>L^i_{NLL} &#x3D; -logP^w_{1}(y_{i}|x_{i}) - logP^w_{2}(y_{i}|x_{i})<br>$$</p>
+<p>$$<br>另一部分则是两个模型之间的对称KL散度，它希望不同Dropout的模型输出尽可能一致：<br>$$</p>
+<p>$$<br>L^i_{KL} &#x3D; 1&#x2F;2*(D_{KL}(P^w_{1}(y_{i}|x_{i})||P^w_{2}(y_{i}|x_{i})) + D_{KL}(P^w_{2}(y_{i}|x_{i})||P^w_{1}(y_{i}|x_{i})))<br>$$</p>
+<p>$$<br>最终loss就是两个loss的加权和：<br>$$</p>
+<p>$$<br>L^i &#x3D; L^i_{NLL} + αL^i_{KL},其中α是超参数，范围最好调整在[1, 10]<br>$$</p>
+<p>也就是说，它在常规交叉熵的基础上，加了一项强化模型鲁棒性正则项。</p>
+<h2 id="解释性"><a href="#解释性" class="headerlink" title="解释性"></a>解释性</h2><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h2 id="论文报告"><a href="#论文报告" class="headerlink" title="论文报告"></a>论文报告</h2><h2 id="本人实验"><a href="#本人实验" class="headerlink" title="本人实验"></a>本人实验</h2>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">竞赛</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tricks</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Multidimensional Latent Semantic Networks for Text Humor Recognition</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SimCSE"><span class="toc-number">1.</span> <span class="toc-text">SimCSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-Drop"><span class="toc-number">2.</span> <span class="toc-text">R-Drop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">2.1.</span> <span class="toc-text">算法思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">解释性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E6%8A%A5%E5%91%8A"><span class="toc-number">3.2.</span> <span class="toc-text">论文报告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E4%BA%BA%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.</span> <span class="toc-text">本人实验</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
 
 
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
           </div>
         </div>
       </div>
@@ -253,9 +458,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
