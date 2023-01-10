@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig7.png">
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig8.png">
 <meta property="article:published_time" content="2022-11-23T02:01:21.000Z">
-<meta property="article:modified_time" content="2022-11-29T12:22:46.112Z">
+<meta property="article:modified_time" content="2023-01-10T04:16:24.764Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="随笔">
@@ -76,7 +76,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 20
+    			总文章数 21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -249,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="我尝试的技术"><a href="#我尝试的技术" class="headerlink" title="我尝试的技术"></a>我尝试的技术</h1><h2 id="🎈情感prompt"><a href="#🎈情感prompt" class="headerlink" title="🎈情感prompt"></a>🎈情感prompt</h2><ul>
+<h1 id="我尝试的trick"><a href="#我尝试的trick" class="headerlink" title="我尝试的trick"></a>我尝试的trick</h1><h2 id="🎈情感prompt"><a href="#🎈情感prompt" class="headerlink" title="🎈情感prompt"></a>🎈情感prompt</h2><ul>
 <li>带有性别歧视的样本情感极向一般偏负<ul>
 <li>性别歧视 -&gt; negative</li>
 <li>非性别歧视 -&gt; 用已在情感分类任务中fine-tune的PLM预测情感极向</li>
@@ -287,21 +287,25 @@
 
 
 
-<h2 id="🎈对抗训练FGSM"><a href="#🎈对抗训练FGSM" class="headerlink" title="🎈对抗训练FGSM"></a>🎈<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1412.6572">对抗训练FGSM</a></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FGM</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model, emb_name, epsilon=<span class="number">1.0</span></span>):</span><br><span class="line">        <span class="comment"># emb_name这个参数要换成你模型中embedding的参数名</span></span><br><span class="line">        self.model = model</span><br><span class="line">        self.epsilon = epsilon</span><br><span class="line">        self.emb_name = emb_name</span><br><span class="line">        self.backup = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad <span class="keyword">and</span> self.emb_name <span class="keyword">in</span> name:</span><br><span class="line">                self.backup[name] = param.data.clone()</span><br><span class="line">                norm = torch.norm(param.grad)</span><br><span class="line">                <span class="keyword">if</span> norm != <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> torch.isnan(norm):</span><br><span class="line">                    r_at = self.epsilon * param.grad / norm</span><br><span class="line">                    param.data.add_(r_at)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">restore</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad <span class="keyword">and</span> self.emb_name <span class="keyword">in</span> name:</span><br><span class="line">                <span class="keyword">assert</span> name <span class="keyword">in</span> self.backup</span><br><span class="line">                param.data = self.backup[name]</span><br><span class="line">        self.backup = &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
+<h2 id="🎈对抗训练FGM"><a href="#🎈对抗训练FGM" class="headerlink" title="🎈对抗训练FGM"></a>🎈<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1412.6572">对抗训练FGM</a></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FGM</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model, emb_name, epsilon=<span class="number">1.0</span></span>):</span><br><span class="line">        <span class="comment"># emb_name这个参数要换成你模型中embedding的参数名</span></span><br><span class="line">        self.model = model</span><br><span class="line">        self.epsilon = epsilon</span><br><span class="line">        self.emb_name = emb_name</span><br><span class="line">        self.backup = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad <span class="keyword">and</span> self.emb_name <span class="keyword">in</span> name:</span><br><span class="line">                self.backup[name] = param.data.clone()</span><br><span class="line">                norm = torch.norm(param.grad)</span><br><span class="line">                <span class="keyword">if</span> norm != <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> torch.isnan(norm):</span><br><span class="line">                    r_at = self.epsilon * param.grad / norm</span><br><span class="line">                    param.data.add_(r_at)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">restore</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad <span class="keyword">and</span> self.emb_name <span class="keyword">in</span> name:</span><br><span class="line">                <span class="keyword">assert</span> name <span class="keyword">in</span> self.backup</span><br><span class="line">                param.data = self.backup[name]</span><br><span class="line">        self.backup = &#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">fgm = FGM(model, epsilon=<span class="number">1</span>, emb_name=<span class="string">&#x27;word_embeddings.&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> batch, (x, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader, start=<span class="number">1</span>):</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        x = x.to(device)</span><br><span class="line">        y = y.to(device)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 正常训练</span></span><br><span class="line">        y_hat = model(x)</span><br><span class="line">        loss = loss_fn(y_hat, y)  </span><br><span class="line">    </span><br><span class="line">        <span class="comment"># 反向传播，得到正常的grad</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 对抗训练</span></span><br><span class="line">        fgm.attack() <span class="comment"># 在embedding上添加对抗扰动</span></span><br><span class="line">        y_attack_hat = model(x)</span><br><span class="line">        loss_adv = loss_fn(y_attack_hat, y)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 反向传播，并在正常的grad基础上，累加对抗训练的梯度</span></span><br><span class="line">        loss_adv.backward() </span><br><span class="line">        fgm.restore() <span class="comment"># 恢复embedding参数</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 更新参数</span></span><br><span class="line">        optimizer.step()</span><br><span class="line">        scheduler.step()</span><br><span class="line">        total_loss += loss.item()</span><br></pre></td></tr></table></figure>
 
 
 
+<h2 id="🎈R-Drop"><a href="#🎈R-Drop" class="headerlink" title="🎈R-Drop"></a>🎈R-Drop</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> balanced_loss <span class="keyword">import</span> Loss</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用R-drop时采用的loss</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RDropLoss</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    R-Drop for classification tasks.</span></span><br><span class="line"><span class="string">    Example:</span></span><br><span class="line"><span class="string">        criterion = RDrop()</span></span><br><span class="line"><span class="string">        logits1 = model(input)  # model: a classification model instance. input: the input data</span></span><br><span class="line"><span class="string">        logits2 = model(input)</span></span><br><span class="line"><span class="string">        loss = criterion(logits1, logits2, target)     # target: the target labels. len(loss_) == batch size</span></span><br><span class="line"><span class="string">    Notes: The model must contains `dropout`. The model predicts twice with the same input, and outputs logits1 and logits2.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(RDropLoss, self).__init__()</span><br><span class="line">        <span class="comment"># 交叉熵损失</span></span><br><span class="line"><span class="comment">#         self.ce = nn.CrossEntropyLoss()</span></span><br><span class="line">		<span class="comment"># balanced focal loss</span></span><br><span class="line">        self.ce = Loss(</span><br><span class="line">            loss_type=<span class="string">&quot;focal_loss&quot;</span>,</span><br><span class="line">            samples_per_class=samples_per_class,</span><br><span class="line">            class_balanced=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line"><span class="comment">#         self.ce = FocalLoss()</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># KL散度损失</span></span><br><span class="line">        self.kld = nn.KLDivLoss(reduction=<span class="string">&#x27;none&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, logits1, logits2, target, kl_weight=<span class="number">4.</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            logits1: One output of the classification model.</span></span><br><span class="line"><span class="string">            logits2: Another output of the classification model.</span></span><br><span class="line"><span class="string">            target: The target labels.</span></span><br><span class="line"><span class="string">            kl_weight: The weight for `kl_loss`. The range of this value is [1~5], 4 be selected by original paper</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            loss: Losses with the size of the batch size.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ce_loss = (self.ce(logits1, target)+ self.ce(logits2, target)) / <span class="number">2</span></span><br><span class="line">        kl_loss1 = self.kld(F.log_softmax(logits1, dim=-<span class="number">1</span>), F.softmax(logits2, dim=-<span class="number">1</span>)).<span class="built_in">sum</span>(-<span class="number">1</span>)</span><br><span class="line">        kl_loss2 = self.kld(F.log_softmax(logits2, dim=-<span class="number">1</span>), F.softmax(logits1, dim=-<span class="number">1</span>)).<span class="built_in">sum</span>(-<span class="number">1</span>)</span><br><span class="line">        kl_loss = (kl_loss1.mean() + kl_loss2.mean()) / <span class="number">2</span></span><br><span class="line">        loss = ce_loss + kl_weight * kl_loss</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line">    </span><br><span class="line">loss_fn = RDropLoss()</span><br></pre></td></tr></table></figure>
 
 
 
+<h2 id="🎈EMA"><a href="#🎈EMA" class="headerlink" title="🎈EMA"></a>🎈EMA</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EMA</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model, decay</span>):</span><br><span class="line">        self.model = model</span><br><span class="line">        self.decay = decay</span><br><span class="line">        self.shadow = &#123;&#125;</span><br><span class="line">        self.backup = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">register</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad:</span><br><span class="line">                self.shadow[name] = param.data.clone()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad:</span><br><span class="line">                <span class="keyword">assert</span> name <span class="keyword">in</span> self.shadow</span><br><span class="line">                new_average = (<span class="number">1.0</span> - self.decay) * param.data + self.decay * self.shadow[name]</span><br><span class="line">                self.shadow[name] = new_average.clone()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">apply_shadow</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad:</span><br><span class="line">                <span class="keyword">assert</span> name <span class="keyword">in</span> self.shadow</span><br><span class="line">                self.backup[name] = param.data</span><br><span class="line">                param.data = self.shadow[name]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">restore</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> name, param <span class="keyword">in</span> self.model.named_parameters():</span><br><span class="line">            <span class="keyword">if</span> param.requires_grad:</span><br><span class="line">                <span class="keyword">assert</span> name <span class="keyword">in</span> self.backup</span><br><span class="line">                param.data = self.backup[name]</span><br><span class="line">        self.backup = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================== Example =====================</span></span><br><span class="line"><span class="comment"># 初始化</span></span><br><span class="line"><span class="comment"># ema = EMA(model, 0.999)</span></span><br><span class="line"><span class="comment"># ema.register()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 训练过程中，更新完参数后，同步update shadow weights</span></span><br><span class="line"><span class="comment"># def train():</span></span><br><span class="line"><span class="comment">#     optimizer.step()</span></span><br><span class="line"><span class="comment">#     ema.update()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # eval前，apply shadow weights；eval之后，恢复原来模型的参数</span></span><br><span class="line"><span class="comment"># def evaluate():</span></span><br><span class="line"><span class="comment">#     ema.apply_shadow()</span></span><br><span class="line"><span class="comment">#     # evaluate</span></span><br><span class="line"><span class="comment">#     ema.restore()</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="超参数搜索"><a href="#超参数搜索" class="headerlink" title="超参数搜索"></a>超参数搜索</h2><ul>
+
+
+<h2 id="🎈Attention-Pooling"><a href="#🎈Attention-Pooling" class="headerlink" title="🎈Attention Pooling"></a>🎈Attention Pooling</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AttentionPooling</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_dim</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.attention = nn.Sequential(</span><br><span class="line">            nn.Linear(in_dim, in_dim),</span><br><span class="line">            nn.LayerNorm(in_dim),</span><br><span class="line">            nn.GELU(),</span><br><span class="line">            nn.Linear(in_dim, <span class="number">1</span>),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, last_hidden_state, attention_mask</span>):</span><br><span class="line">        w = self.attention(last_hidden_state).<span class="built_in">float</span>()</span><br><span class="line">        w[attention_mask==<span class="number">0</span>]=<span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>)</span><br><span class="line">        w = torch.softmax(w,<span class="number">1</span>)</span><br><span class="line">        attention_embeddings = torch.<span class="built_in">sum</span>(w * last_hidden_state, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> attention_embeddings</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="🎈超参数搜索"><a href="#🎈超参数搜索" class="headerlink" title="🎈超参数搜索"></a>🎈超参数搜索</h2><ul>
 <li><p>搜索方法</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.kaggle.com/ccymforhpl/hyperparameter-search-for-semeval2023-task/edit">自定义搜索方法</a></li>
@@ -312,139 +316,13 @@
 <ul>
 <li>seed: 固定42不搜索</li>
 <li>lr_scheduler_type: 固定为liner</li>
-<li>warmup_ratio: 固定为0.1</li>
+<li>warmup_ratio: 固定为0.2</li>
 </ul>
-</li>
-<li><p>搜索结果</p>
-<ul>
-<li>balanced focal loss</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">lr</th>
-<th align="center">epochs</th>
-<th align="center">batch_size</th>
-<th align="center">macro f1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">roberta-base</td>
-<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 9e-6</td>
-<td align="center">[4, 5, 6, 7] 7</td>
-<td align="center">[16]</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">roberta-large</td>
-<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
-<td align="center">[6]</td>
-<td align="center">[16]</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<ul>
-<li>balanced crossentropy</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">lr</th>
-<th align="center">epochs</th>
-<th align="center">batch_size</th>
-<th align="center">macro f1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">roberta-base</td>
-<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
-<td align="center">[4, 5, 6, 7] 4</td>
-<td align="center">[16]</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">roberta-large</td>
-<td align="center">[9e-6, 1e-5, 2e-5, 3e-5] 1e-5</td>
-<td align="center">[6]</td>
-<td align="center">[16]</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<ul>
-<li>自己写的focal loss</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">lr</th>
-<th align="center">epochs</th>
-<th align="center">batch_size</th>
-<th align="center">macro f1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">roberta-base</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">roberta-large</td>
-<td align="center">[9e-6, 1e-5, 2e-5, 3e-5]  9e-6</td>
-<td align="center">[6]</td>
-<td align="center">[16]</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
 </li>
 </ul>
 <h2 id="🎈领域内MLM"><a href="#🎈领域内MLM" class="headerlink" title="🎈领域内MLM"></a>🎈领域内MLM</h2><ul>
+<li><p>在基础预训练模型上进行继续MLM任务</p>
+<ul>
 <li><p>数据集</p>
 <ul>
 <li>gab: 100w条</li>
@@ -458,11 +336,106 @@
 </ul>
 </li>
 </ul>
-<h2 id="🎈k折分层交叉验证-amp-集成"><a href="#🎈k折分层交叉验证-amp-集成" class="headerlink" title="🎈k折分层交叉验证 &amp; 集成"></a>🎈k折分层交叉验证 &amp; 集成</h2><h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><ul>
-<li>回译</li>
-<li>替换同义词</li>
+</li>
+<li><p>已在社交媒体数据集训练的预训练模型</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/vinai/bertweet-large">vinai&#x2F;bertweet-large</a></li>
 </ul>
-<h1 id="竞赛验证阶段"><a href="#竞赛验证阶段" class="headerlink" title="竞赛验证阶段"></a>竞赛验证阶段</h1><h1 id="竞赛测试阶段"><a href="#竞赛测试阶段" class="headerlink" title="竞赛测试阶段"></a>竞赛测试阶段</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
+</li>
+</ul>
+<p>Ps:因为社交媒体领域非常特殊，表达和写作形式不是一般领域的典型，因此，在一般领域语料库上训练的模型可能没有像特定领域模型那样接触到这类文本。</p>
+<h2 id="🎈k折分层交叉验证-amp-集成"><a href="#🎈k折分层交叉验证-amp-集成" class="headerlink" title="🎈k折分层交叉验证 &amp; 集成"></a>🎈k折分层交叉验证 &amp; 集成</h2><h2 id="🎈数据增强"><a href="#🎈数据增强" class="headerlink" title="🎈数据增强"></a>🎈数据增强</h2><ul>
+<li><p>回译</p>
+</li>
+<li><p>替换同义词</p>
+</li>
+<li><p>工具：<a target="_blank" rel="noopener" href="https://github.com/makcedward/nlpaug">nlpaug</a></p>
+</li>
+</ul>
+<h1 id="竞赛验证阶段"><a href="#竞赛验证阶段" class="headerlink" title="竞赛验证阶段"></a>竞赛验证阶段</h1><h2 id="第一阶段，确认不同任务的模型和超参数"><a href="#第一阶段，确认不同任务的模型和超参数" class="headerlink" title="第一阶段，确认不同任务的模型和超参数"></a>第一阶段，确认不同任务的模型和超参数</h2><p>我手动对14000条样本按照9: 1切分成样本均衡的训练集和验证集，在三个子任务的验证集上确定模型的超参数。</p>
+<h3 id="subtask-a"><a href="#subtask-a" class="headerlink" title="subtask-a"></a>subtask-a</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">lr &#x2F; batchsize</th>
+<th align="center">epoch</th>
+<th align="center">seed</th>
+<th align="center">dropout</th>
+<th align="center">scheduler</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HPL&#x2F;roberta-large-unlabeled-labeled-gab-reddit-task-semeval2023-t10-150000sample</td>
+<td align="center">9e-6 &#x2F; 16</td>
+<td align="center">6</td>
+<td align="center">42</td>
+<td align="center">0.3</td>
+<td align="center">linear 0.2</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">1e-5 &#x2F; 16</td>
+<td align="center">6</td>
+<td align="center">42</td>
+<td align="center">0.3</td>
+<td align="center">linear 0.2</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="subtask-b"><a href="#subtask-b" class="headerlink" title="subtask-b"></a>subtask-b</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">lr &#x2F; batchsize</th>
+<th align="center">epoch</th>
+<th align="center">seed</th>
+<th align="center">dropout</th>
+<th align="center">scheduler</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bertweet-large</td>
+<td align="center">2e-5 &#x2F; 16</td>
+<td align="center">6</td>
+<td align="center">42</td>
+<td align="center">0.3</td>
+<td align="center">linear 0.2</td>
+</tr>
+</tbody></table>
+<h3 id="subtask-c"><a href="#subtask-c" class="headerlink" title="subtask-c"></a>subtask-c</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">lr &#x2F; batchsize</th>
+<th align="center">epoch</th>
+<th align="center">seed</th>
+<th align="center">dropout</th>
+<th align="center">scheduler</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bertweet-large</td>
+<td align="center">2e-5 &#x2F; 16</td>
+<td align="center">6</td>
+<td align="center">42</td>
+<td align="center">0.3</td>
+<td align="center">linear 0.2</td>
+</tr>
+</tbody></table>
+<p>##第二阶段，尝试不同的trick</p>
+<h2 id="第三阶段，集成不同的模型"><a href="#第三阶段，集成不同的模型" class="headerlink" title="第三阶段，集成不同的模型"></a>第三阶段，集成不同的模型</h2><p>众所周知，一般来说，机器学习模型往往有偏差。然而，当多个模型用于预测一个新项目时，预计会有较少偏差的预测。这是集合理论的基本思想，其中使用多个模型来构建一个新模型。</p>
+<h1 id="竞赛测试阶段"><a href="#竞赛测试阶段" class="headerlink" title="竞赛测试阶段"></a>竞赛测试阶段</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
       
 
       
@@ -612,7 +585,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">我尝试的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%83%85%E6%84%9Fprompt"><span class="toc-number">2.1.</span> <span class="toc-text">🎈情感prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.3.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGSM"><span class="toc-number">2.4.</span> <span class="toc-text">🎈对抗训练FGSM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.5.</span> <span class="toc-text">超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.6.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.7.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.8.</span> <span class="toc-text">数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84trick"><span class="toc-number">2.</span> <span class="toc-text">我尝试的trick</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%83%85%E6%84%9Fprompt"><span class="toc-number">2.1.</span> <span class="toc-text">🎈情感prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.3.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGM"><span class="toc-number">2.4.</span> <span class="toc-text">🎈对抗训练FGM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88R-Drop"><span class="toc-number">2.5.</span> <span class="toc-text">🎈R-Drop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88EMA"><span class="toc-number">2.6.</span> <span class="toc-text">🎈EMA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Attention-Pooling"><span class="toc-number">2.7.</span> <span class="toc-text">🎈Attention Pooling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.8.</span> <span class="toc-text">🎈超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.9.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.10.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.11.</span> <span class="toc-text">🎈数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%8C%E7%A1%AE%E8%AE%A4%E4%B8%8D%E5%90%8C%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%92%8C%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">第一阶段，确认不同任务的模型和超参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-a"><span class="toc-number">3.1.1.</span> <span class="toc-text">subtask-a</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-b"><span class="toc-number">3.1.2.</span> <span class="toc-text">subtask-b</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-c"><span class="toc-number">3.1.3.</span> <span class="toc-text">subtask-c</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%8C%E9%9B%86%E6%88%90%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">第三阶段，集成不同的模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -687,7 +660,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 huangpenglong
+    		&copy; 2023 huangpenglong
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -809,6 +782,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -817,15 +806,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,15 +818,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">competition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -866,10 +843,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">multi-task learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -894,6 +867,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">

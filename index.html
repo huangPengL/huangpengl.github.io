@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 20
+    			总文章数 21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -161,6 +161,150 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MABEL Attenuating Gender Bias using Textual Entailment Data" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/">MABEL Attenuating Gender Bias using Textual Entailment Data (使用文本困扰数据减轻性别偏见)</a>
+    </h1>
+  
+
+        
+        <a href="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/" class="archive-article-date">
+  	<time datetime="2022-12-25T13:01:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-25</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>预先训练的语言模型编码了不受欢迎的社会偏见，这种偏见在下游使用中进一步加剧。为此，作者提出了MABEL（一种使用纠缠标签减轻性别偏见的方法），这是一种减轻情境化表达中性别偏见的<strong>中间预训练</strong>方法。我们方法的关键是在自然语言推理（<strong>NLI</strong>）数据集的<strong>反事实增强</strong>、<strong>性别平衡</strong>的蕴涵对上使用<strong>对比学习</strong>目标。</p>
+<p>一言以蔽之，MABEL通过对预训练数据库中的所有<strong>带有敏感属性的词</strong>进行<strong>反义替换</strong>，其他词则保持不变，然后进行<strong>对比学习</strong>来消除偏见。</p>
+<h1 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h1><p>具体来说，研究团队做了两方面的工作。</p>
+<p>首先是<strong>数据集</strong>方面，研究团队使用的是自然语言推理（NLI）数据集，它在训练有区别性和高质量的句子表征方面特别有效。</p>
+<p>由于研究团队主攻性别歧视方向的偏见，因此，他们从NLI数据集中提取了在前提或者假设中包含性别术语的所有隐含对。</p>
+<p>然后对数据进行**反事实增强 (counterfactual data augmentation)**，即将数据集中包含性别敏感的词汇全部替换成反义词汇，如男生→女生…</p>
+<p>接下来的步骤就比较关键了：<strong>训练</strong>！</p>
+<p>训练主要针对的是以下三个损失函数：</p>
+<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig1.png">
+
+<h2 id="contrastive-loss-based-on-entailment-pairs"><a href="#contrastive-loss-based-on-entailment-pairs" class="headerlink" title="contrastive loss based on entailment pairs"></a>contrastive loss based on entailment pairs</h2><p>第一个，<strong>对比度损失</strong>的训练会产生一个更加各向同性的表示空间，其中句子的几何位置可以更好地与其语义对齐。</p>
+<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig2.png">
+
+
+
+<h2 id="their-augmentations-an-alignment-loss"><a href="#their-augmentations-an-alignment-loss" class="headerlink" title="their augmentations, an alignment loss"></a>their augmentations, an alignment loss</h2><p>第二个是<strong>对齐损失</strong> （Alignment loss），这就比较好理解了，它是用来表示原始隐含对和其增强对之间的内部关联。</p>
+<p>也就是说，这个函数能够使模型最后生成的结果在男女之间更加平衡，以保证最后模型生成的结果性别歧视降到最低。</p>
+<h2 id="optional-masked-language-modeling-loss"><a href="#optional-masked-language-modeling-loss" class="headerlink" title="optional masked language modeling loss"></a>optional masked language modeling loss</h2><p>第三个是<strong>掩码语言模型损失</strong> （Masked language modeling loss），这是最后额外附加的一个损失，目的是为了保持模型的语言<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%BB%BA%E6%A8%A1&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22590205762%22%7D">建模</a>能力。</p>
+<p>最终总损失如下：</p>
+<p>![image-20221225221456580](B:!My-Java-Project\hexo-blog\source_posts\MABEL Attenuating Gender Bias using Textual Entailment Data\fig3.png)</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>讲了这么多，那MABEL这个方法偏见消除的效果如何？</p>
+<p>MABEL表现出了良好的公平性-性能权衡。</p>
+<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig4.png">
+
+<p>此外，研究团队还评估了语言模型在使用了消除性别歧视的方法后是否仍然保持一般的语言理解，结果显示模型能够很好地保留其在GLUE上的自然语言理解（NLU）能力。</p>
+<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig5.png">
+
+
+
+
+
+<h1 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h1><p>从这篇paper中收获了一些idea用于SemEval2023-task10女性性别歧视文本检测竞赛</p>
+<ul>
+<li>初步使用本文提出的模型”princeton-nlp&#x2F;mabel-bert-large-uncased” 套到该竞赛上，发现效果奇差无比。一个直观的解释是假如模型已去除性别偏见，那么遇到带有女性歧视的文本时模型会将其视作正常文本。反其道而行之，我们可以**训练一个 “带有性别歧视偏见的模型”**，那么模型也许遇到厌女文本就会相对比较敏感，从而提高分类性能。</li>
+<li>考虑到正例是针对女性的性别歧视文本，那么大部分样本带有女性的词汇（如：woman, girl, bitch…）。我们可以通过<strong>反事实增强</strong>构造相应的负例文本。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">competition</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
+  
     <article id="post-R-Drop Regularized Dropout for Neural Networks" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -197,15 +341,7 @@
 <p>在实现上，SimCSE也相当简单，所谓“Dropout两次”，只需要将样本重复地输入到模型，然后计算相应的loss就行了，如上图所示。由于Dropout本身的随机性，每个样本的Dropout模式都是不一样的，所以只要单纯地重复样本，就可以实现“Dropout两次”的效果。</p>
 <h1 id="R-Drop"><a href="#R-Drop" class="headerlink" title="R-Drop"></a>R-Drop</h1><p>从结果上来看，SimCSE就是希望Dropout对模型结果不会有太大影响，也就是模型输出对Dropout是鲁棒的。所以很明显，“Dropout两次”这种思想是可以推广到一般任务的，这就是R-Drop（Regularized Dropout）。</p>
 <p><img src="https://kexue.fm/usr/uploads/2021/07/2898424596.png" alt="img"></p>
-<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>字符定义：KL表示KL散度；NLL表示负对数似然（negative log-likehood）<br>$$<br>以分类问题为例，训练数据为 x_{i},y_{i}。模型为P_{Θ}(y|x),每个样本的loss一般是交叉熵。<br>$$</p>
-<p>$$<br>在Dropout两次的情况下，其实我们可以认为样本已经通过了两个略有不同的模型,loss定义如下<br>$$</p>
-<p>$$<br>L^i_{NLL} &#x3D; -logP^w_{1}(y_{i}|x_{i}) - logP^w_{2}(y_{i}|x_{i})<br>$$</p>
-<p>$$<br>另一部分则是两个模型之间的对称KL散度，它希望不同Dropout的模型输出尽可能一致：<br>$$</p>
-<p>$$<br>L^i_{KL} &#x3D; 1&#x2F;2*(D_{KL}(P^w_{1}(y_{i}|x_{i})||P^w_{2}(y_{i}|x_{i})) + D_{KL}(P^w_{2}(y_{i}|x_{i})||P^w_{1}(y_{i}|x_{i})))<br>$$</p>
-<p>$$<br>最终loss就是两个loss的加权和：<br>$$</p>
-<p>$$<br>L^i &#x3D; L^i_{NLL} + αL^i_{KL},其中α是超参数，范围最好调整在[1, 10]<br>$$</p>
-<p>也就是说，它在常规交叉熵的基础上，加了一项强化模型鲁棒性正则项。</p>
-<h2 id="解释性"><a href="#解释性" class="headerlink" title="解释性"></a>解释性</h2><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h2 id="论文报告"><a href="#论文报告" class="headerlink" title="论文报告"></a>论文报告</h2><h2 id="本人实验"><a href="#本人实验" class="headerlink" title="本人实验"></a>本人实验</h2>
+        
       
 
       
@@ -573,11 +709,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">humor detection</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prompt</a>
         		</li>
       		
 		</ul>
@@ -640,133 +776,9 @@
     </section>
   
   
-    <article id="post-Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/">Reinforcement Guided Multi-Task Learning Framework for Low-Resource Stereotype Detection-ACL2022</a>
-    </h1>
-  
-
-        
-        <a href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/" class="archive-article-date">
-  	<time datetime="2022-11-05T12:25:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-05</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li><p>大型预训练语言模型（PLM）变得越来越普遍，<strong>识别文本中的各种类型的偏差已成为焦点</strong>。</p>
-</li>
-<li><p>先前的研究表明现有基准数据集存在重大的可靠性问题。然而，注释可靠的数据集需要<strong>准确理解刻板印象</strong>如何在文本中体现的<strong>细微差别</strong>。</p>
-</li>
-<li><p>[结构刻板印象]：这篇文章的作者注释了一个针对“刻板印象检测（Stereotype Detection）”的重点评估集，通过<strong>解构文本中刻板印象表现的各种方式</strong>来解决这些缺陷。</p>
-</li>
-<li><p>[多任务学习提高性能]：此外，作者提出了一个多任务模型，该模型利用<strong>大量数据丰富的邻近任务</strong>，如仇恨言论检测、攻击性语言检测、厌女检测等，以提高“刻板印象检测”的经验性能。</p>
-</li>
-<li><p>[强化学习选可靠的数据]：然后，作者提出了一个强化学习代理，它通过学习从相邻任务中识别对目标任务最有帮助的训练示例来<strong>指导多任务学习模型</strong>。</p>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">attack detection</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">multi-task learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/11/05/Reinforcement%20Guided%20Multi-Task%20Learning%20Framework%20for%20Low-Resource%20Stereotype%20Detection/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>
   
 
@@ -778,7 +790,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 huangpenglong
+    		&copy; 2023 huangpenglong
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -900,6 +912,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -908,15 +936,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -928,15 +948,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">competition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -957,10 +973,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">multi-task learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -985,6 +997,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">

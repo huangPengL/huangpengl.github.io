@@ -61,7 +61,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 20
+    			总文章数 21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,150 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-BERT-ASC Auxiliary-Sentence Construction for Implicit Aspect Learning in Sentiment Analysis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/">BERT-ASC Auxiliary-Sentence Construction for Implicit Aspect Learning in Sentiment Analysis</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/" class="archive-article-date">
+  	<time datetime="2022-09-20T01:42:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-20</time>
+</a>
+        
+
+    <!-- 文章阅读量 -->
+    
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Abstract-amp-Introduction"><a href="#Abstract-amp-Introduction" class="headerlink" title="Abstract &amp; Introduction"></a>Abstract &amp; Introduction</h1><ul>
+<li><p>ABSA是一个细粒度的情感分析任务，要求我们检测句子在某一方面是否有情感极性，以及对应的极性。</p>
+</li>
+<li><p>作者表示可以将[方面]分成两类： </p>
+<ul>
+<li>explicit aspect-term：很明显出现在句子中（占比较少，处理起来简单）</li>
+<li>implicit aspect-category:  通过一些指示词隐式表示（占比很多，处理起来困难）</li>
+<li><img src="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/fig1.png"></li>
+</ul>
+</li>
+<li><p>介绍了以前处理ABSA的方法</p>
+<ul>
+<li>基于句法信息转化器、n-grams和情感词典，来辅助分类器（贝叶斯或SVM）完成。（但是这样做只能处理explicit aspect）</li>
+<li>常规的微调预训练模型</li>
+<li>Prompt的方式，将ABSA任务转化成QA辅助句，其中Q是原文，A是对方面情感的描述疑问。（这种做法需要大量的有标签数据，可以参考<a target="_blank" rel="noopener" href="https://huangpengl.github.io/2022/09/16/Utilizing%20BERT%20for%20Aspect-Based%20Sentiment%20Analysis/">论文</a>）</li>
+</ul>
+</li>
+<li><p>作者提出了一种统一的框架来处理方面分类和方面情感分析子任务，叫做BERT-based Auxiliary Sentence Construct-ing (BERT-ASC)</p>
+<ul>
+<li><p>使用L-LDA为每一个[方面]提取一组[种子]集合</p>
+<ul>
+<li>Aspect: food — Seed:{meal, bread, rice}</li>
+<li>如何做呢？由于BERT模型的预训练会使得相似的词在向量空间中的距离尽可能小。所以可以根据方面词在向量空间某个范围的词向量作为种子集合</li>
+</ul>
+</li>
+<li><p>根据[方面]和[种子]来构造辅助句子提供个体PLM来微调</p>
+</li>
+<li><p>使用构造的辅助句子来微调，可以让BERT学习到[特定于方面的表示]而不是[方面本身]</p>
+</li>
+</ul>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">BERT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ABSA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/20/BERT-ASC%20Auxiliary-Sentence%20Construction%20for%20Implicit%20Aspect%20Learning%20in%20Sentiment%20Analysis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
+            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
+            placeholder: "快来发表评论吧🤣",
+            avatar:"retro"
+        });
+    }
+</script>
+    </section>
+  
   
     <article id="post-[LeetCode]827. 最大人工岛 [hard]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -666,122 +810,9 @@
     </section>
   
   
-    <article id="post-JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/">JiuZhang A Chinese Pre-trained Language Model for Mathematical Problem Understanding</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/" class="archive-article-date">
-  	<time datetime="2022-09-12T09:11:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
-</a>
-        
-
-    <!-- 文章阅读量 -->
-    
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><ul>
-<li>数学问题在NLP领域难，因为会涉及到术语、符号和公式，因此<strong>解决数学问题</strong>需要一定的<strong>数学知识背景和逻辑推理能力</strong>。</li>
-<li>本文提出了<strong>首个面向数学题理解的中文预训练模型 JiuZhang</strong>。受人类学习过程的启发，JiuZhang 被设计从基础到高级的<strong>课程预训练策略</strong>，逐步让模型完成从<strong>数学符号语义理解，到数学推理逻辑，再到自我检查与纠错</strong>的学习过程。</li>
-</ul>
-<img src="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/fig1.png" alt="image-20220912171345027" style="zoom:80%;">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PLM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/12/JiuZhang%20A%20Chinese%20Pre-trained%20Language%20Model%20for%20Mathematical%20Problem%20Understanding/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "6xbapOLxMuWHWIIhxsxCOgV2-gzGzoHsz",
-            app_key: "OcsDL4pwUAcL8hcuM2FrfNg3",
-            placeholder: "快来发表评论吧🤣",
-            avatar:"retro"
-        });
-    }
-</script>
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
     </nav>
   
 
@@ -793,7 +824,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 huangpenglong
+    		&copy; 2023 huangpenglong
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -915,6 +946,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -923,15 +970,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -943,15 +982,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">competition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -972,10 +1007,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">multi-task learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1000,6 +1031,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">

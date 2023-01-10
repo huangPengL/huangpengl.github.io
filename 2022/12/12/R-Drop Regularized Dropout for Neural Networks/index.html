@@ -18,8 +18,11 @@
 <meta property="og:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig1.png">
 <meta property="og:image" content="https://kexue.fm/usr/uploads/2021/07/3490631495.png">
 <meta property="og:image" content="https://kexue.fm/usr/uploads/2021/07/2898424596.png">
+<meta property="og:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig2.png">
+<meta property="og:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig3.png">
+<meta property="og:image" content="http://example.com/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig5.png">
 <meta property="article:published_time" content="2022-12-12T09:39:29.000Z">
-<meta property="article:modified_time" content="2022-12-13T12:05:01.110Z">
+<meta property="article:modified_time" content="2022-12-17T06:19:59.912Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="paper">
 <meta property="article:tag" content="NLP">
@@ -72,7 +75,7 @@
 			</ul>
 		</nav>
 		<nav>
-    			总文章数 20
+    			总文章数 21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -211,6 +214,8 @@
 <p>在实现上，SimCSE也相当简单，所谓“Dropout两次”，只需要将样本重复地输入到模型，然后计算相应的loss就行了，如上图所示。由于Dropout本身的随机性，每个样本的Dropout模式都是不一样的，所以只要单纯地重复样本，就可以实现“Dropout两次”的效果。</p>
 <h1 id="R-Drop"><a href="#R-Drop" class="headerlink" title="R-Drop"></a>R-Drop</h1><p>从结果上来看，SimCSE就是希望Dropout对模型结果不会有太大影响，也就是模型输出对Dropout是鲁棒的。所以很明显，“Dropout两次”这种思想是可以推广到一般任务的，这就是R-Drop（Regularized Dropout）。</p>
 <p><img src="https://kexue.fm/usr/uploads/2021/07/2898424596.png" alt="img"></p>
+<span id="more"></span>
+
 <h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>字符定义：KL表示KL散度；NLL表示负对数似然（negative log-likehood）<br>$$<br>以分类问题为例，训练数据为 x_{i},y_{i}。模型为P_{Θ}(y|x),每个样本的loss一般是交叉熵。<br>$$</p>
 <p>$$<br>在Dropout两次的情况下，其实我们可以认为样本已经通过了两个略有不同的模型,loss定义如下<br>$$</p>
 <p>$$<br>L^i_{NLL} &#x3D; -logP^w_{1}(y_{i}|x_{i}) - logP^w_{2}(y_{i}|x_{i})<br>$$</p>
@@ -219,7 +224,64 @@
 <p>$$<br>最终loss就是两个loss的加权和：<br>$$</p>
 <p>$$<br>L^i &#x3D; L^i_{NLL} + αL^i_{KL},其中α是超参数，范围最好调整在[1, 10]<br>$$</p>
 <p>也就是说，它在常规交叉熵的基础上，加了一项强化模型鲁棒性正则项。</p>
-<h2 id="解释性"><a href="#解释性" class="headerlink" title="解释性"></a>解释性</h2><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h2 id="论文报告"><a href="#论文报告" class="headerlink" title="论文报告"></a>论文报告</h2><h2 id="本人实验"><a href="#本人实验" class="headerlink" title="本人实验"></a>本人实验</h2>
+<h2 id="解释性"><a href="#解释性" class="headerlink" title="解释性"></a>解释性</h2><h3 id="出发点"><a href="#出发点" class="headerlink" title="出发点"></a>出发点</h3><p>引入Dropout后增加了模型的泛化性，实则是将full model 在训练过程中采样多个不同的sub model。</p>
+<p>这样会导致一个问题，训练过程中我们优化的是sub model的预测，但通常在推理时，我们需要直接用full model来进行预测。也就是说训练的是sub model但预测是full model，很明显这两者之间有一个gap。在机器学习理论上来说，这种traing-inference mismatch question会使得模型的潜力没有被充分发挥。</p>
+<p>![image-20221217135618640](B:!My-Java-Project\hexo-blog\source_posts\R-Drop Regularized Dropout for Neural Networks\fig4.png)</p>
+<h3 id="数学依据"><a href="#数学依据" class="headerlink" title="数学依据"></a>数学依据</h3><p>为了解决上述问题，进行分析如下：</p>
+<p>下图中的不等式说明了我们用传统Dropout的方式训练模型，会使得子模型测试误差和子模型的训练误差之间的差距变小，同时子模型的训练误差下降的程度会更高（这正是我们优化的主要方向）。但是，<strong>完整模型的测试误差和子模型之间的测试误差的差距</strong>是不受控制的。要使得完整模型的测试误差同样减少，那么我们需要对这差距做优化。</p>
+<img src="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig2.png">
+
+
+
+
+
+<p>作者进行了理论分析和数学推导，发现当我们<strong>优化不同子模型之间的测试误差差距</strong>可以使得完整模型的测试误差和子模型之间的测试误差的差距变小。</p>
+<img src="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig3.png">
+
+
+
+
+
+<p>如何优化不同子模型之间测试误差的差距呢？这就是R-Drop的算法思想啦！</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RDropLoss</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    R-Drop for classification tasks.</span></span><br><span class="line"><span class="string">    Example:</span></span><br><span class="line"><span class="string">        criterion = RDrop()</span></span><br><span class="line"><span class="string">        logits1 = model(input)  # model: a classification model instance. input: the input data</span></span><br><span class="line"><span class="string">        logits2 = model(input)</span></span><br><span class="line"><span class="string">        loss = criterion(logits1, logits2, target)     # target: the target labels. len(loss_) == batch size</span></span><br><span class="line"><span class="string">    Notes: The model must contains `dropout`. The model predicts twice with the same input, and outputs logits1 and logits2.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(RDropLoss, self).__init__()</span><br><span class="line">        <span class="comment"># 交叉熵损失</span></span><br><span class="line">        <span class="comment"># self.ce = nn.CrossEntropyLoss(reduction=&#x27;none&#x27;)</span></span><br><span class="line">        <span class="comment"># balanced focal loss</span></span><br><span class="line">        self.ce = Loss(</span><br><span class="line">            loss_type=<span class="string">&quot;focal_loss&quot;</span>,</span><br><span class="line">            samples_per_class=samples_per_class,</span><br><span class="line">            class_balanced=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># KL散度损失</span></span><br><span class="line">        self.kld = nn.KLDivLoss(reduction=<span class="string">&#x27;none&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, logits1, logits2, target, kl_weight=<span class="number">4.</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            logits1: One output of the classification model.</span></span><br><span class="line"><span class="string">            logits2: Another output of the classification model.</span></span><br><span class="line"><span class="string">            target: The target labels.</span></span><br><span class="line"><span class="string">            kl_weight: The weight for `kl_loss`. The range of this value is [1~5], 4 be selected by original paper</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            loss: Losses with the size of the batch size.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ce_loss = (self.ce(logits1, target) + self.ce(logits2, target)) / <span class="number">2</span></span><br><span class="line">        kl_loss1 = self.kld(F.log_softmax(logits1, dim=-<span class="number">1</span>), F.softmax(logits2, dim=-<span class="number">1</span>)).<span class="built_in">sum</span>(-<span class="number">1</span>)</span><br><span class="line">        kl_loss2 = self.kld(F.log_softmax(logits2, dim=-<span class="number">1</span>), F.softmax(logits1, dim=-<span class="number">1</span>)).<span class="built_in">sum</span>(-<span class="number">1</span>)</span><br><span class="line">        kl_loss = (kl_loss1.mean() + kl_loss2.mean()) / <span class="number">2</span></span><br><span class="line">        loss = ce_loss + kl_weight * kl_loss</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line">    </span><br><span class="line">loss_fn = RDropLoss()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="论文报告"><a href="#论文报告" class="headerlink" title="论文报告"></a>论文报告</h2><p>在NLP大基准数据集GLUE上大杀四方！</p>
+<img src="/2022/12/12/R-Drop%20Regularized%20Dropout%20for%20Neural%20Networks/fig5.png">
+
+
+
+
+
+<h2 id="本人实验"><a href="#本人实验" class="headerlink" title="本人实验"></a>本人实验</h2><p>在SemEval2023-task10-subtask1上进行实验，实验如下</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">self-split test data &#x2F; macro F1</th>
+<th align="center">offical dev data &#x2F; macro F1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RoBERTa-large + MLM + balance focal loss + FGM</td>
+<td align="center">0.858</td>
+<td align="center">0.8634</td>
+</tr>
+<tr>
+<td>RoBERTa-large + MLM + balance focal loss + FGM + RDrop(α&#x3D;4)</td>
+<td align="center">0.8683</td>
+<td align="center">0.8683</td>
+</tr>
+<tr>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
       
 
       
@@ -331,6 +393,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MABEL Attenuating Gender Bias using Textual Entailment Data (使用文本困扰数据减轻性别偏见)
+        
+      </div>
+    </a>
+  
   
     <a href="/2022/12/09/Multidimensional%20Latent%20Semantic%20Networks%20for%20Text%20Humor%20Recognition/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Multidimensional Latent Semantic Networks for Text Humor Recognition</div>
@@ -360,7 +431,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SimCSE"><span class="toc-number">1.</span> <span class="toc-text">SimCSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-Drop"><span class="toc-number">2.</span> <span class="toc-text">R-Drop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">2.1.</span> <span class="toc-text">算法思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">解释性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E6%8A%A5%E5%91%8A"><span class="toc-number">3.2.</span> <span class="toc-text">论文报告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E4%BA%BA%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.</span> <span class="toc-text">本人实验</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SimCSE"><span class="toc-number">1.</span> <span class="toc-text">SimCSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-Drop"><span class="toc-number">2.</span> <span class="toc-text">R-Drop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">2.1.</span> <span class="toc-text">算法思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">解释性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%8F%91%E7%82%B9"><span class="toc-number">2.2.1.</span> <span class="toc-text">出发点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E4%BE%9D%E6%8D%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">数学依据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E6%8A%A5%E5%91%8A"><span class="toc-number">3.2.</span> <span class="toc-text">论文报告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E4%BA%BA%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.</span> <span class="toc-text">本人实验</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -435,7 +506,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 huangpenglong
+    		&copy; 2023 huangpenglong
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -557,6 +628,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
@@ -565,15 +652,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,15 +664,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PLM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">competition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,10 +689,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">multi-task learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -642,6 +713,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
