@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig7.png">
 <meta property="og:image" content="http://example.com/2022/11/23/%E7%AC%AC%E4%B8%80%E6%AC%A1NLP%E7%AB%9E%E8%B5%9B%E8%AE%B0%E5%BD%95/fig8.png">
 <meta property="article:published_time" content="2022-11-23T02:01:21.000Z">
-<meta property="article:modified_time" content="2023-01-10T04:16:24.764Z">
+<meta property="article:modified_time" content="2023-01-10T12:29:17.605Z">
 <meta property="article:author" content="huangpenglong">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="随笔">
@@ -407,7 +407,7 @@
 <tbody><tr>
 <td align="center">bertweet-large</td>
 <td align="center">2e-5 &#x2F; 16</td>
-<td align="center">6</td>
+<td align="center">8</td>
 <td align="center">42</td>
 <td align="center">0.3</td>
 <td align="center">linear 0.2</td>
@@ -427,13 +427,161 @@
 <tbody><tr>
 <td align="center">bertweet-large</td>
 <td align="center">2e-5 &#x2F; 16</td>
-<td align="center">6</td>
+<td align="center">8</td>
 <td align="center">42</td>
 <td align="center">0.3</td>
 <td align="center">linear 0.2</td>
 </tr>
 </tbody></table>
 <p>##第二阶段，尝试不同的trick</p>
+<h3 id="subtask-a-1"><a href="#subtask-a-1" class="headerlink" title="subtask-a"></a>subtask-a</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">trick</th>
+<th align="center">macro-f1</th>
+<th align="center">exp-no</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HPL&#x2F;roberta-large-unlabeled-labeled-gab-reddit-task-semeval2023-t10-150000sample</td>
+<td align="center">balance focal loss + FGM</td>
+<td align="center">0.859</td>
+<td align="center">76</td>
+</tr>
+<tr>
+<td align="center">HPL&#x2F;roberta-large-unlabeled-labeled-gab-reddit-task-semeval2023-t10-150000sample</td>
+<td align="center">balance focal loss + RDrop(α&#x3D;4)</td>
+<td align="center">0.8631</td>
+<td align="center">83</td>
+</tr>
+<tr>
+<td align="center">HPL&#x2F;roberta-large-unlabeled-labeled-gab-reddit-task-semeval2023-t10-150000sample</td>
+<td align="center">balance focal loss + RDrop(α&#x3D;4) + FGM</td>
+<td align="center">0.8683</td>
+<td align="center">87</td>
+</tr>
+<tr>
+<td align="center">HPL&#x2F;roberta-large-unlabeled-labeled-gab-reddit-task-semeval2023-t10-150000sample</td>
+<td align="center">balance focal loss + RDrop(α&#x3D;4) + FGM + EMA</td>
+<td align="center">0.8681</td>
+<td align="center">94</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balance focal loss + RDrop(α&#x3D;4) + FGM + attention pooling</td>
+<td align="center">0.867911</td>
+<td align="center">142</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balance focal loss + RDrop(α&#x3D;4) + FGM + attention pooling + EMA</td>
+<td align="center">0.86610</td>
+<td align="center">144</td>
+</tr>
+</tbody></table>
+<h3 id="subtask-b-1"><a href="#subtask-b-1" class="headerlink" title="subtask-b"></a>subtask-b</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">trick</th>
+<th align="center">macro-f1</th>
+<th align="center">exp-no</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bertweet-large</td>
+<td align="center"></td>
+<td align="center">0.6714</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">RDrop(α&#x3D;4)</td>
+<td align="center">0.70298</td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM</td>
+<td align="center">0.7154</td>
+<td align="center">14</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</td>
+<td align="center">0.71128</td>
+<td align="center">25</td>
+</tr>
+</tbody></table>
+<h3 id="subtask-c-1"><a href="#subtask-c-1" class="headerlink" title="subtask-c"></a>subtask-c</h3><table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">trick</th>
+<th align="center">macro-f1</th>
+<th align="center">exp-no</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bertweet-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling</td>
+<td align="center">0.57562</td>
+<td align="center">29</td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + 10-fold-break3 + Attention pooling</td>
+<td align="center">0.5701</td>
+<td align="center">31</td>
+</tr>
+<tr>
+<td align="center"><strong>bertweet-large</strong></td>
+<td align="center"><strong>balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</strong></td>
+<td align="center"><strong>0.58251</strong></td>
+<td align="center"><strong>32</strong></td>
+</tr>
+<tr>
+<td align="center">bertweet-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + 10-fold-break5 + Attention pooling + EMA</td>
+<td align="center">0.58158</td>
+<td align="center">37</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">模型</th>
+<th align="center">trick</th>
+<th align="center">macro-f1</th>
+<th align="center">exp-no</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>bertweet-large</strong></td>
+<td align="center"><strong>balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</strong></td>
+<td align="center"><strong>0.58251</strong></td>
+<td align="center"><strong>32</strong></td>
+</tr>
+<tr>
+<td align="center">roberta-large</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</td>
+<td align="center">0.5535</td>
+<td align="center">39</td>
+</tr>
+<tr>
+<td align="center">deberta-v3-large (bs8, lr2e-5)</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</td>
+<td align="center">0.4948</td>
+<td align="center">41</td>
+</tr>
+<tr>
+<td align="center">bert-large-uncased</td>
+<td align="center">balanced focal loss + RDrop(α&#x3D;4) + FGM + Attention pooling + EMA</td>
+<td align="center">0.488</td>
+<td align="center">42</td>
+</tr>
+</tbody></table>
 <h2 id="第三阶段，集成不同的模型"><a href="#第三阶段，集成不同的模型" class="headerlink" title="第三阶段，集成不同的模型"></a>第三阶段，集成不同的模型</h2><p>众所周知，一般来说，机器学习模型往往有偏差。然而，当多个模型用于预测一个新项目时，预计会有较少偏差的预测。这是集合理论的基本思想，其中使用多个模型来构建一个新模型。</p>
 <h1 id="竞赛测试阶段"><a href="#竞赛测试阶段" class="headerlink" title="竞赛测试阶段"></a>竞赛测试阶段</h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
       
@@ -585,7 +733,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84trick"><span class="toc-number">2.</span> <span class="toc-text">我尝试的trick</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%83%85%E6%84%9Fprompt"><span class="toc-number">2.1.</span> <span class="toc-text">🎈情感prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.3.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGM"><span class="toc-number">2.4.</span> <span class="toc-text">🎈对抗训练FGM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88R-Drop"><span class="toc-number">2.5.</span> <span class="toc-text">🎈R-Drop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88EMA"><span class="toc-number">2.6.</span> <span class="toc-text">🎈EMA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Attention-Pooling"><span class="toc-number">2.7.</span> <span class="toc-text">🎈Attention Pooling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.8.</span> <span class="toc-text">🎈超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.9.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.10.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.11.</span> <span class="toc-text">🎈数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%8C%E7%A1%AE%E8%AE%A4%E4%B8%8D%E5%90%8C%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%92%8C%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">第一阶段，确认不同任务的模型和超参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-a"><span class="toc-number">3.1.1.</span> <span class="toc-text">subtask-a</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-b"><span class="toc-number">3.1.2.</span> <span class="toc-text">subtask-b</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-c"><span class="toc-number">3.1.3.</span> <span class="toc-text">subtask-c</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%8C%E9%9B%86%E6%88%90%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">第三阶段，集成不同的模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E4%B8%BB%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">竞赛主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">小分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B0%9D%E8%AF%95%E7%9A%84trick"><span class="toc-number">2.</span> <span class="toc-text">我尝试的trick</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%83%85%E6%84%9Fprompt"><span class="toc-number">2.1.</span> <span class="toc-text">🎈情感prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">🎈社交媒体数据清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Focal-Loss-function"><span class="toc-number">2.3.</span> <span class="toc-text">🎈Focal Loss function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83FGM"><span class="toc-number">2.4.</span> <span class="toc-text">🎈对抗训练FGM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88R-Drop"><span class="toc-number">2.5.</span> <span class="toc-text">🎈R-Drop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88EMA"><span class="toc-number">2.6.</span> <span class="toc-text">🎈EMA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88Attention-Pooling"><span class="toc-number">2.7.</span> <span class="toc-text">🎈Attention Pooling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-number">2.8.</span> <span class="toc-text">🎈超参数搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E9%A2%86%E5%9F%9F%E5%86%85MLM"><span class="toc-number">2.9.</span> <span class="toc-text">🎈领域内MLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88k%E6%8A%98%E5%88%86%E5%B1%82%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-amp-%E9%9B%86%E6%88%90"><span class="toc-number">2.10.</span> <span class="toc-text">🎈k折分层交叉验证 &amp; 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%88%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-number">2.11.</span> <span class="toc-text">🎈数据增强</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">3.</span> <span class="toc-text">竞赛验证阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%8C%E7%A1%AE%E8%AE%A4%E4%B8%8D%E5%90%8C%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%92%8C%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">第一阶段，确认不同任务的模型和超参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-a"><span class="toc-number">3.1.1.</span> <span class="toc-text">subtask-a</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-b"><span class="toc-number">3.1.2.</span> <span class="toc-text">subtask-b</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-c"><span class="toc-number">3.1.3.</span> <span class="toc-text">subtask-c</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-a-1"><span class="toc-number">3.1.4.</span> <span class="toc-text">subtask-a</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-b-1"><span class="toc-number">3.1.5.</span> <span class="toc-text">subtask-b</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subtask-c-1"><span class="toc-number">3.1.6.</span> <span class="toc-text">subtask-c</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%8C%E9%9B%86%E6%88%90%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">第三阶段，集成不同的模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%9E%E8%B5%9B%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">4.</span> <span class="toc-text">竞赛测试阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -782,11 +930,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
+                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
+                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">guide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -798,23 +954,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BERT</a>
+                <a href="javascript:void(0)" class="js-tag color1">humor detection</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
+                <a href="javascript:void(0)" class="js-tag color2">humor regression</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Humor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">guide</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -846,7 +994,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复现</a>
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -870,7 +1018,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
+                <a href="javascript:void(0)" class="js-tag color3">复现</a>
               </li>
              
               <li class="article-tag-list-item">
