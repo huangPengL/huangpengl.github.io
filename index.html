@@ -292,41 +292,7 @@
       
         <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>预先训练的语言模型编码了不受欢迎的社会偏见，这种偏见在下游使用中进一步加剧。为此，作者提出了MABEL（一种使用纠缠标签减轻性别偏见的方法），这是一种减轻情境化表达中性别偏见的<strong>中间预训练</strong>方法。我们方法的关键是在自然语言推理（<strong>NLI</strong>）数据集的<strong>反事实增强</strong>、<strong>性别平衡</strong>的蕴涵对上使用<strong>对比学习</strong>目标。</p>
 <p>一言以蔽之，MABEL通过对预训练数据库中的所有<strong>带有敏感属性的词</strong>进行<strong>反义替换</strong>，其他词则保持不变，然后进行<strong>对比学习</strong>来消除偏见。</p>
-<h1 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h1><p>具体来说，研究团队做了两方面的工作。</p>
-<p>首先是<strong>数据集</strong>方面，研究团队使用的是自然语言推理（NLI）数据集，它在训练有区别性和高质量的句子表征方面特别有效。</p>
-<p>由于研究团队主攻性别歧视方向的偏见，因此，他们从NLI数据集中提取了在前提或者假设中包含性别术语的所有隐含对。</p>
-<p>然后对数据进行**反事实增强 (counterfactual data augmentation)**，即将数据集中包含性别敏感的词汇全部替换成反义词汇，如男生→女生…</p>
-<p>接下来的步骤就比较关键了：<strong>训练</strong>！</p>
-<p>训练主要针对的是以下三个损失函数：</p>
-<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig1.png">
-
-<h2 id="contrastive-loss-based-on-entailment-pairs"><a href="#contrastive-loss-based-on-entailment-pairs" class="headerlink" title="contrastive loss based on entailment pairs"></a>contrastive loss based on entailment pairs</h2><p>第一个，<strong>对比度损失</strong>的训练会产生一个更加各向同性的表示空间，其中句子的几何位置可以更好地与其语义对齐。</p>
-<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig2.png">
-
-
-
-<h2 id="their-augmentations-an-alignment-loss"><a href="#their-augmentations-an-alignment-loss" class="headerlink" title="their augmentations, an alignment loss"></a>their augmentations, an alignment loss</h2><p>第二个是<strong>对齐损失</strong> （Alignment loss），这就比较好理解了，它是用来表示原始隐含对和其增强对之间的内部关联。</p>
-<p>也就是说，这个函数能够使模型最后生成的结果在男女之间更加平衡，以保证最后模型生成的结果性别歧视降到最低。</p>
-<h2 id="optional-masked-language-modeling-loss"><a href="#optional-masked-language-modeling-loss" class="headerlink" title="optional masked language modeling loss"></a>optional masked language modeling loss</h2><p>第三个是<strong>掩码语言模型损失</strong> （Masked language modeling loss），这是最后额外附加的一个损失，目的是为了保持模型的语言<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%BB%BA%E6%A8%A1&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22590205762%22%7D">建模</a>能力。</p>
-<p>最终总损失如下：</p>
-<p>![image-20221225221456580](B:!My-Java-Project\hexo-blog\source_posts\MABEL Attenuating Gender Bias using Textual Entailment Data\fig3.png)</p>
-<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>讲了这么多，那MABEL这个方法偏见消除的效果如何？</p>
-<p>MABEL表现出了良好的公平性-性能权衡。</p>
-<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig4.png">
-
-<p>此外，研究团队还评估了语言模型在使用了消除性别歧视的方法后是否仍然保持一般的语言理解，结果显示模型能够很好地保留其在GLUE上的自然语言理解（NLU）能力。</p>
-<img src="/2022/12/25/MABEL%20Attenuating%20Gender%20Bias%20using%20Textual%20Entailment%20Data/fig5.png">
-
-
-
-
-
-<h1 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h1><p>从这篇paper中收获了一些idea用于SemEval2023-task10女性性别歧视文本检测竞赛</p>
-<ul>
-<li>初步使用本文提出的模型”princeton-nlp&#x2F;mabel-bert-large-uncased” 套到该竞赛上，发现效果奇差无比。一个直观的解释是假如模型已去除性别偏见，那么遇到带有女性歧视的文本时模型会将其视作正常文本。反其道而行之，我们可以**训练一个 “带有性别歧视偏见的模型”**，那么模型也许遇到厌女文本就会相对比较敏感，从而提高分类性能。</li>
-<li>考虑到正例是针对女性的性别歧视文本，那么大部分样本带有女性的词汇（如：woman, girl, bitch…）。我们可以通过<strong>反事实增强</strong>构造相应的负例文本。</li>
-</ul>
-
+        
       
 
       
@@ -889,23 +855,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BERT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ABSA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Prompt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">guide</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -918,6 +876,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Few shot Learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">guide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -953,14 +919,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
@@ -978,6 +936,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">复现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">可解释性</a>
               </li>
              
               <li class="article-tag-list-item">
